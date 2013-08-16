@@ -1,5 +1,5 @@
 platform :ios, '5.1'
-pod 'InputToolbar', :git => 'https://github.com/vkovtash/inputtoolbar.git', :tag => '0.2'
-pod 'DAKeyboardControl', :git => 'https://github.com/vkovtash/DAKeyboardControl.git', :tag => '2.3.0'
+pod 'VKInputToolbar', :git => 'https://github.com/vkovtash/inputtoolbar.git', :tag => '0.2.1'
+pod 'VKDAKeyboardControl', :git => 'https://github.com/vkovtash/DAKeyboardControl.git', :tag => '2.3.0'
 pod 'SIAlertView', '~> 1.1'
 pod 'TTTAttributedLabel'

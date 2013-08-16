@@ -15,29 +15,4 @@ Pod::Spec.new do |s|
   
   s.dependency 'SIAlertView', '~> 1.1'
   s.dependency 'TTTAttributedLabel'
-  
-  s.subspec 'InputToolbar' do |ss|
-      ss.name         = "InputToolbar"
-      ss.version      = "0.2"
-      ss.homepage     = "https://github.com/vkovtash/inputtoolbar"
-      ss.license      = 'MIT'
-      ss.author       = { "Vlad Kovtash" => "vlad@kovtash.com" }
-      ss.source       = { :git => "https://github.com/vkovtash/inputtoolbar.git", :tag => "v#{s.version}"}
-      ss.platform     = :ios
-      ss.source_files = 'UIInputToolbarSample/Classes/UIInputToolbar'
-      ss.resources = "UIInputToolbarSample/Resources/*.png"
-      ss.requires_arc = true
-  end
-  
-  s.subspec 'DAKeyboardControl' do |ss|
-      ss.name     = 'DAKeyboardControl'
-      ss.version  = '2.3.0'
-      ss.platform = :ios
-      ss.license  = 'MIT'
-      ss.homepage = 'https://github.com/danielamitay/DAKeyboardControl'
-      ss.author   = { 'Daniel Amitay' => 'hello@danielamitay.com' }
-      ss.source   = { :git => 'https://github.com/vkovtash/DAKeyboardControl.git', :tag => s.version.to_s }
-      ss.source_files = 'DAKeyboardControl/*.{h,m}'
-      ss.requires_arc = true
-  end
 end

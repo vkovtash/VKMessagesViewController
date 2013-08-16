@@ -12,9 +12,4 @@ Pod::Spec.new do |s|
   s.requires_arc = true
   s.source_files = 'VKMessagesViewController/**/*.{h,m}'
   s.resources = 'VKMessagesViewController/Resources/*.png'
-  
-  s.dependency 'SIAlertView', '~> 1.1'
-  s.dependency 'TTTAttributedLabel'
-  s.dependency 'InputToolbar', :git => 'https://github.com/vkovtash/inputtoolbar.git', :tag => '0.2'
-  s.dependency 'DAKeyboardControl', :git => 'https://github.com/vkovtash/DAKeyboardControl.git', :tag => '2.3.0'
 end

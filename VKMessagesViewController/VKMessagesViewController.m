@@ -156,7 +156,7 @@ static VKEmojiPicker *emojiPicker;
                                                                            self.view.frame.size.height-kDefaultToolbarHeight,
                                                                            self.view.frame.size.width,
                                                                            kDefaultToolbarHeight)];
-    self.messageToolbar.delegate = self;
+    self.messageToolbar.inputDelegate = self;
     self.messageToolbar.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleTopMargin;
     self.messageToolbar.textView.animateHeightChange = NO; //Prevent table scroll animation on appear
     self.messageToolbar.textView.animateHeightChange = YES; //Restore animated size change

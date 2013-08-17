@@ -15,4 +15,6 @@ Pod::Spec.new do |s|
   
   s.dependency 'SIAlertView', '~> 1.1'
   s.dependency 'TTTAttributedLabel'
+  s.dependency 'VKInputToolbar'
+  s.dependency 'VKDAKeyboardControl'
 end

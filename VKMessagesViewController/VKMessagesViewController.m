@@ -131,7 +131,8 @@ static VKEmojiPicker *emojiPicker;
 
 - (void) viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    self.navigationItem.hidesBackButton = YES;
+    [self.tableView reloadData];
+    [self scrollTableViewToBottomAnimated:NO];
 }
 
 - (void) viewDidAppear:(BOOL)animated{
@@ -141,10 +142,6 @@ static VKEmojiPicker *emojiPicker;
     toolbarFrame.origin.y = self.view.frame.size.height-self.messageToolbar.frame.size.height;
     self.messageToolbar.frame = toolbarFrame;
     self.tableView.frame = CGRectMake(0, 0, self.view.frame.size.width, self.messageToolbar.frame.origin.y);
-}
-
-- (void) viewDidDisappear:(BOOL)animated{
-    [super viewDidDisappear:animated];
 }
 
 - (void)viewDidLoad
@@ -177,7 +174,7 @@ static VKEmojiPicker *emojiPicker;
     
     [self.view addSubview:self.tableView];
     [self.view addSubview:self.messageToolbar];
-        
+    
     /* Prepare keyboard control */
     self.view.keyboardTriggerOffset = self.messageToolbar.frame.size.height;
     __weak __typeof(&*self) weakSelf = self;
@@ -307,7 +304,7 @@ static VKEmojiPicker *emojiPicker;
         [self.menuPresenter showDefaultMenuForView:cell.bubbleView
                                      returnFocusTo:self.firstResponder
                                         completeon:^{
-                                        [cell setSelected:NO];
+                                            [cell setSelected:NO];
                                         }];
     }
 }

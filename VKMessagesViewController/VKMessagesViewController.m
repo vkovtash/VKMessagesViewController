@@ -151,7 +151,6 @@ static VKEmojiPicker *emojiPicker;
     if ([self respondsToSelector:@selector(setAutomaticallyAdjustsScrollViewInsets:)]){
         self.automaticallyAdjustsScrollViewInsets = NO;
     }
-    //self.edgesForExtendedLayout = UIRectEdgeNone;
     /* Create toolbar */
     self.messageToolbar = [[UIInputToolbar alloc] initWithFrame:CGRectMake(0,
                                                                            self.view.frame.size.height - kDefaultToolbarHeight,
@@ -159,8 +158,6 @@ static VKEmojiPicker *emojiPicker;
                                                                            kDefaultToolbarHeight)];
     self.messageToolbar.inputDelegate = self;
     self.messageToolbar.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleTopMargin;
-    //self.messageToolbar.textView.animateHeightChange = NO; //Prevent table scroll animation on appear
-    //self.messageToolbar.textView.animateHeightChange = YES; //Restore animated size change
     [self setAppropriateInputHeight];
     
     self.messagePlaceholder = @"Message";
@@ -175,8 +172,7 @@ static VKEmojiPicker *emojiPicker;
     self.tableView.delegate = self;
     UILongPressGestureRecognizer *longPressRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPressRecognized:)];
     [self.tableView addGestureRecognizer:longPressRecognizer];
-    self.tableView.contentInset = UIEdgeInsetsMake(64, 0, 0, 0);
-    self.tableView.scrollIndicatorInsets = UIEdgeInsetsMake(64, 0, 0, 0);
+    [self applyTopInset];
     
     [self.view addSubview:self.tableView];
     [self.view addSubview:self.messageToolbar];
@@ -245,6 +241,7 @@ static VKEmojiPicker *emojiPicker;
 }
 
 - (void) willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration{
+    [self applyTopInset];
     [self setAppropriateInputHeight];
 }
 
@@ -301,6 +298,29 @@ static VKEmojiPicker *emojiPicker;
 }
 
 #pragma mark - Private methods
+
+- (void) applyTopInset { //apply table view offsets for iOS7
+    if ([self respondsToSelector:@selector(setAutomaticallyAdjustsScrollViewInsets:)] && self.edgesForExtendedLayout | UIRectEdgeTop){
+        CGFloat topInset = 0;
+        UIEdgeInsets insets;
+        
+        if (![self prefersStatusBarHidden]) {
+            topInset += 20; //statusbar height
+        }
+        
+        if (self.navigationController){
+            topInset += self.navigationController.navigationBar.frame.size.height;
+        }
+        
+        insets = self.tableView.contentInset;
+        insets.top = topInset;
+        self.tableView.contentInset = insets;
+        
+        insets = self.tableView.scrollIndicatorInsets;
+        insets.top = topInset;
+        self.tableView.scrollIndicatorInsets = insets;
+    }
+}
 
 - (void) setAppropriateInputHeight{
     if (UIInterfaceOrientationIsPortrait(self.interfaceOrientation)) {

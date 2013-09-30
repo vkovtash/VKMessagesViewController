@@ -139,24 +139,27 @@ static VKEmojiPicker *emojiPicker;
     [super viewDidAppear:YES];
     [self.view hideKeyboard];
     CGRect toolbarFrame = self.messageToolbar.frame;
-    toolbarFrame.origin.y = self.view.frame.size.height-self.messageToolbar.frame.size.height;
+    toolbarFrame.origin.y = self.view.frame.size.height - self.messageToolbar.frame.size.height;
     self.messageToolbar.frame = toolbarFrame;
     self.tableView.frame = CGRectMake(0, 0, self.view.frame.size.width, self.messageToolbar.frame.origin.y);
+    self.tableView.backgroundColor = [UIColor redColor];
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
+    self.automaticallyAdjustsScrollViewInsets = NO;
+    //self.edgesForExtendedLayout = UIRectEdgeNone;
     /* Create toolbar */
     self.messageToolbar = [[UIInputToolbar alloc] initWithFrame:CGRectMake(0,
-                                                                           self.view.frame.size.height-kDefaultToolbarHeight,
+                                                                           self.view.frame.size.height - kDefaultToolbarHeight,
                                                                            self.view.frame.size.width,
                                                                            kDefaultToolbarHeight)];
     self.messageToolbar.inputDelegate = self;
     self.messageToolbar.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleTopMargin;
-    self.messageToolbar.textView.animateHeightChange = NO; //Prevent table scroll animation on appear
-    self.messageToolbar.textView.animateHeightChange = YES; //Restore animated size change
+    //self.messageToolbar.textView.animateHeightChange = NO; //Prevent table scroll animation on appear
+    //self.messageToolbar.textView.animateHeightChange = YES; //Restore animated size change
     [self setAppropriateInputHeight];
     
     self.messagePlaceholder = @"Message";
@@ -171,6 +174,7 @@ static VKEmojiPicker *emojiPicker;
     self.tableView.delegate = self;
     UILongPressGestureRecognizer *longPressRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPressRecognized:)];
     [self.tableView addGestureRecognizer:longPressRecognizer];
+    self.tableView.contentInset = UIEdgeInsetsMake(64, 0, 0, 0);
     
     [self.view addSubview:self.tableView];
     [self.view addSubview:self.messageToolbar];

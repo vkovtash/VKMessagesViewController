@@ -246,6 +246,7 @@ static VKEmojiPicker *emojiPicker;
         [messageCell setBackgroundImage:self.inboundSelectedCellBackgroudImage forStyle:VKMessageCellStyleSelected];
         messageCell.bubbleAlign = VKBubbleAlignLeft;
         messageCell.dateFormatter = self.messageDateFormatter;
+        messageCell.backgroundColor = [UIColor clearColor];
     }
     return messageCell;
 }
@@ -261,6 +262,7 @@ static VKEmojiPicker *emojiPicker;
         [messageCell setBackgroundImage:self.outboundSelectedCellBackgroudImage forStyle:VKMessageCellStyleSelected];
         messageCell.bubbleAlign = VKBubbleAlignRight;
         messageCell.dateFormatter = self.messageDateFormatter;
+        messageCell.backgroundColor = [UIColor clearColor];
     }
     return messageCell;
 }

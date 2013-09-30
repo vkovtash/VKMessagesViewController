@@ -141,7 +141,6 @@ static VKEmojiPicker *emojiPicker;
     CGRect toolbarFrame = self.messageToolbar.frame;
     toolbarFrame.origin.y = self.view.frame.size.height - self.messageToolbar.frame.size.height;
     self.messageToolbar.frame = toolbarFrame;
-    self.tableView.frame = CGRectMake(0, 0, self.view.frame.size.width, self.messageToolbar.frame.origin.y);
     self.tableView.backgroundColor = [UIColor redColor];
 }
 
@@ -149,7 +148,9 @@ static VKEmojiPicker *emojiPicker;
 {
     [super viewDidLoad];
     
-    self.automaticallyAdjustsScrollViewInsets = NO;
+    if ([self respondsToSelector:@selector(setAutomaticallyAdjustsScrollViewInsets:)]){
+        self.automaticallyAdjustsScrollViewInsets = NO;
+    }
     //self.edgesForExtendedLayout = UIRectEdgeNone;
     /* Create toolbar */
     self.messageToolbar = [[UIInputToolbar alloc] initWithFrame:CGRectMake(0,
@@ -165,7 +166,7 @@ static VKEmojiPicker *emojiPicker;
     self.messagePlaceholder = @"Message";
     
     /* Set Table View properties */
-    self.tableView = [[VKTableView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.messageToolbar.frame.origin.y)];
+    self.tableView = [[VKTableView alloc] initWithFrame:self.view.bounds];
     self.tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
     self.tableView.backgroundColor = [UIColor colorWithRed:0.9 green:0.9 blue:0.9 alpha:1];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -175,6 +176,7 @@ static VKEmojiPicker *emojiPicker;
     UILongPressGestureRecognizer *longPressRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPressRecognized:)];
     [self.tableView addGestureRecognizer:longPressRecognizer];
     self.tableView.contentInset = UIEdgeInsetsMake(64, 0, 0, 0);
+    self.tableView.scrollIndicatorInsets = UIEdgeInsetsMake(64, 0, 0, 0);
     
     [self.view addSubview:self.tableView];
     [self.view addSubview:self.messageToolbar];
@@ -191,7 +193,11 @@ static VKEmojiPicker *emojiPicker;
         
         CGRect tableViewFrame = weakSelf.tableView.frame;
         tableViewFrame.size.height = toolBarFrame.origin.y;
-        weakSelf.tableView.frame = tableViewFrame;
+        
+        UIEdgeInsets insets = weakSelf.tableView.contentInset;
+        insets.bottom = weakSelf.view.bounds.size.height - toolBarFrame.origin.y;
+        weakSelf.tableView.contentInset = insets;
+        weakSelf.tableView.scrollIndicatorInsets = insets;
     }];
     
     /* Prepare emoji picker */
@@ -214,6 +220,11 @@ static VKEmojiPicker *emojiPicker;
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(keyboardDidShow:)
                                                  name:UIKeyboardDidShowNotification
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillShow:)
+                                                 name:UIKeyboardWillShowNotification
                                                object:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -339,13 +350,10 @@ static VKEmojiPicker *emojiPicker;
     }
 }
 
-- (BOOL) inputToolbarShouldBeginEditing:(UIInputToolbar *)inputToolbar{
-    [self scrollTableViewToBottomAnimated:YES];
-    return YES;
-}
-
 - (void) inputToolbar:(UIInputToolbar *)inputToolbar DidChangeHeight:(CGFloat)height{
-    self.tableView.frame = CGRectMake(0, 0, self.view.bounds.size.width, self.messageToolbar.frame.origin.y);
+    UIEdgeInsets insets = self.tableView.contentInset;
+    insets.bottom = self.view.bounds.size.height - self.messageToolbar.frame.origin.y;
+    self.tableView.contentInset = insets;
     self.view.keyboardTriggerOffset = self.messageToolbar.frame.size.height;
 }
 
@@ -360,6 +368,9 @@ static VKEmojiPicker *emojiPicker;
 }
 
 #pragma  mark - NSNotificationCenter
+- (void) keyboardWillShow:(NSNotification *) notification{
+    [self scrollTableViewToBottomAnimated:YES];
+}
 
 - (void) keyboardDidShow:(NSNotification *) notification{
     NSDictionary* info = [notification userInfo];

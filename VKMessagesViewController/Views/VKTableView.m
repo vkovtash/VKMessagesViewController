@@ -17,14 +17,30 @@
 
 @implementation VKTableView
 
+- (void) setContentInset:(UIEdgeInsets)contentInset{
+    CGFloat insetBottomDelta = contentInset.bottom - self.contentInset.bottom;
+    BOOL shouldCorrectOffset = self.contentSize.height + self.contentInset.bottom > self.bounds.size.height - self.contentInset.top;
+    
+    [super setContentInset:contentInset];
+    
+    if (shouldCorrectOffset){
+        CGPoint offset = self.contentOffset;
+        offset.y += insetBottomDelta;
+        if (offset.y < -self.contentInset.top) {
+            offset.y = -self.contentInset.top;
+        }
+        self.contentOffset = offset;
+    }
+}
+
 - (void) setFrame:(CGRect)frame{
     if (self.frame.size.width != frame.size.width) {
         _offsetRestorationRequired = YES;
-        if (self.frame.size.height > self.contentSize.height) {
-            _lastVisibleRow = [self indexPathForRowAtPoint:CGPointMake(0, self.contentSize.height + self.contentOffset.y - 10 )];
+        if (self.frame.size.height > self.contentSize.height + self.contentInset.bottom) {
+            _lastVisibleRow = [self indexPathForRowAtPoint:CGPointMake(0, self.contentSize.height + self.contentOffset.y - 10 - self.contentInset.top)];
         }
         else{
-            _lastVisibleRow = [self indexPathForRowAtPoint:CGPointMake(0, self.frame.size.height + self.contentOffset.y - 10 )];
+            _lastVisibleRow = [self indexPathForRowAtPoint:CGPointMake(0, self.frame.size.height + self.contentOffset.y - 10 - self.contentInset.top)];
         }
     }
     else if (self.frame.size.height != frame.size.height) {
@@ -73,9 +89,9 @@
 }
 
 - (void) scrollToBottomAnimated:(BOOL) animated{
-    if (self.contentSize.height >  self.bounds.size.height - self.contentInset.top) {
+    if (self.contentSize.height + self.contentInset.bottom + self.contentInset.top > self.bounds.size.height){
         [self setContentOffset:CGPointMake(self.contentOffset.x,
-                                           self.contentSize.height - self.bounds.size.height)
+                                           self.contentSize.height - self.bounds.size.height + self.contentInset.bottom)
                       animated:animated];
     }
 }

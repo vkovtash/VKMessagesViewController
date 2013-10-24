@@ -59,9 +59,10 @@
 
 - (CGFloat) estimatedWidthForText:(NSString *) text Width:(CGFloat) width{
     CGFloat resultWidth = [text sizeWithFont:self.bodyFont
-                           constrainedToSize:CGSizeMake(VK_MAX_HEIGHT,VK_MAX_HEIGHT)
+                           constrainedToSize:CGSizeMake(VK_MAX_HEIGHT, VK_MAX_HEIGHT)
                                lineBreakMode:self.lineBreakMode].width;
     resultWidth += (self.edgeInsets.left + self.edgeInsets.right);
+    resultWidth = ceilf(resultWidth);
     if (resultWidth < self.minimumWidth) {
         resultWidth = self.minimumWidth;
     }

@@ -141,7 +141,6 @@ static VKEmojiPicker *emojiPicker;
     CGRect toolbarFrame = self.messageToolbar.frame;
     toolbarFrame.origin.y = self.view.frame.size.height - self.messageToolbar.frame.size.height;
     self.messageToolbar.frame = toolbarFrame;
-    self.tableView.backgroundColor = [UIColor redColor];
 }
 
 - (void)viewDidLoad
@@ -170,8 +169,8 @@ static VKEmojiPicker *emojiPicker;
     self.tableView.allowsSelection = NO;
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
-    UILongPressGestureRecognizer *longPressRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPressRecognized:)];
-    [self.tableView addGestureRecognizer:longPressRecognizer];
+    //UILongPressGestureRecognizer *longPressRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPressRecognized:)];
+    //[self.tableView addGestureRecognizer:longPressRecognizer];
     [self applyTopInset];
     
     [self.view addSubview:self.tableView];
@@ -196,7 +195,7 @@ static VKEmojiPicker *emojiPicker;
         weakSelf.tableView.scrollIndicatorInsets = insets;
     }];
     
-    /* Prepare emoji picker */
+    // Prepare emoji picker
     if (!emojiPicker) {
         dispatch_async(dispatch_get_main_queue(), ^{
             emojiPicker = [VKEmojiPicker emojiPicker];
@@ -209,24 +208,25 @@ static VKEmojiPicker *emojiPicker;
         self.emojiPicker = emojiPicker;
     }
     
-    /* Scroll table to bottom cell */
+    // Scroll table to bottom cell
     [self scrollTableViewToBottomAnimated:NO];
     
-    /*Register for keyboard notifications*/
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(keyboardDidShow:)
-                                                 name:UIKeyboardDidShowNotification
-                                               object:nil];
-    
+    // Register for keyboard notifications
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(keyboardWillShow:)
                                                  name:UIKeyboardWillShowNotification
+                                               object:nil];
+    
+    /*[[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardDidShow:)
+                                                 name:UIKeyboardDidShowNotification
                                                object:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(keyboardDidHide:)
                                                  name:UIKeyboardDidHideNotification
                                                object:nil];
+     */
 }
 
 - (void) dealloc{

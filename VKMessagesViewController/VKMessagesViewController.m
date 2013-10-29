@@ -175,6 +175,8 @@ static VKEmojiPicker *emojiPicker;
     
     [self.view addSubview:self.tableView];
     [self.view addSubview:self.messageToolbar];
+    [self inputToolbar:self.messageToolbar DidChangeHeight:self.messageToolbar.frame.size.height];
+    
     
     /* Prepare keyboard control */
     self.view.keyboardTriggerOffset = self.messageToolbar.frame.size.height;
@@ -352,6 +354,10 @@ static VKEmojiPicker *emojiPicker;
     return 0;
 }
 
+- (UITableViewCell *) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return nil;
+}
+
 #pragma mark - UIInputToolbarDelegate
 
 -(void)inputButtonPressed:(UIInputToolbar *)toolbar{
@@ -374,6 +380,7 @@ static VKEmojiPicker *emojiPicker;
     UIEdgeInsets insets = self.tableView.contentInset;
     insets.bottom = self.view.bounds.size.height - self.messageToolbar.frame.origin.y;
     self.tableView.contentInset = insets;
+    self.tableView.scrollIndicatorInsets = insets;
     self.view.keyboardTriggerOffset = self.messageToolbar.frame.size.height;
 }
 

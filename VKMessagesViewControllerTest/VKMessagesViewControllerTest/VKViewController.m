@@ -14,6 +14,22 @@
 
 @implementation VKViewController
 
+- (void) viewDidLoad{
+    [super viewDidLoad];
+    
+    [self.messageStorage addObjectsFromArray:@[
+                                               @{@"text":@"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam cursus diam diam, vitae gravida urna blandit non.",
+                                                 @"date":[NSDate date]},
+                                               @{@"text":@"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam cursus diam diam, vitae gravida urna blandit non.",
+                                                 @"date":[NSDate date]},
+                                               @{@"text":@"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam cursus diam diam, vitae gravida urna blandit non.",
+                                                 @"date":[NSDate date]},
+                                               @{@"text":@"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam cursus diam diam, vitae gravida urna blandit non.",
+                                                 @"date":[NSDate date]},
+                                               @{@"text":@"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam cursus diam diam, vitae gravida urna blandit non.",
+                                                 @"date":[NSDate date]}]];
+}
+
 - (NSMutableArray *) messageStorage{
     if (!_messageStorage) {
         _messageStorage = [NSMutableArray array];

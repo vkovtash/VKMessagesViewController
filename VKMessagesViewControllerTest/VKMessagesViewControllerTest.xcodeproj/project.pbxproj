@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		172F75597BD34F38B3E45664 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F79047F4EC44DC99B18943E /* libPods.a */; };
+		6B8D66801822A6500024C694 /* vk_backspace_button_ios7@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6B8D667E1822A6500024C694 /* vk_backspace_button_ios7@2x.png */; };
+		6B8D66811822A6500024C694 /* vk_backspace_button_pressed_ios7@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6B8D667F1822A6500024C694 /* vk_backspace_button_pressed_ios7@2x.png */; };
 		6BD7F6DE1822697400B511A0 /* vk_message_bubble_incoming_ios7@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6BD7F6DC1822697400B511A0 /* vk_message_bubble_incoming_ios7@2x.png */; };
 		6BD7F6DF1822697400B511A0 /* vk_message_bubble_outgouing_ios7@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6BD7F6DD1822697400B511A0 /* vk_message_bubble_outgouing_ios7@2x.png */; };
 		F3574D6817BE2A1700471785 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F3574D6717BE2A1700471785 /* UIKit.framework */; };
@@ -55,6 +57,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		6B8D667E1822A6500024C694 /* vk_backspace_button_ios7@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "vk_backspace_button_ios7@2x.png"; sourceTree = "<group>"; };
+		6B8D667F1822A6500024C694 /* vk_backspace_button_pressed_ios7@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "vk_backspace_button_pressed_ios7@2x.png"; sourceTree = "<group>"; };
 		6BD7F6DC1822697400B511A0 /* vk_message_bubble_incoming_ios7@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "vk_message_bubble_incoming_ios7@2x.png"; sourceTree = "<group>"; };
 		6BD7F6DD1822697400B511A0 /* vk_message_bubble_outgouing_ios7@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "vk_message_bubble_outgouing_ios7@2x.png"; sourceTree = "<group>"; };
 		6BD7F6E018226A0700B511A0 /* VKiOSVersionCheck.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VKiOSVersionCheck.h; sourceTree = "<group>"; };
@@ -243,6 +247,8 @@
 		F3574DCA17BE4FF000471785 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				6B8D667E1822A6500024C694 /* vk_backspace_button_ios7@2x.png */,
+				6B8D667F1822A6500024C694 /* vk_backspace_button_pressed_ios7@2x.png */,
 				6BD7F6DC1822697400B511A0 /* vk_message_bubble_incoming_ios7@2x.png */,
 				6BD7F6DD1822697400B511A0 /* vk_message_bubble_outgouing_ios7@2x.png */,
 				F3574DDB17BE508200471785 /* vk_message_bubble_outgouing_selected.png */,
@@ -347,7 +353,9 @@
 				F3574DED17BE508200471785 /* vk_message_bubble_outgouing.png in Resources */,
 				F3574DEE17BE508200471785 /* vk_message_bubble_outgouing@2x.png in Resources */,
 				F3574DEF17BE508200471785 /* vk_pagecontrol_empty.png in Resources */,
+				6B8D66811822A6500024C694 /* vk_backspace_button_pressed_ios7@2x.png in Resources */,
 				F3574DF017BE508200471785 /* vk_pagecontrol_empty@2x.png in Resources */,
+				6B8D66801822A6500024C694 /* vk_backspace_button_ios7@2x.png in Resources */,
 				F3574DF117BE508200471785 /* vk_pagecontrol_selected.png in Resources */,
 				F3574DF217BE508200471785 /* vk_pagecontrol_selected@2x.png in Resources */,
 			);

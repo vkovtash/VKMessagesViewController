@@ -11,6 +11,7 @@
 #import "NSString+deletingLastSymbol.h"
 #import "UIViewController+firstResponder.h"
 #import "VKMenuControllerPresenter.h"
+#import "VKiOSVersionCheck.h"
 
 #define kDefaultToolbarHeight 40
 #define kDefaultToolbarPortraitMaximumHeight 195
@@ -37,27 +38,49 @@ static VKEmojiPicker *emojiPicker;
 
 - (VKBubbleViewProperties *) inboundBubbleViewProperties{
     if (!_inboundBubbleViewProperties) {
-        _inboundBubbleViewProperties = [VKBubbleViewProperties defaultProperties];
-        _inboundBubbleViewProperties.edgeInsets = UIEdgeInsetsMake(4, 8, 4, 4);
+        if (SYSTEM_VERSION_LESS_THAN(@"7")) {
+            _inboundBubbleViewProperties = [VKBubbleViewProperties defaultProperties];
+            _inboundBubbleViewProperties.edgeInsets = UIEdgeInsetsMake(4, 8, 4, 4);
+        }
+        else {
+            _inboundBubbleViewProperties = [VKBubbleViewProperties defaultProperties];
+            _inboundBubbleViewProperties.edgeInsets = UIEdgeInsetsMake(4, 16, 4, 12);
+        }
     }
     return _inboundBubbleViewProperties;
 }
 
 - (VKBubbleViewProperties *) outboundBubbleViewProperties{
     if (!_outboundBubbleViewProperties) {
-        _outboundBubbleViewProperties = [VKBubbleViewProperties defaultProperties];
-        _outboundBubbleViewProperties.edgeInsets = UIEdgeInsetsMake(4, 4, 4, 8);
+        if (SYSTEM_VERSION_LESS_THAN(@"7")) {
+            _outboundBubbleViewProperties = [VKBubbleViewProperties defaultProperties];
+            _outboundBubbleViewProperties.edgeInsets = UIEdgeInsetsMake(4, 4, 4, 8);
+        }
+        else {
+            _outboundBubbleViewProperties = [VKBubbleViewProperties defaultProperties];
+            _outboundBubbleViewProperties.edgeInsets = UIEdgeInsetsMake(4, 12, 4, 16);
+        }
     }
     return _outboundBubbleViewProperties;
 }
 
 - (UIImage *) inboundCellBackgroudImage{
     if (!_inboundCellBackgroudImage) {
-        UIImage *image = [UIImage imageNamed:@"vk_message_bubble_incoming"];
-        image = [image resizableImageWithCapInsets:UIEdgeInsetsMake(floorf(image.size.height*(2.0/3.0)),
-                                                                    floorf(image.size.width*(2.0/3.0)),
-                                                                    floorf(image.size.height*(1.0/3.0)),
-                                                                    floorf(image.size.width*(1.0/3.0)))];
+        UIImage *image = nil;
+        if (SYSTEM_VERSION_LESS_THAN(@"7")) {
+            image = [UIImage imageNamed:@"vk_message_bubble_incoming"];
+            image = [image resizableImageWithCapInsets:UIEdgeInsetsMake(floorf(image.size.height * (2.0/3.0)),
+                                                                        floorf(image.size.width * (2.0/3.0)),
+                                                                        floorf(image.size.height * (1.0/3.0)),
+                                                                        floorf(image.size.width * (1.0/3.0)))];
+        }
+        else{
+            image = [UIImage imageNamed:@"vk_message_bubble_incoming_ios7"];
+            image = [image resizableImageWithCapInsets:UIEdgeInsetsMake(floorf(image.size.height / 2),
+                                                                        floorf(image.size.width * 0.56),
+                                                                        floorf(image.size.height / 2),
+                                                                        floorf(image.size.width * 0.44))];
+        }
         _inboundCellBackgroudImage = image;
     }
     return _inboundCellBackgroudImage;
@@ -65,11 +88,21 @@ static VKEmojiPicker *emojiPicker;
 
 - (UIImage *) outboundCellBackgroudImage{
     if (!_outboundCellBackgroudImage) {
-        UIImage *image = [UIImage imageNamed:@"vk_message_bubble_outgouing"];
-        image = [image resizableImageWithCapInsets:UIEdgeInsetsMake(floorf(image.size.height*(2.0/3.0)),
-                                                                    floorf(image.size.width*(1.0/3.0)),
-                                                                    floorf(image.size.height*(1.0/3.0)),
-                                                                    floorf(image.size.width*(2.0/3.0)))];
+        UIImage *image = nil;
+        if (SYSTEM_VERSION_LESS_THAN(@"7")) {
+            image = [UIImage imageNamed:@"vk_message_bubble_outgouing"];
+            image = [image resizableImageWithCapInsets:UIEdgeInsetsMake(floorf(image.size.height * (2.0/3.0)),
+                                                                        floorf(image.size.width * (1.0/3.0)),
+                                                                        floorf(image.size.height * (1.0/3.0)),
+                                                                        floorf(image.size.width * (2.0/3.0)))];
+        }
+        else {
+            image = [UIImage imageNamed:@"vk_message_bubble_outgouing_ios7"];
+            image = [image resizableImageWithCapInsets:UIEdgeInsetsMake(floorf(image.size.height / 2),
+                                                                        floorf(image.size.width * 0.44),
+                                                                        floorf(image.size.height / 2),
+                                                                        floorf(image.size.width * 0.56))];
+        }
         _outboundCellBackgroudImage = image;
     }
     return _outboundCellBackgroudImage;
@@ -78,10 +111,10 @@ static VKEmojiPicker *emojiPicker;
 - (UIImage *) inboundSelectedCellBackgroudImage{
     if (!_inboundSelectedCellBackgroudImage) {
         UIImage *image = [UIImage imageNamed:@"vk_message_bubble_incoming_selected"];
-        image = [image resizableImageWithCapInsets:UIEdgeInsetsMake(floorf(image.size.height*(2.0/3.0)),
-                                                                    floorf(image.size.width*(2.0/3.0)),
-                                                                    floorf(image.size.height*(1.0/3.0)),
-                                                                    floorf(image.size.width*(1.0/3.0)))];
+        image = [image resizableImageWithCapInsets:UIEdgeInsetsMake(floorf(image.size.height * (2.0/3.0)),
+                                                                    floorf(image.size.width * (2.0/3.0)),
+                                                                    floorf(image.size.height * (1.0/3.0)),
+                                                                    floorf(image.size.width * (1.0/3.0)))];
         _inboundSelectedCellBackgroudImage = image;
     }
     return _inboundSelectedCellBackgroudImage;
@@ -90,10 +123,10 @@ static VKEmojiPicker *emojiPicker;
 - (UIImage *) outboundSelectedCellBackgroudImage{
     if (!_outboundSelectedCellBackgroudImage) {
         UIImage *image = [UIImage imageNamed:@"vk_message_bubble_outgouing_selected"];
-        image = [image resizableImageWithCapInsets:UIEdgeInsetsMake(floorf(image.size.height*(2.0/3.0)),
-                                                                    floorf(image.size.width*(1.0/3.0)),
-                                                                    floorf(image.size.height*(1.0/3.0)),
-                                                                    floorf(image.size.width*(2.0/3.0)))];
+        image = [image resizableImageWithCapInsets:UIEdgeInsetsMake(floorf(image.size.height * (2.0/3.0)),
+                                                                    floorf(image.size.width * (1.0/3.0)),
+                                                                    floorf(image.size.height * (1.0/3.0)),
+                                                                    floorf(image.size.width * (2.0/3.0)))];
         _outboundSelectedCellBackgroudImage = image;
     }
     return _outboundSelectedCellBackgroudImage;
@@ -164,7 +197,6 @@ static VKEmojiPicker *emojiPicker;
     /* Set Table View properties */
     self.tableView = [[VKTableView alloc] initWithFrame:self.view.bounds];
     self.tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
-    self.tableView.backgroundColor = [UIColor colorWithRed:0.9 green:0.9 blue:0.9 alpha:1];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableView.allowsSelection = NO;
     self.tableView.dataSource = self;
@@ -176,6 +208,11 @@ static VKEmojiPicker *emojiPicker;
     [self.view addSubview:self.tableView];
     [self.view addSubview:self.messageToolbar];
     [self inputToolbar:self.messageToolbar DidChangeHeight:self.messageToolbar.frame.size.height];
+    
+    //Setting style
+    if (SYSTEM_VERSION_LESS_THAN(@"7")) {
+        self.tableView.backgroundColor = [UIColor colorWithRed:0.9 green:0.9 blue:0.9 alpha:1];
+    }
     
     
     /* Prepare keyboard control */
@@ -261,6 +298,17 @@ static VKEmojiPicker *emojiPicker;
         messageCell.bubbleAlign = VKBubbleAlignLeft;
         messageCell.dateFormatter = self.messageDateFormatter;
         messageCell.backgroundColor = [UIColor clearColor];
+        if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7")) {
+            UIColor *headerColor = [UIColor colorWithRed:0.5
+                                                   green:0.5
+                                                    blue:0.5
+                                                   alpha:0.5];
+            messageCell.bubbleView.messageBody.textColor = [UIColor blackColor];
+            messageCell.bubbleView.messageRightHeader.shadowColor = nil;
+            messageCell.bubbleView.messageLeftHeader.shadowColor = nil;
+            messageCell.bubbleView.messageRightHeader.textColor = headerColor;
+            messageCell.bubbleView.messageLeftHeader.textColor = headerColor;
+        }
     }
     return messageCell;
 }
@@ -277,6 +325,18 @@ static VKEmojiPicker *emojiPicker;
         messageCell.bubbleAlign = VKBubbleAlignRight;
         messageCell.dateFormatter = self.messageDateFormatter;
         messageCell.backgroundColor = [UIColor clearColor];
+        
+        if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7")) {
+            UIColor *headerColor = [UIColor colorWithRed:1
+                                                   green:1
+                                                    blue:1
+                                                   alpha:0.5];
+            messageCell.bubbleView.messageBody.textColor = [UIColor whiteColor];
+            messageCell.bubbleView.messageRightHeader.shadowColor = nil;
+            messageCell.bubbleView.messageLeftHeader.shadowColor = nil;
+            messageCell.bubbleView.messageRightHeader.textColor = headerColor;
+            messageCell.bubbleView.messageLeftHeader.textColor = headerColor;
+        }
     }
     return messageCell;
 }

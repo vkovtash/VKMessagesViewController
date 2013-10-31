@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		172F75597BD34F38B3E45664 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F79047F4EC44DC99B18943E /* libPods.a */; };
+		6BD7F6DE1822697400B511A0 /* vk_message_bubble_incoming_ios7@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6BD7F6DC1822697400B511A0 /* vk_message_bubble_incoming_ios7@2x.png */; };
+		6BD7F6DF1822697400B511A0 /* vk_message_bubble_outgouing_ios7@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6BD7F6DD1822697400B511A0 /* vk_message_bubble_outgouing_ios7@2x.png */; };
 		F3574D6817BE2A1700471785 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F3574D6717BE2A1700471785 /* UIKit.framework */; };
 		F3574D6A17BE2A1700471785 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F3574D6917BE2A1700471785 /* Foundation.framework */; };
 		F3574D6C17BE2A1700471785 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F3574D6B17BE2A1700471785 /* CoreGraphics.framework */; };
@@ -53,6 +55,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		6BD7F6DC1822697400B511A0 /* vk_message_bubble_incoming_ios7@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "vk_message_bubble_incoming_ios7@2x.png"; sourceTree = "<group>"; };
+		6BD7F6DD1822697400B511A0 /* vk_message_bubble_outgouing_ios7@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "vk_message_bubble_outgouing_ios7@2x.png"; sourceTree = "<group>"; };
+		6BD7F6E018226A0700B511A0 /* VKiOSVersionCheck.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VKiOSVersionCheck.h; sourceTree = "<group>"; };
 		7F79047F4EC44DC99B18943E /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		F3574D6417BE2A1700471785 /* VKMessagesViewControllerTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VKMessagesViewControllerTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F3574D6717BE2A1700471785 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -230,6 +235,7 @@
 				F3574DAD17BE430600471785 /* UIViewController+firstResponder.m */,
 				F3574DA617BE422900471785 /* NSString+deletingLastSymbol.h */,
 				F3574DA717BE422900471785 /* NSString+deletingLastSymbol.m */,
+				6BD7F6E018226A0700B511A0 /* VKiOSVersionCheck.h */,
 			);
 			path = Tools;
 			sourceTree = "<group>";
@@ -237,6 +243,8 @@
 		F3574DCA17BE4FF000471785 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				6BD7F6DC1822697400B511A0 /* vk_message_bubble_incoming_ios7@2x.png */,
+				6BD7F6DD1822697400B511A0 /* vk_message_bubble_outgouing_ios7@2x.png */,
 				F3574DDB17BE508200471785 /* vk_message_bubble_outgouing_selected.png */,
 				F3574DDC17BE508200471785 /* vk_message_bubble_incoming_selected.png */,
 				F3574DDD17BE508200471785 /* vk_message_bubble_incoming_selected@2x.png */,
@@ -325,7 +333,9 @@
 				F3574DD517BE4FF100471785 /* vk_backspace_button_pressed.png in Resources */,
 				F3574DD617BE4FF100471785 /* vk_backspace_button_pressed@2x.png in Resources */,
 				F3574DD717BE4FF100471785 /* vk_keyboard_back.png in Resources */,
+				6BD7F6DF1822697400B511A0 /* vk_message_bubble_outgouing_ios7@2x.png in Resources */,
 				F3574DD817BE4FF100471785 /* vk_keyboard_back@2x.png in Resources */,
+				6BD7F6DE1822697400B511A0 /* vk_message_bubble_incoming_ios7@2x.png in Resources */,
 				F3574DD917BE4FF100471785 /* vk_keyboard_overlay.png in Resources */,
 				F3574DDA17BE4FF100471785 /* vk_keyboard_overlay@2x.png in Resources */,
 				F3574DE717BE508200471785 /* vk_message_bubble_outgouing_selected.png in Resources */,

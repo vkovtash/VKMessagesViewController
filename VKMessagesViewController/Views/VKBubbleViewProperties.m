@@ -85,7 +85,7 @@
 + (id) defaultProperties{
     id defaultProperties = [[[self class] alloc] initWithHeaderFont:[UIFont systemFontOfSize:12]
                                                            BodyFont:[UIFont systemFontOfSize:14]
-                                                         EdgeInsets:UIEdgeInsetsMake(4, 12, 4, 10)];
+                                                         EdgeInsets:UIEdgeInsetsMake(4, 10, 4, 10)];
     [defaultProperties setMinimumWidth:MINIMUM_WIDTH];
     [defaultProperties setLineBreakMode:NSLineBreakByWordWrapping];
     return defaultProperties;

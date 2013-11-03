@@ -14,7 +14,7 @@ Pod::Spec.new do |s|
   s.resources = 'VKMessagesViewController/Resources/*.png'
   
   s.dependency 'SIAlertView', '~> 1.1'
-  s.dependency 'TTTAttributedLabel'
-  s.dependency 'VKInputToolbar'
-  s.dependency 'VKDAKeyboardControl'
+  s.dependency 'TTTAttributedLabel', '1.7.1'
+  s.dependency 'VKInputToolbar', '0.2.1'
+  s.dependency 'VKDAKeyboardControl', '2.3.0'
 end

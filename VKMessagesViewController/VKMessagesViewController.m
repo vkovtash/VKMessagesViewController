@@ -17,8 +17,6 @@
 #define kDefaultToolbarPortraitMaximumHeight 195
 #define kDefaultToolbarLandscapeMaximumHeight 101
 
-static VKEmojiPicker *emojiPicker;
-
 @interface VKMessagesViewController ()
 @property (strong, nonatomic) VKEmojiPicker *emojiPicker;
 @property (strong, nonatomic) VKMenuControllerPresenter *menuPresenter;
@@ -149,7 +147,6 @@ static VKEmojiPicker *emojiPicker;
         _emojiPicker.delegate = nil;
         _emojiPicker = emojiPicker;
         _emojiPicker.delegate = self;
-        self.view.keyboardCoverView = _emojiPicker;
     }
 }
 
@@ -164,16 +161,27 @@ static VKEmojiPicker *emojiPicker;
 
 - (void) viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+    [self setupKeyboardControl];
     [self.tableView reloadData];
     [self scrollTableViewToBottomAnimated:NO];
 }
 
+- (void) viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [self.view removeKeyboardControl];
+}
+
 - (void) viewDidAppear:(BOOL)animated{
     [super viewDidAppear:YES];
-    [self.view hideKeyboard];
-    CGRect toolbarFrame = self.messageToolbar.frame;
-    toolbarFrame.origin.y = self.view.frame.size.height - self.messageToolbar.frame.size.height;
-    self.messageToolbar.frame = toolbarFrame;
+    static BOOL isFirstRun = NO;
+    if (!isFirstRun) {
+        [self.view hideKeyboard];
+        isFirstRun = YES;
+        
+        CGRect toolbarFrame = self.messageToolbar.frame;
+        toolbarFrame.origin.y = self.view.frame.size.height - self.messageToolbar.frame.size.height;
+        self.messageToolbar.frame = toolbarFrame;
+    }
 }
 
 - (void)viewDidLoad
@@ -212,39 +220,6 @@ static VKEmojiPicker *emojiPicker;
     //Setting style
     if (SYSTEM_VERSION_LESS_THAN(@"7")) {
         self.tableView.backgroundColor = [UIColor colorWithRed:0.9 green:0.9 blue:0.9 alpha:1];
-    }
-    
-    
-    /* Prepare keyboard control */
-    self.view.keyboardTriggerOffset = self.messageToolbar.frame.size.height;
-    __weak __typeof(&*self) weakSelf = self;
-    [self.view addKeyboardPanningWithActionHandler:^(CGRect keyboardFrameInView) {
-        weakSelf.tableView.scrollEnabled = NO;
-        weakSelf.tableView.scrollEnabled = YES;
-        CGRect toolBarFrame = weakSelf.messageToolbar.frame;
-        toolBarFrame.origin.y = keyboardFrameInView.origin.y - toolBarFrame.size.height;
-        weakSelf.messageToolbar.frame = toolBarFrame;
-        
-        CGRect tableViewFrame = weakSelf.tableView.frame;
-        tableViewFrame.size.height = toolBarFrame.origin.y;
-        
-        UIEdgeInsets insets = weakSelf.tableView.contentInset;
-        insets.bottom = weakSelf.view.bounds.size.height - toolBarFrame.origin.y;
-        weakSelf.tableView.contentInset = insets;
-        weakSelf.tableView.scrollIndicatorInsets = insets;
-    }];
-    
-    // Prepare emoji picker
-    if (!emojiPicker) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            emojiPicker = [VKEmojiPicker emojiPicker];
-            if ([weakSelf respondsToSelector:@selector(setEmojiPicker:)]) {
-                weakSelf.emojiPicker = emojiPicker;
-            }
-        });
-    }
-    else{
-        self.emojiPicker = emojiPicker;
     }
     
     // Scroll table to bottom cell
@@ -384,6 +359,36 @@ static VKEmojiPicker *emojiPicker;
     }
 }
 
+- (void) setupKeyboardControl {
+    // Prepare keyboard control
+    self.view.keyboardTriggerOffset = self.messageToolbar.frame.size.height;
+    __weak __typeof(&*self) weakSelf = self;
+    [self.view addKeyboardPanningWithActionHandler:^(CGRect keyboardFrameInView) {
+        weakSelf.tableView.scrollEnabled = NO;
+        weakSelf.tableView.scrollEnabled = YES;
+        CGRect toolBarFrame = weakSelf.messageToolbar.frame;
+        toolBarFrame.origin.y = keyboardFrameInView.origin.y - toolBarFrame.size.height;
+        weakSelf.messageToolbar.frame = toolBarFrame;
+        
+        CGRect tableViewFrame = weakSelf.tableView.frame;
+        tableViewFrame.size.height = toolBarFrame.origin.y;
+        
+        UIEdgeInsets insets = weakSelf.tableView.contentInset;
+        insets.bottom = weakSelf.view.bounds.size.height - toolBarFrame.origin.y;
+        weakSelf.tableView.contentInset = insets;
+        weakSelf.tableView.scrollIndicatorInsets = insets;
+    }];
+    
+    // Prepare emoji picker
+    if (!_emojiPicker) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if ([weakSelf respondsToSelector:@selector(setEmojiPicker:)]) {
+                weakSelf.emojiPicker = [VKEmojiPicker emojiPicker];
+            }
+        });
+    }
+}
+
 - (void) setAppropriateInputHeight{
     if (UIInterfaceOrientationIsPortrait(self.interfaceOrientation)) {
         self.messageToolbar.textView.maximumHeight = kDefaultToolbarPortraitMaximumHeight;
@@ -414,7 +419,7 @@ static VKEmojiPicker *emojiPicker;
     return 0;
 }
 
-- (UITableViewCell *) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+- (UITableViewCell *) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     return nil;
 }
 
@@ -430,9 +435,19 @@ static VKEmojiPicker *emojiPicker;
 
 - (void) plusButtonPressed:(UIInputToolbar *)toolbar{
     [self plusButtonPressed];
-    if (self.emojiPicker) {
+    
+    if (toolbar.textView.internalTextView != self.firstResponder) {
+        toolbar.textView.inputView = self.emojiPicker;
         [toolbar.textView becomeFirstResponder];
-        self.view.isKeyboardCoverViewVisible = !self.view.isKeyboardCoverViewVisible;
+    }
+    else {
+        if (toolbar.textView.inputView) {
+            toolbar.textView.inputView = nil;
+        }
+        else {
+            toolbar.textView.inputView = self.emojiPicker;
+        }
+        [toolbar.textView reloadInputViews];
     }
 }
 

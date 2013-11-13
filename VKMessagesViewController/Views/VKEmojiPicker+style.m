@@ -11,7 +11,6 @@
 @implementation VKEmojiPicker (style)
 + (id) emojiPicker{
     VKEmojiPicker *emojiPicker = [[[self class] alloc] init];
-    emojiPicker.autoresizingMask = UIViewAutoresizingFlexibleTopMargin|UIViewAutoresizingFlexibleWidth;
     
     UIImage *keyboard = [UIImage imageNamed:@"vk_keyboard_back"];
     

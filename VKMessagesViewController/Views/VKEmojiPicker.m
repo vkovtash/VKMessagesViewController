@@ -157,9 +157,10 @@ static UIEdgeInsets verticalEgdeInsets;
 }
 
 #pragma mark - View methods
-- (void) setFrame:(CGRect)frame{
-    BOOL needLayout = !CGSizeEqualToSize(self.frame.size, frame.size);
-    [super setFrame:frame];
+
+- (void) setBounds:(CGRect)bounds {
+    BOOL needLayout = !CGSizeEqualToSize(self.bounds.size, bounds.size);
+    [super setBounds:bounds];
     if (needLayout) {
         if (!_background) {
             [self background];
@@ -331,6 +332,7 @@ static UIEdgeInsets verticalEgdeInsets;
     self = [super init];
     if (self) {
         self.frame = CGRectMake(0, 0, DEFAULT_PICKER_SIZE, DEFAULT_PICKER_SIZE);
+        self.autoresizingMask = UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth;
         [self background];
         [self applyPickerStyle];
     }

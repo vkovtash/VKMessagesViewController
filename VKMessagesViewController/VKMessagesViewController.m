@@ -16,8 +16,6 @@
 #define kDefaultToolbarPortraitMaximumHeight 195
 #define kDefaultToolbarLandscapeMaximumHeight 101
 
-static VKEmojiPicker *emojiPicker;
-
 @interface VKMessagesViewController ()
 @property (strong, nonatomic) VKEmojiPicker *emojiPicker;
 @property (strong, nonatomic) VKMenuControllerPresenter *menuPresenter;
@@ -116,7 +114,6 @@ static VKEmojiPicker *emojiPicker;
         _emojiPicker.delegate = nil;
         _emojiPicker = emojiPicker;
         _emojiPicker.delegate = self;
-        self.view.keyboardCoverView = _emojiPicker;
     }
 }
 
@@ -284,16 +281,12 @@ static VKEmojiPicker *emojiPicker;
     }];
     
     /* Prepare emoji picker */
-    if (!emojiPicker) {
+    if (!_emojiPicker) {
         dispatch_async(dispatch_get_main_queue(), ^{
-            emojiPicker = [VKEmojiPicker emojiPicker];
             if ([weakSelf respondsToSelector:@selector(setEmojiPicker:)]) {
-                weakSelf.emojiPicker = emojiPicker;
+                weakSelf.emojiPicker = [VKEmojiPicker emojiPicker];
             }
         });
-    }
-    else{
-        self.emojiPicker = emojiPicker;
     }
 }
 
@@ -327,6 +320,10 @@ static VKEmojiPicker *emojiPicker;
     return 0;
 }
 
+- (UITableViewCell *) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return nil;
+}
+
 #pragma mark - UIInputToolbarDelegate
 
 -(void)inputButtonPressed:(UIInputToolbar *)toolbar{
@@ -339,9 +336,19 @@ static VKEmojiPicker *emojiPicker;
 
 - (void) plusButtonPressed:(UIInputToolbar *)toolbar{
     [self plusButtonPressed];
-    if (self.emojiPicker) {
+    
+    if (toolbar.textView.internalTextView != self.firstResponder) {
+        toolbar.textView.inputView = self.emojiPicker;
         [toolbar.textView becomeFirstResponder];
-        self.view.isKeyboardCoverViewVisible = !self.view.isKeyboardCoverViewVisible;
+    }
+    else {
+        if (toolbar.textView.inputView) {
+            toolbar.textView.inputView = nil;
+        }
+        else {
+            toolbar.textView.inputView = self.emojiPicker;
+        }
+        [toolbar.textView reloadInputViews];
     }
 }
 

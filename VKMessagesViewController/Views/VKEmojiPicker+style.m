@@ -57,7 +57,7 @@
         }
     }
     else{
-        emojiPicker.backgroundColor = [UIColor colorWithRed:0.9 green:0.9 blue:0.9 alpha:1];
+        emojiPicker.backgroundColor = [UIColor colorWithRed:0.8 green:0.81 blue:0.83 alpha:0.7];
         [emojiPicker.delButton setImage:[UIImage imageNamed:@"vk_backspace_button_ios7"]
                                forState:UIControlStateNormal];
         [emojiPicker.delButton setImage:[UIImage imageNamed:@"vk_backspace_button_pressed_ios7"]

@@ -8,7 +8,6 @@
 
 #import "VKMessagesViewController.h"
 #import "DAKeyboardControl.h"
-#import "NSString+deletingLastSymbol.h"
 #import "UIViewController+firstResponder.h"
 #import "VKMenuControllerPresenter.h"
 #import "VKiOSVersionCheck.h"
@@ -18,7 +17,6 @@
 #define kDefaultToolbarLandscapeMaximumHeight 101
 
 @interface VKMessagesViewController ()
-@property (strong, nonatomic) VKEmojiPicker *emojiPicker;
 @property (strong, nonatomic) VKMenuControllerPresenter *menuPresenter;
 @end
 
@@ -32,6 +30,13 @@
 
 - (void) setMessagePlaceholder:(NSString *)messagePlaceholder{
     self.messageToolbar.textView.placeholder = messagePlaceholder;
+}
+
+- (void) setAlternativeInputView:(UIView *)alternativeInputView {
+    if (_alternativeInputView != alternativeInputView) {
+        _alternativeInputView = alternativeInputView;
+        self.messageToolbar.isPlusButtonVisible = (BOOL)_alternativeInputView;
+    }
 }
 
 - (VKBubbleViewProperties *) inboundBubbleViewProperties{
@@ -140,16 +145,6 @@
     return _messageDateFormatter;
 }
 
-#pragma mark - Private properties
-
-- (void) setEmojiPicker:(VKEmojiPicker *)emojiPicker{
-    if (_emojiPicker != emojiPicker) {
-        _emojiPicker.delegate = nil;
-        _emojiPicker = emojiPicker;
-        _emojiPicker.delegate = self;
-    }
-}
-
 - (VKMenuControllerPresenter *) menuPresenter{
     if (!_menuPresenter) {
         _menuPresenter = [[VKMenuControllerPresenter alloc] initWithParentView:self.view];
@@ -198,9 +193,9 @@
                                                                            kDefaultToolbarHeight)];
     self.messageToolbar.inputDelegate = self;
     self.messageToolbar.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleTopMargin;
-    [self setAppropriateInputHeight];
-    
+    self.messageToolbar.isPlusButtonVisible = NO;
     self.messagePlaceholder = @"Message";
+    [self setAppropriateInputHeight];
     
     /* Set Table View properties */
     self.tableView = [[VKTableView alloc] initWithFrame:self.view.bounds];
@@ -378,15 +373,6 @@
         weakSelf.tableView.contentInset = insets;
         weakSelf.tableView.scrollIndicatorInsets = insets;
     }];
-    
-    // Prepare emoji picker
-    if (!_emojiPicker) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            if ([weakSelf respondsToSelector:@selector(setEmojiPicker:)]) {
-                weakSelf.emojiPicker = [VKEmojiPicker emojiPicker];
-            }
-        });
-    }
 }
 
 - (void) setAppropriateInputHeight{
@@ -436,18 +422,20 @@
 - (void) plusButtonPressed:(UIInputToolbar *)toolbar{
     [self plusButtonPressed];
     
-    if (toolbar.textView.internalTextView != self.firstResponder) {
-        toolbar.textView.inputView = self.emojiPicker;
-        [toolbar.textView becomeFirstResponder];
-    }
-    else {
-        if (toolbar.textView.inputView) {
-            toolbar.textView.inputView = nil;
+    if (self.alternativeInputView) {
+        if (toolbar.textView.internalTextView != self.firstResponder) {
+            toolbar.textView.inputView = self.alternativeInputView;
+            [toolbar.textView becomeFirstResponder];
         }
         else {
-            toolbar.textView.inputView = self.emojiPicker;
+            if (toolbar.textView.inputView) {
+                toolbar.textView.inputView = nil;
+            }
+            else {
+                toolbar.textView.inputView = self.alternativeInputView;
+            }
+            [toolbar.textView reloadInputViews];
         }
-        [toolbar.textView reloadInputViews];
     }
 }
 
@@ -457,16 +445,6 @@
     self.tableView.contentInset = insets;
     self.tableView.scrollIndicatorInsets = insets;
     self.view.keyboardTriggerOffset = self.messageToolbar.frame.size.height;
-}
-
-#pragma mark - UDEmojiPickerDelegate
-
-- (void) emojiPicker:(VKEmojiPicker *)picker SymbolPicked:(NSString *)emojiSimbol{
-    self.messageToolbar.textView.text = [self.messageToolbar.textView.text stringByAppendingString:emojiSimbol];
-}
-
-- (void) emojiPickerDelButtonPressed:(VKEmojiPicker *)picker{
-    self.messageToolbar.textView.text = [self.messageToolbar.textView.text stringByDeletingLastSymbol];
 }
 
 #pragma  mark - NSNotificationCenter

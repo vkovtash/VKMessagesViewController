@@ -17,6 +17,7 @@
 
 @property (strong, nonatomic) VKTableView *tableView;
 @property (strong, nonatomic) UIInputToolbar *messageToolbar;
+@property (strong, nonatomic) UIView *alternativeInputView; //view shown on plus button tap
 @property (readwrite, nonatomic) NSString *messagePlaceholder;
 @property (strong, nonatomic) VKBubbleViewProperties *inboundBubbleViewProperties;
 @property (strong, nonatomic) VKBubbleViewProperties *outboundBubbleViewProperties;

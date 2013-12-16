@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = 'VKMessagesViewController'
-  s.version      = '1.2'
+  s.version      = '1.3'
   s.summary      = "Messages view controller"
   s.homepage     = 'https://github.com/vkovtash/VKMessagesViewController'
 
@@ -15,6 +15,6 @@ Pod::Spec.new do |s|
   
   s.dependency 'SIAlertView', '~> 1.1'
   s.dependency 'TTTAttributedLabel'
-  s.dependency 'VKInputToolbar'
+  s.dependency 'VKInputToolbar', '~> 0.3.3'
   s.dependency 'VKDAKeyboardControl'
 end

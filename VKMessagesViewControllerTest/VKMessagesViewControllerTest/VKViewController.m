@@ -16,6 +16,7 @@
 
 - (void) viewDidLoad{
     [super viewDidLoad];
+    self.alternativeInputView = [self newEmojiPicker];
     
     [self.messageStorage addObjectsFromArray:@[
                                                @{@"text":@"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam cursus diam diam, vitae gravida urna blandit non.",

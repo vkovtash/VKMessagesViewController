@@ -158,6 +158,17 @@ static UIEdgeInsets verticalEgdeInsets;
 
 #pragma mark - View methods
 
+- (void) setFrame:(CGRect)frame{
+    BOOL needLayout = !CGSizeEqualToSize(self.frame.size, frame.size);
+    [super setFrame:frame];
+    if (needLayout) {
+        if (!_background) {
+            [self background];
+        }
+        [self applyPickerStyle];
+    }
+}
+
 - (void) setBounds:(CGRect)bounds {
     BOOL needLayout = !CGSizeEqualToSize(self.bounds.size, bounds.size);
     [super setBounds:bounds];

@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = 'VKMessagesViewController'
-  s.version      = '1.3'
+  s.version      = '1.4'
   s.summary      = "Messages view controller"
   s.homepage     = 'https://github.com/vkovtash/VKMessagesViewController'
 

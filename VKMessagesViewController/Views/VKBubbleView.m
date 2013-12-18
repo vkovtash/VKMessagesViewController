@@ -20,7 +20,7 @@
 - (UILabel *) messageBody{
     if (!_messageBody) {
         TTTAttributedLabel *attributedLabel = [[TTTAttributedLabel alloc] init];
-        attributedLabel.dataDetectorTypes = NSTextCheckingTypeLink|NSTextCheckingTypePhoneNumber;
+        attributedLabel.enabledTextCheckingTypes = NSTextCheckingTypeLink|NSTextCheckingTypePhoneNumber;
         attributedLabel.delegate = self;
         _messageBody = attributedLabel;
         _messageBody.backgroundColor = [UIColor clearColor];

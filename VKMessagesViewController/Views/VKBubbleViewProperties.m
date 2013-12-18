@@ -21,7 +21,6 @@
     if (!_etalonLabel) {
         _etalonLabel = [[TTTAttributedLabel alloc] init];
         _etalonLabel.numberOfLines = 0;
-        _etalonLabel.dataDetectorTypes = UIDataDetectorTypeNone;
     }
     return _etalonLabel;
 }

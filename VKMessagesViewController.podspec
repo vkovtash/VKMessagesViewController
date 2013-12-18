@@ -13,7 +13,6 @@ Pod::Spec.new do |s|
   s.source_files = 'VKMessagesViewController/**/*.{h,m}'
   s.resources = 'VKMessagesViewController/Resources/*.png'
   
-  s.dependency 'SIAlertView', '~> 1.1'
   s.dependency 'TTTAttributedLabel'
   s.dependency 'VKInputToolbar', '~> 0.3.3'
   s.dependency 'VKDAKeyboardControl'

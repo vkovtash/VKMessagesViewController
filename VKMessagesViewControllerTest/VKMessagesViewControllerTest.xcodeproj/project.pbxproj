@@ -12,6 +12,7 @@
 		6B8D66811822A6500024C694 /* vk_backspace_button_pressed_ios7@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6B8D667F1822A6500024C694 /* vk_backspace_button_pressed_ios7@2x.png */; };
 		6BD7F6DE1822697400B511A0 /* vk_message_bubble_incoming_ios7@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6BD7F6DC1822697400B511A0 /* vk_message_bubble_incoming_ios7@2x.png */; };
 		6BD7F6DF1822697400B511A0 /* vk_message_bubble_outgouing_ios7@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6BD7F6DD1822697400B511A0 /* vk_message_bubble_outgouing_ios7@2x.png */; };
+		F31F288A1861DA9800816330 /* UIActionSheet+VKBlocks.m in Sources */ = {isa = PBXBuildFile; fileRef = F31F28891861DA9800816330 /* UIActionSheet+VKBlocks.m */; };
 		F3574D6817BE2A1700471785 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F3574D6717BE2A1700471785 /* UIKit.framework */; };
 		F3574D6A17BE2A1700471785 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F3574D6917BE2A1700471785 /* Foundation.framework */; };
 		F3574D6C17BE2A1700471785 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F3574D6B17BE2A1700471785 /* CoreGraphics.framework */; };
@@ -64,6 +65,8 @@
 		6BD7F6DD1822697400B511A0 /* vk_message_bubble_outgouing_ios7@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "vk_message_bubble_outgouing_ios7@2x.png"; sourceTree = "<group>"; };
 		6BD7F6E018226A0700B511A0 /* VKiOSVersionCheck.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VKiOSVersionCheck.h; sourceTree = "<group>"; };
 		7F79047F4EC44DC99B18943E /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		F31F28881861DA9800816330 /* UIActionSheet+VKBlocks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIActionSheet+VKBlocks.h"; sourceTree = "<group>"; };
+		F31F28891861DA9800816330 /* UIActionSheet+VKBlocks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIActionSheet+VKBlocks.m"; sourceTree = "<group>"; };
 		F3574D6417BE2A1700471785 /* VKMessagesViewControllerTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VKMessagesViewControllerTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F3574D6717BE2A1700471785 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		F3574D6917BE2A1700471785 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -238,6 +241,8 @@
 		F3574DA517BE422900471785 /* Tools */ = {
 			isa = PBXGroup;
 			children = (
+				F31F28881861DA9800816330 /* UIActionSheet+VKBlocks.h */,
+				F31F28891861DA9800816330 /* UIActionSheet+VKBlocks.m */,
 				F3574DAF17BE439700471785 /* UIResponder+FirstResponder.h */,
 				F3574DB017BE439800471785 /* UIResponder+FirstResponder.m */,
 				F3574DAC17BE430600471785 /* UIViewController+firstResponder.h */,
@@ -414,6 +419,7 @@
 				F3574DA317BE417700471785 /* VKEmojiPicker.m in Sources */,
 				F3574DA417BE417700471785 /* VKEmojiPicker+style.m in Sources */,
 				F3574DA817BE422900471785 /* NSString+deletingLastSymbol.m in Sources */,
+				F31F288A1861DA9800816330 /* UIActionSheet+VKBlocks.m in Sources */,
 				F3574DAB17BE42B800471785 /* VKMenuControllerPresenter.m in Sources */,
 				F3574DAE17BE430600471785 /* UIViewController+firstResponder.m in Sources */,
 				F3A9B92F185F12C20095877C /* VKMessagesViewController+VKEmojiPicker.m in Sources */,

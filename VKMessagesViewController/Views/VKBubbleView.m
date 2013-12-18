@@ -7,7 +7,7 @@
 //
 
 #import "VKBubbleView.h"
-#import "SIAlertView.h"
+#import "UIActionSheet+VKBlocks.h"
 
 @interface VKBubbleView()
 @property (strong,nonatomic) UIImageView *background;
@@ -191,16 +191,32 @@
 
 - (void)attributedLabel:(TTTAttributedLabel *)label
 didSelectLinkWithPhoneNumber:(NSString *)phoneNumber{
-    SIAlertView *callAlertView = [[SIAlertView alloc] initWithTitle:phoneNumber andMessage:nil];
-    [callAlertView addButtonWithTitle:@"Cancel" type:SIAlertViewButtonTypeCancel handler:nil];
-    [callAlertView addButtonWithTitle:@"Call" type:SIAlertViewButtonTypeDefault handler:^(SIAlertView *alertView){
-        [alertView dismissAnimated:NO];
-        NSString *cleanedString = [[phoneNumber
-                                    componentsSeparatedByCharactersInSet:[[NSCharacterSet characterSetWithCharactersInString:@"0123456789-+()"] invertedSet]]
-                                   componentsJoinedByString:@""];
-        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"tel:%@", cleanedString]]];
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:phoneNumber cancelButtonTitle:nil destructiveButtonTitle:@"Cancel" otherButtonTitles:@"Call", nil];
+    [actionSheet showInView:self withDismissHandler:^(NSInteger selectedIndex, BOOL isCancel, BOOL isDestructive){
+        if (!isCancel && !isDestructive) {
+            NSString *cleanedString = [[phoneNumber
+                                        componentsSeparatedByCharactersInSet:[[NSCharacterSet characterSetWithCharactersInString:@"0123456789-+()"] invertedSet]]
+                                       componentsJoinedByString:@""];
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"tel:%@", cleanedString]]];
+        }
     }];
-    [callAlertView show];
 }
 
 @end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

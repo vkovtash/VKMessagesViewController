@@ -10,11 +10,6 @@
 #import "VKBubbleView.h"
 #import "VKTextBubbleViewProperties.h"
 
-typedef enum VKMessageCellStyle{
-    VKMessageCellStyleNormal,
-    VKMessageCellStyleSelected
-} VKMessageCellStyle;
-
 typedef enum VKBubbleAlign{
     VKBubbleAlignLeft,
     VKBubbleAlignRight
@@ -22,14 +17,11 @@ typedef enum VKBubbleAlign{
 
 @interface VKBubbleCell : UITableViewCell
 @property (nonatomic,strong) VKBubbleView *bubbleView;
-@property (nonatomic) VKMessageCellStyle cellStyle;
 @property (nonatomic) VKBubbleAlign bubbleAlign;
-@property (strong, nonatomic) NSDate *messageDate;
-@property (strong, nonatomic) NSDateFormatter *dateFormatter;
 @property (readwrite, nonatomic) NSString *messageLeftHeader;
+@property (readwrite, nonatomic) NSString *messageRightHeader;
 
 - (id) initWithBubbleView:(VKBubbleView *) bubbleView reuseIdentifier:(NSString *) reuseIdentifier;
-- (void) setBackgroundImage:(UIImage *) image forStyle:(VKMessageCellStyle) style;
 + (CGFloat) bubbleViewWidthMultiplier; //cell text width multiplier
 + (UIEdgeInsets) edgeInsets;
 @end

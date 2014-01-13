@@ -8,6 +8,7 @@
 
 #import "VKViewController.h"
 #import "VKTextBubbleView.h"
+#import "VKBaseBubbleCell.h"
 #import "VKBubbleCell+VKTextBubbleEstimate.h"
 
 @interface VKViewController()
@@ -44,13 +45,13 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     NSDictionary *message = self.messageStorage[indexPath.row];
-    VKBubbleCell *messageCell = nil;
+    VKBaseBubbleCell *messageCell = nil;
     
     if (indexPath.row%2) {
-        messageCell = [self getInboundTextMessageCell:tableView];
+        messageCell = (VKBaseBubbleCell*)[self getInboundTextMessageCell:tableView];
     }
     else{
-        messageCell = [self getOutboundTextMessageCell:tableView];
+        messageCell = (VKBaseBubbleCell*)[self getOutboundTextMessageCell:tableView];
         
         switch (indexPath.row%3) {
             case 0:
@@ -72,7 +73,7 @@
     }
     
     [(VKTextBubbleView *)messageCell.bubbleView textBody].text = message[@"text"];
-    //messageCell.messageDate = message[@"date"];
+    messageCell.messageDate = message[@"date"];
     return messageCell;
 }
 

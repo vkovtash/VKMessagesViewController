@@ -17,33 +17,20 @@
 
 #pragma mark - Publick properties
 
-- (void) setCellStyle:(VKMessageCellStyle)cellStyle{
-    _cellStyle = cellStyle;
-    switch (cellStyle) {
-        case VKMessageCellStyleNormal:
-            self.bubbleView.backgroundImage = self.normalBackgroundImgage;
-            break;
-            
-        case VKMessageCellStyleSelected:
-            self.bubbleView.backgroundImage = self.selectedBackgroundImgage;
-            break;
-    }
-    [self applyLayout];
-}
-
-- (void) setMessageDate:(NSDate *)messageDate{
-    if (_messageDate != messageDate) {
-        _messageDate = messageDate;
-        self.bubbleView.messageRightHeader.text = [self.dateFormatter stringFromDate:_messageDate];
-    }
-}
-
 - (NSString *) messageLeftHeader{
     return self.bubbleView.messageLeftHeader.text;
 }
 
 - (void) setMessageLeftHeader:(NSString *)messageLeftHeader{
     self.bubbleView.messageLeftHeader.text = messageLeftHeader;
+}
+
+- (NSString *) messageRightHeader {
+    return self.bubbleView.messageRightHeader.text;
+}
+
+- (void) setMessageRightHeader:(NSString *)messageRightHeader {
+    self.bubbleView.messageRightHeader.text = messageRightHeader;
 }
 
 - (void) setBubbleAlign:(VKBubbleAlign)bubbleAlign{
@@ -53,28 +40,8 @@
 
 #pragma mark - Publick methods
 
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated
-{
-    if (selected) {
-        self.cellStyle = VKMessageCellStyleSelected;
-    }
-    else{
-        self.cellStyle = VKMessageCellStyleNormal;
-    }
-}
-
-- (void) setBackgroundImage:(UIImage *) image forStyle:(VKMessageCellStyle) style{
-    switch (style) {
-        case VKMessageCellStyleNormal:
-            self.normalBackgroundImgage = image;
-            break;
-            
-        case VKMessageCellStyleSelected:
-            self.selectedBackgroundImgage = image;
-            break;
-    }
-    
-    self.cellStyle = self.cellStyle;
+- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
+    [self.bubbleView setSelected:selected];
 }
 
 #pragma mark - Class methods
@@ -169,3 +136,28 @@
 }
 
 @end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

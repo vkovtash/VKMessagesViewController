@@ -12,6 +12,8 @@
 #import "VKMenuControllerPresenter.h"
 #import "VKiOSVersionCheck.h"
 #import "VKTextBubbleView.h"
+#import "VKBubbleView+VKDefaultBubbleView.h"
+#import "VKBaseBubbleCell.h"
 
 #define kDefaultToolbarHeight 40
 #define kDefaultToolbarPortraitMaximumHeight 195
@@ -66,84 +68,6 @@
         }
     }
     return _outboundBubbleViewProperties;
-}
-
-- (UIImage *) inboundCellBackgroudImage{
-    if (!_inboundCellBackgroudImage) {
-        UIImage *image = nil;
-        if (SYSTEM_VERSION_LESS_THAN(@"7")) {
-            image = [UIImage imageNamed:@"vk_message_bubble_incoming"];
-            image = [image resizableImageWithCapInsets:UIEdgeInsetsMake(floorf(image.size.height * (2.0/3.0)),
-                                                                        floorf(image.size.width * (2.0/3.0)),
-                                                                        floorf(image.size.height * (1.0/3.0)),
-                                                                        floorf(image.size.width * (1.0/3.0)))];
-        }
-        else{
-            image = [UIImage imageNamed:@"vk_message_bubble_incoming_ios7"];
-            image = [image resizableImageWithCapInsets:UIEdgeInsetsMake(floorf(image.size.height / 2),
-                                                                        floorf(image.size.width * 0.56),
-                                                                        floorf(image.size.height / 2),
-                                                                        floorf(image.size.width * 0.44))];
-        }
-        _inboundCellBackgroudImage = image;
-    }
-    return _inboundCellBackgroudImage;
-}
-
-- (UIImage *) outboundCellBackgroudImage{
-    if (!_outboundCellBackgroudImage) {
-        UIImage *image = nil;
-        if (SYSTEM_VERSION_LESS_THAN(@"7")) {
-            image = [UIImage imageNamed:@"vk_message_bubble_outgouing"];
-            image = [image resizableImageWithCapInsets:UIEdgeInsetsMake(floorf(image.size.height * (2.0/3.0)),
-                                                                        floorf(image.size.width * (1.0/3.0)),
-                                                                        floorf(image.size.height * (1.0/3.0)),
-                                                                        floorf(image.size.width * (2.0/3.0)))];
-        }
-        else {
-            image = [UIImage imageNamed:@"vk_message_bubble_outgouing_ios7"];
-            image = [image resizableImageWithCapInsets:UIEdgeInsetsMake(floorf(image.size.height / 2),
-                                                                        floorf(image.size.width * 0.44),
-                                                                        floorf(image.size.height / 2),
-                                                                        floorf(image.size.width * 0.56))];
-        }
-        _outboundCellBackgroudImage = image;
-    }
-    return _outboundCellBackgroudImage;
-}
-
-- (UIImage *) inboundSelectedCellBackgroudImage{
-    if (!_inboundSelectedCellBackgroudImage) {
-        UIImage *image = [UIImage imageNamed:@"vk_message_bubble_incoming_selected"];
-        image = [image resizableImageWithCapInsets:UIEdgeInsetsMake(floorf(image.size.height * (2.0/3.0)),
-                                                                    floorf(image.size.width * (2.0/3.0)),
-                                                                    floorf(image.size.height * (1.0/3.0)),
-                                                                    floorf(image.size.width * (1.0/3.0)))];
-        _inboundSelectedCellBackgroudImage = image;
-    }
-    return _inboundSelectedCellBackgroudImage;
-}
-
-- (UIImage *) outboundSelectedCellBackgroudImage{
-    if (!_outboundSelectedCellBackgroudImage) {
-        UIImage *image = [UIImage imageNamed:@"vk_message_bubble_outgouing_selected"];
-        image = [image resizableImageWithCapInsets:UIEdgeInsetsMake(floorf(image.size.height * (2.0/3.0)),
-                                                                    floorf(image.size.width * (1.0/3.0)),
-                                                                    floorf(image.size.height * (1.0/3.0)),
-                                                                    floorf(image.size.width * (2.0/3.0)))];
-        _outboundSelectedCellBackgroudImage = image;
-    }
-    return _outboundSelectedCellBackgroudImage;
-}
-
-- (NSDateFormatter *) messageDateFormatter{
-    if (!_messageDateFormatter) {
-        _messageDateFormatter = [[NSDateFormatter alloc] init];
-        [_messageDateFormatter setTimeStyle:NSDateFormatterShortStyle];
-        [_messageDateFormatter setDateStyle:NSDateFormatterMediumStyle];
-        [_messageDateFormatter setDoesRelativeDateFormatting:YES];
-    }
-    return _messageDateFormatter;
 }
 
 - (VKMenuControllerPresenter *) menuPresenter{
@@ -259,58 +183,22 @@
 
 - (VKBubbleCell *) getInboundTextMessageCell:(UITableView *) tableView{
     NSString static *inboundReuseIdentifier =  @"InboundMessageCell";
-    VKBubbleCell *messageCell = [tableView dequeueReusableCellWithIdentifier:inboundReuseIdentifier];
+    VKBaseBubbleCell *messageCell = [tableView dequeueReusableCellWithIdentifier:inboundReuseIdentifier];
     
     if (messageCell == nil) {
-        VKTextBubbleView *textBubbleView = [[VKTextBubbleView alloc] initWithProperties:self.inboundBubbleViewProperties];
-        
-        messageCell = [[VKBubbleCell alloc] initWithBubbleView:textBubbleView
-                                                reuseIdentifier:inboundReuseIdentifier];
-        [messageCell setBackgroundImage:self.inboundCellBackgroudImage forStyle:VKMessageCellStyleNormal];
-        [messageCell setBackgroundImage:self.inboundSelectedCellBackgroudImage forStyle:VKMessageCellStyleSelected];
-        messageCell.bubbleAlign = VKBubbleAlignLeft;
-        messageCell.dateFormatter = self.messageDateFormatter;
-        messageCell.backgroundColor = [UIColor clearColor];
-        if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7")) {
-            UIColor *headerColor = [UIColor colorWithRed:0.5
-                                                   green:0.5
-                                                    blue:0.5
-                                                   alpha:0.5];
-            textBubbleView.textBody.textColor = [UIColor blackColor];
-            textBubbleView.messageRightHeader.shadowColor = nil;
-            textBubbleView.messageLeftHeader.shadowColor = nil;
-            textBubbleView.messageRightHeader.textColor = headerColor;
-            textBubbleView.messageLeftHeader.textColor = headerColor;
-        }
+        VKTextBubbleView *textBubbleView = [VKTextBubbleView inboundBubbleWithProperties:self.inboundBubbleViewProperties];
+        messageCell = [VKBaseBubbleCell inboundCellWithBubbleView:textBubbleView reuseIdentifier:inboundReuseIdentifier];
     }
     return messageCell;
 }
 
 - (VKBubbleCell *) getOutboundTextMessageCell:(UITableView *) tableView{
     NSString static *outboundReuseIdentifier =  @"OutboundMessageCell";
-    VKBubbleCell *messageCell = [tableView dequeueReusableCellWithIdentifier:outboundReuseIdentifier];
+    VKBaseBubbleCell *messageCell = [tableView dequeueReusableCellWithIdentifier:outboundReuseIdentifier];
     
     if (messageCell == nil) {
-        VKTextBubbleView *textBubbleView = [[VKTextBubbleView alloc] initWithProperties:self.outboundBubbleViewProperties];
-        messageCell = [[VKBubbleCell alloc] initWithBubbleView:textBubbleView
-                                                reuseIdentifier:outboundReuseIdentifier];
-        [messageCell setBackgroundImage:self.outboundCellBackgroudImage forStyle:VKMessageCellStyleNormal];
-        [messageCell setBackgroundImage:self.outboundSelectedCellBackgroudImage forStyle:VKMessageCellStyleSelected];
-        messageCell.bubbleAlign = VKBubbleAlignRight;
-        messageCell.dateFormatter = self.messageDateFormatter;
-        messageCell.backgroundColor = [UIColor clearColor];
-        
-        if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7")) {
-            UIColor *headerColor = [UIColor colorWithRed:1
-                                                   green:1
-                                                    blue:1
-                                                   alpha:0.5];
-            textBubbleView.textBody.textColor = [UIColor whiteColor];
-            textBubbleView.messageRightHeader.shadowColor = nil;
-            textBubbleView.messageLeftHeader.shadowColor = nil;
-            textBubbleView.messageRightHeader.textColor = headerColor;
-            textBubbleView.messageLeftHeader.textColor = headerColor;
-        }
+        VKTextBubbleView *textBubbleView = [VKTextBubbleView outboundBubbleWithProperties:self.outboundBubbleViewProperties];
+        messageCell = [VKBaseBubbleCell outboundCellWithBubbleView:textBubbleView reuseIdentifier:outboundReuseIdentifier];
     }
     return messageCell;
 }

@@ -13,5 +13,5 @@
 @property (strong, nonatomic) UILabel *textBody;
 @property (nonatomic,strong) VKTextBubbleViewProperties *properties;
 
-- (id) initWithProperties:(VKTextBubbleViewProperties *) properties;
+- (id) initWithBubbleProperties:(VKTextBubbleViewProperties *) properties;
 @end

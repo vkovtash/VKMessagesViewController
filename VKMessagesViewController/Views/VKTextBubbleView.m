@@ -10,8 +10,8 @@
 
 @implementation VKTextBubbleView
 
-- (instancetype) initWithProperties:(VKTextBubbleViewProperties *)properties {
-    self = [super initWithProperties:properties];
+- (instancetype) initWithBubbleProperties:(VKTextBubbleViewProperties *)properties {
+    self = [super initWithBubbleProperties:properties];
     return self;
 }
 

@@ -41,12 +41,19 @@
     return _messageLeftHeader;
 }
 
-- (UIImage *) backgroundImage{
-    return self.background.image;
+- (void) setNormalBackgroundImage:(UIImage *)normalBackgroundImage {
+    _normalBackgroundImage = normalBackgroundImage;
+    [self applyProperties];
 }
 
-- (void) setBackgroundImage:(UIImage *)backgroundImage{
-    self.background.image = backgroundImage;
+- (void) setSelectedBackgroundImage:(UIImage *)selectedBackgroundImage {
+    _selectedBackgroundImage = selectedBackgroundImage;
+    [self applyProperties];
+}
+
+- (void) setSelected:(BOOL)selected {
+    _isSelected = selected;
+    [self applyIsSelected];
 }
 
 - (void) setProperties:(VKBubbleViewProperties *)properties{
@@ -66,11 +73,19 @@
     if (!_background) {
         _background = [[UIImageView alloc] init];
     }
-    
     return _background;
 }
 
 #pragma mark - Private methods
+
+- (void) applyIsSelected {
+    if (_isSelected && _selectedBackgroundImage) {
+        self.background.image = self.selectedBackgroundImage;
+    }
+    else {
+        self.background.image = self.normalBackgroundImage;
+    }
+}
 
 - (void) applyProperties {
     self.messageRightHeader.font =  self.properties.headerFont;
@@ -156,7 +171,7 @@
     return self;
 }
 
-- (id) initWithProperties:(VKBubbleViewProperties *) properties{
+- (id) initWithBubbleProperties:(VKBubbleViewProperties *) properties{
     self = [super initWithFrame:CGRectMake(0, 0, 80, 80)];
     if (self) {
         self.properties = properties;

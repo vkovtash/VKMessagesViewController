@@ -12,6 +12,7 @@
 		6B8D66811822A6500024C694 /* vk_backspace_button_pressed_ios7@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6B8D667F1822A6500024C694 /* vk_backspace_button_pressed_ios7@2x.png */; };
 		6BD7F6DE1822697400B511A0 /* vk_message_bubble_incoming_ios7@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6BD7F6DC1822697400B511A0 /* vk_message_bubble_incoming_ios7@2x.png */; };
 		6BD7F6DF1822697400B511A0 /* vk_message_bubble_outgouing_ios7@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6BD7F6DD1822697400B511A0 /* vk_message_bubble_outgouing_ios7@2x.png */; };
+		F313D9A51884015E00AEDFE2 /* VKMessageCell+VKTextBubbleEstimate.m in Sources */ = {isa = PBXBuildFile; fileRef = F313D9A41884015E00AEDFE2 /* VKMessageCell+VKTextBubbleEstimate.m */; };
 		F31F288A1861DA9800816330 /* UIActionSheet+VKBlocks.m in Sources */ = {isa = PBXBuildFile; fileRef = F31F28891861DA9800816330 /* UIActionSheet+VKBlocks.m */; };
 		F3574D6817BE2A1700471785 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F3574D6717BE2A1700471785 /* UIKit.framework */; };
 		F3574D6A17BE2A1700471785 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F3574D6917BE2A1700471785 /* Foundation.framework */; };
@@ -55,7 +56,9 @@
 		F3574DF017BE508200471785 /* vk_pagecontrol_empty@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F3574DE417BE508200471785 /* vk_pagecontrol_empty@2x.png */; };
 		F3574DF117BE508200471785 /* vk_pagecontrol_selected.png in Resources */ = {isa = PBXBuildFile; fileRef = F3574DE517BE508200471785 /* vk_pagecontrol_selected.png */; };
 		F3574DF217BE508200471785 /* vk_pagecontrol_selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F3574DE617BE508200471785 /* vk_pagecontrol_selected@2x.png */; };
+		F393747D186C8851004F0416 /* VKTextBubbleViewProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = F393747C186C8850004F0416 /* VKTextBubbleViewProperties.m */; };
 		F3A9B92F185F12C20095877C /* VKMessagesViewController+VKEmojiPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = F3A9B92E185F12C20095877C /* VKMessagesViewController+VKEmojiPicker.m */; };
+		F3D10DDA1869DB72009C03D0 /* VKTextBubbleView.m in Sources */ = {isa = PBXBuildFile; fileRef = F3D10DD91869DB72009C03D0 /* VKTextBubbleView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -65,6 +68,8 @@
 		6BD7F6DD1822697400B511A0 /* vk_message_bubble_outgouing_ios7@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "vk_message_bubble_outgouing_ios7@2x.png"; sourceTree = "<group>"; };
 		6BD7F6E018226A0700B511A0 /* VKiOSVersionCheck.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VKiOSVersionCheck.h; sourceTree = "<group>"; };
 		7F79047F4EC44DC99B18943E /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		F313D9A31884015E00AEDFE2 /* VKMessageCell+VKTextBubbleEstimate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "VKMessageCell+VKTextBubbleEstimate.h"; sourceTree = "<group>"; };
+		F313D9A41884015E00AEDFE2 /* VKMessageCell+VKTextBubbleEstimate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "VKMessageCell+VKTextBubbleEstimate.m"; sourceTree = "<group>"; };
 		F31F28881861DA9800816330 /* UIActionSheet+VKBlocks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIActionSheet+VKBlocks.h"; sourceTree = "<group>"; };
 		F31F28891861DA9800816330 /* UIActionSheet+VKBlocks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIActionSheet+VKBlocks.m"; sourceTree = "<group>"; };
 		F3574D6417BE2A1700471785 /* VKMessagesViewControllerTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VKMessagesViewControllerTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -125,8 +130,12 @@
 		F3574DE417BE508200471785 /* vk_pagecontrol_empty@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "vk_pagecontrol_empty@2x.png"; sourceTree = "<group>"; };
 		F3574DE517BE508200471785 /* vk_pagecontrol_selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = vk_pagecontrol_selected.png; sourceTree = "<group>"; };
 		F3574DE617BE508200471785 /* vk_pagecontrol_selected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "vk_pagecontrol_selected@2x.png"; sourceTree = "<group>"; };
+		F393747B186C8850004F0416 /* VKTextBubbleViewProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VKTextBubbleViewProperties.h; sourceTree = "<group>"; };
+		F393747C186C8850004F0416 /* VKTextBubbleViewProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VKTextBubbleViewProperties.m; sourceTree = "<group>"; };
 		F3A9B92D185F12C10095877C /* VKMessagesViewController+VKEmojiPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "VKMessagesViewController+VKEmojiPicker.h"; sourceTree = "<group>"; };
 		F3A9B92E185F12C20095877C /* VKMessagesViewController+VKEmojiPicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "VKMessagesViewController+VKEmojiPicker.m"; sourceTree = "<group>"; };
+		F3D10DD81869DB72009C03D0 /* VKTextBubbleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VKTextBubbleView.h; sourceTree = "<group>"; };
+		F3D10DD91869DB72009C03D0 /* VKTextBubbleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VKTextBubbleView.m; sourceTree = "<group>"; };
 		FCD27B2892614628A26C8BF2 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
@@ -222,14 +231,9 @@
 		F3574D8F17BE402E00471785 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				F3574D9F17BE417600471785 /* VKEmojiPicker.m */,
-				F3574DA117BE417700471785 /* VKEmojiPicker.h */,
-				F3574DA017BE417600471785 /* VKEmojiPicker+style.m */,
-				F3574DA217BE417700471785 /* VKEmojiPicker+style.h */,
-				F3574D9017BE402E00471785 /* VKBubbleView.h */,
-				F3574D9117BE402E00471785 /* VKBubbleView.m */,
-				F3574D9217BE402E00471785 /* VKBubbleViewProperties.h */,
-				F3574D9317BE402E00471785 /* VKBubbleViewProperties.m */,
+				F3937480186C8B46004F0416 /* VKBubbleViewProperies */,
+				F393747F186C8B22004F0416 /* VKBubbleView */,
+				F393747E186C8B10004F0416 /* VKEmojiPicker */,
 				F3574D9417BE402E00471785 /* VKMessageCell.h */,
 				F3574D9517BE402E00471785 /* VKMessageCell.m */,
 				F3574D9617BE402E00471785 /* VKTableView.h */,
@@ -283,6 +287,41 @@
 				F3574DD217BE4FF100471785 /* vk_keyboard_overlay@2x.png */,
 			);
 			path = Resources;
+			sourceTree = "<group>";
+		};
+		F393747E186C8B10004F0416 /* VKEmojiPicker */ = {
+			isa = PBXGroup;
+			children = (
+				F3574D9F17BE417600471785 /* VKEmojiPicker.m */,
+				F3574DA117BE417700471785 /* VKEmojiPicker.h */,
+				F3574DA017BE417600471785 /* VKEmojiPicker+style.m */,
+				F3574DA217BE417700471785 /* VKEmojiPicker+style.h */,
+			);
+			name = VKEmojiPicker;
+			sourceTree = "<group>";
+		};
+		F393747F186C8B22004F0416 /* VKBubbleView */ = {
+			isa = PBXGroup;
+			children = (
+				F3574D9017BE402E00471785 /* VKBubbleView.h */,
+				F3574D9117BE402E00471785 /* VKBubbleView.m */,
+				F3D10DD81869DB72009C03D0 /* VKTextBubbleView.h */,
+				F3D10DD91869DB72009C03D0 /* VKTextBubbleView.m */,
+			);
+			name = VKBubbleView;
+			sourceTree = "<group>";
+		};
+		F3937480186C8B46004F0416 /* VKBubbleViewProperies */ = {
+			isa = PBXGroup;
+			children = (
+				F3574D9217BE402E00471785 /* VKBubbleViewProperties.h */,
+				F3574D9317BE402E00471785 /* VKBubbleViewProperties.m */,
+				F393747B186C8850004F0416 /* VKTextBubbleViewProperties.h */,
+				F393747C186C8850004F0416 /* VKTextBubbleViewProperties.m */,
+				F313D9A31884015E00AEDFE2 /* VKMessageCell+VKTextBubbleEstimate.h */,
+				F313D9A41884015E00AEDFE2 /* VKMessageCell+VKTextBubbleEstimate.m */,
+			);
+			name = VKBubbleViewProperies;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -418,6 +457,9 @@
 				F3574D9E17BE402E00471785 /* VKMessagesViewController.m in Sources */,
 				F3574DA317BE417700471785 /* VKEmojiPicker.m in Sources */,
 				F3574DA417BE417700471785 /* VKEmojiPicker+style.m in Sources */,
+				F393747D186C8851004F0416 /* VKTextBubbleViewProperties.m in Sources */,
+				F3D10DDA1869DB72009C03D0 /* VKTextBubbleView.m in Sources */,
+				F313D9A51884015E00AEDFE2 /* VKMessageCell+VKTextBubbleEstimate.m in Sources */,
 				F3574DA817BE422900471785 /* NSString+deletingLastSymbol.m in Sources */,
 				F31F288A1861DA9800816330 /* UIActionSheet+VKBlocks.m in Sources */,
 				F3574DAB17BE42B800471785 /* VKMenuControllerPresenter.m in Sources */,

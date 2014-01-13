@@ -11,6 +11,7 @@
 #import "UIViewController+firstResponder.h"
 #import "VKMenuControllerPresenter.h"
 #import "VKiOSVersionCheck.h"
+#import "VKTextBubbleView.h"
 
 #define kDefaultToolbarHeight 40
 #define kDefaultToolbarPortraitMaximumHeight 195
@@ -39,28 +40,28 @@
     }
 }
 
-- (VKBubbleViewProperties *) inboundBubbleViewProperties{
+- (VKTextBubbleViewProperties *) inboundBubbleViewProperties{
     if (!_inboundBubbleViewProperties) {
         if (SYSTEM_VERSION_LESS_THAN(@"7")) {
-            _inboundBubbleViewProperties = [VKBubbleViewProperties defaultProperties];
+            _inboundBubbleViewProperties = [VKTextBubbleViewProperties defaultProperties];
             _inboundBubbleViewProperties.edgeInsets = UIEdgeInsetsMake(4, 8, 4, 4);
         }
         else {
-            _inboundBubbleViewProperties = [VKBubbleViewProperties defaultProperties];
+            _inboundBubbleViewProperties = [VKTextBubbleViewProperties defaultProperties];
             _inboundBubbleViewProperties.edgeInsets = UIEdgeInsetsMake(4, 16, 4, 12);
         }
     }
     return _inboundBubbleViewProperties;
 }
 
-- (VKBubbleViewProperties *) outboundBubbleViewProperties{
+- (VKTextBubbleViewProperties *) outboundBubbleViewProperties{
     if (!_outboundBubbleViewProperties) {
         if (SYSTEM_VERSION_LESS_THAN(@"7")) {
-            _outboundBubbleViewProperties = [VKBubbleViewProperties defaultProperties];
+            _outboundBubbleViewProperties = [VKTextBubbleViewProperties defaultProperties];
             _outboundBubbleViewProperties.edgeInsets = UIEdgeInsetsMake(4, 4, 4, 8);
         }
         else {
-            _outboundBubbleViewProperties = [VKBubbleViewProperties defaultProperties];
+            _outboundBubbleViewProperties = [VKTextBubbleViewProperties defaultProperties];
             _outboundBubbleViewProperties.edgeInsets = UIEdgeInsetsMake(4, 12, 4, 16);
         }
     }
@@ -204,18 +205,11 @@
     self.tableView.allowsSelection = NO;
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
-    //UILongPressGestureRecognizer *longPressRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPressRecognized:)];
-    //[self.tableView addGestureRecognizer:longPressRecognizer];
     [self applyTopInset];
     
     [self.view addSubview:self.tableView];
     [self.view addSubview:self.messageToolbar];
     [self inputToolbar:self.messageToolbar DidChangeHeight:self.messageToolbar.frame.size.height];
-    
-    //Setting style
-    if (SYSTEM_VERSION_LESS_THAN(@"7")) {
-        self.tableView.backgroundColor = [UIColor colorWithRed:0.9 green:0.9 blue:0.9 alpha:1];
-    }
     
     // Scroll table to bottom cell
     [self scrollTableViewToBottomAnimated:NO];
@@ -226,16 +220,23 @@
                                                  name:UIKeyboardWillShowNotification
                                                object:nil];
     
-    /*[[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(keyboardDidShow:)
-                                                 name:UIKeyboardDidShowNotification
-                                               object:nil];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(keyboardDidHide:)
-                                                 name:UIKeyboardDidHideNotification
-                                               object:nil];
-     */
+    if (SYSTEM_VERSION_LESS_THAN(@"7")) {
+        //Setting style
+        self.tableView.backgroundColor = [UIColor colorWithRed:0.9 green:0.9 blue:0.9 alpha:1];
+        
+        //Message copying
+        UILongPressGestureRecognizer *longPressRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPressRecognized:)];
+        [self.tableView addGestureRecognizer:longPressRecognizer];
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(keyboardDidShow:)
+                                                     name:UIKeyboardDidShowNotification
+                                                   object:nil];
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(keyboardDidHide:)
+                                                     name:UIKeyboardDidHideNotification
+                                                   object:nil];
+    }
 }
 
 - (void) dealloc{
@@ -256,12 +257,14 @@
 
 #pragma mark - Cell factory methods
 
-- (VKMessageCell *) getInboundMessageCell:(UITableView *) tableView{
+- (VKMessageCell *) getInboundTextMessageCell:(UITableView *) tableView{
     NSString static *inboundReuseIdentifier =  @"InboundMessageCell";
     VKMessageCell *messageCell = [tableView dequeueReusableCellWithIdentifier:inboundReuseIdentifier];
     
     if (messageCell == nil) {
-        messageCell = [[VKMessageCell alloc] initWithBubbleView:[[VKBubbleView alloc] initWithProperties:self.inboundBubbleViewProperties]
+        VKTextBubbleView *textBubbleView = [[VKTextBubbleView alloc] initWithProperties:self.inboundBubbleViewProperties];
+        
+        messageCell = [[VKMessageCell alloc] initWithBubbleView:textBubbleView
                                                 reuseIdentifier:inboundReuseIdentifier];
         [messageCell setBackgroundImage:self.inboundCellBackgroudImage forStyle:VKMessageCellStyleNormal];
         [messageCell setBackgroundImage:self.inboundSelectedCellBackgroudImage forStyle:VKMessageCellStyleSelected];
@@ -273,22 +276,23 @@
                                                    green:0.5
                                                     blue:0.5
                                                    alpha:0.5];
-            messageCell.bubbleView.messageBody.textColor = [UIColor blackColor];
-            messageCell.bubbleView.messageRightHeader.shadowColor = nil;
-            messageCell.bubbleView.messageLeftHeader.shadowColor = nil;
-            messageCell.bubbleView.messageRightHeader.textColor = headerColor;
-            messageCell.bubbleView.messageLeftHeader.textColor = headerColor;
+            textBubbleView.textBody.textColor = [UIColor blackColor];
+            textBubbleView.messageRightHeader.shadowColor = nil;
+            textBubbleView.messageLeftHeader.shadowColor = nil;
+            textBubbleView.messageRightHeader.textColor = headerColor;
+            textBubbleView.messageLeftHeader.textColor = headerColor;
         }
     }
     return messageCell;
 }
 
-- (VKMessageCell *) getOutboundMessageCell:(UITableView *) tableView{
+- (VKMessageCell *) getOutboundTextMessageCell:(UITableView *) tableView{
     NSString static *outboundReuseIdentifier =  @"OutboundMessageCell";
     VKMessageCell *messageCell = [tableView dequeueReusableCellWithIdentifier:outboundReuseIdentifier];
     
     if (messageCell == nil) {
-        messageCell = [[VKMessageCell alloc] initWithBubbleView:[[VKBubbleView alloc] initWithProperties:self.outboundBubbleViewProperties]
+        VKTextBubbleView *textBubbleView = [[VKTextBubbleView alloc] initWithProperties:self.outboundBubbleViewProperties];
+        messageCell = [[VKMessageCell alloc] initWithBubbleView:textBubbleView
                                                 reuseIdentifier:outboundReuseIdentifier];
         [messageCell setBackgroundImage:self.outboundCellBackgroudImage forStyle:VKMessageCellStyleNormal];
         [messageCell setBackgroundImage:self.outboundSelectedCellBackgroudImage forStyle:VKMessageCellStyleSelected];
@@ -301,11 +305,11 @@
                                                    green:1
                                                     blue:1
                                                    alpha:0.5];
-            messageCell.bubbleView.messageBody.textColor = [UIColor whiteColor];
-            messageCell.bubbleView.messageRightHeader.shadowColor = nil;
-            messageCell.bubbleView.messageLeftHeader.shadowColor = nil;
-            messageCell.bubbleView.messageRightHeader.textColor = headerColor;
-            messageCell.bubbleView.messageLeftHeader.textColor = headerColor;
+            textBubbleView.textBody.textColor = [UIColor whiteColor];
+            textBubbleView.messageRightHeader.shadowColor = nil;
+            textBubbleView.messageLeftHeader.shadowColor = nil;
+            textBubbleView.messageRightHeader.textColor = headerColor;
+            textBubbleView.messageLeftHeader.textColor = headerColor;
         }
     }
     return messageCell;

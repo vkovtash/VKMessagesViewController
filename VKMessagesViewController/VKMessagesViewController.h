@@ -11,6 +11,7 @@
 #import "VKEmojiPicker+style.h"
 #import "VKMessageCell.h"
 #import "VKTableView.h"
+#import "VKTextBubbleViewProperties.h"
 
 @interface VKMessagesViewController : UIViewController <UITableViewDataSource, UITableViewDelegate,
                                                         UIInputToolbarDelegate, VKEmojiPickerDelegate>
@@ -19,8 +20,8 @@
 @property (strong, nonatomic) UIInputToolbar *messageToolbar;
 @property (strong, nonatomic) UIView *alternativeInputView; //view shown on plus button tap
 @property (readwrite, nonatomic) NSString *messagePlaceholder;
-@property (strong, nonatomic) VKBubbleViewProperties *inboundBubbleViewProperties;
-@property (strong, nonatomic) VKBubbleViewProperties *outboundBubbleViewProperties;
+@property (strong, nonatomic) VKTextBubbleViewProperties *inboundBubbleViewProperties;
+@property (strong, nonatomic) VKTextBubbleViewProperties *outboundBubbleViewProperties;
 @property (strong, nonatomic) UIImage *inboundCellBackgroudImage;
 @property (strong, nonatomic) UIImage *outboundCellBackgroudImage;
 @property (strong, nonatomic) UIImage *inboundSelectedCellBackgroudImage;
@@ -33,6 +34,6 @@
 - (void) plusButtonPressed;
 
 #pragma mark - factory methods
-- (VKMessageCell *) getInboundMessageCell:(UITableView *) tableView;
-- (VKMessageCell *) getOutboundMessageCell:(UITableView *) tableView;
+- (VKMessageCell *) getInboundTextMessageCell:(UITableView *) tableView;
+- (VKMessageCell *) getOutboundTextMessageCell:(UITableView *) tableView;
 @end

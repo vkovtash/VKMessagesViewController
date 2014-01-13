@@ -7,6 +7,8 @@
 //
 
 #import "VKViewController.h"
+#import "VKTextBubbleView.h"
+#import "VKMessageCell+VKTextBubbleEstimate.h"
 
 @interface VKViewController()
 @property (strong, nonatomic) NSMutableArray *messageStorage;
@@ -45,10 +47,10 @@
     VKMessageCell *messageCell = nil;
     
     if (indexPath.row%2) {
-        messageCell = [self getInboundMessageCell:tableView];
+        messageCell = [self getInboundTextMessageCell:tableView];
     }
     else{
-        messageCell = [self getOutboundMessageCell:tableView];
+        messageCell = [self getOutboundTextMessageCell:tableView];
         
         switch (indexPath.row%3) {
             case 0:
@@ -69,8 +71,8 @@
         }
     }
     
-    messageCell.messageText = message[@"text"];
-    messageCell.messageDate = message[@"date"];
+    [(VKTextBubbleView *)messageCell.bubbleView textBody].text = message[@"text"];
+    //messageCell.messageDate = message[@"date"];
     return messageCell;
 }
 

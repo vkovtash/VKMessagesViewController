@@ -17,20 +17,6 @@
 
 #pragma mark - Publick Properties
 
-- (UILabel *) messageBody{
-    if (!_messageBody) {
-        TTTAttributedLabel *attributedLabel = [[TTTAttributedLabel alloc] init];
-        attributedLabel.enabledTextCheckingTypes = NSTextCheckingTypeLink|NSTextCheckingTypePhoneNumber;
-        attributedLabel.delegate = self;
-        _messageBody = attributedLabel;
-        _messageBody.backgroundColor = [UIColor clearColor];
-        _messageBody.textColor = [UIColor darkGrayColor];
-        _messageBody.lineBreakMode = self.properties.lineBreakMode;
-        _messageBody.numberOfLines = 0;
-    }
-    return _messageBody;
-}
-
 - (UILabel *) messageRightHeader{
     if (!_messageRightHeader) {
         _messageRightHeader = [[UILabel alloc] init];
@@ -70,6 +56,10 @@
     }
 }
 
+- (CGFloat) estimatedWidthWithMaximumWidth:(CGFloat) maximimWidth {
+    return 50;
+}
+
 #pragma mark - Private properties
 
 - (UIImageView *) background{
@@ -82,8 +72,7 @@
 
 #pragma mark - Private methods
 
-- (void) applyProperties{
-    self.messageBody.font = self.properties.bodyFont;
+- (void) applyProperties {
     self.messageRightHeader.font =  self.properties.headerFont;
     self.messageLeftHeader.font = self.properties.headerFont;
     
@@ -123,12 +112,6 @@
               withSender:(id)sender
 {
     return (action == @selector(copy:));
-}
-
-#pragma mark - UIResponderStandardEditActions
-
-- (void)copy:(id)sender {
-    [[UIPasteboard generalPasteboard] setString:self.messageBody.text];
 }
 
 #pragma - mark Init

@@ -17,15 +17,6 @@
 
 #pragma mark - Publick properties
 
-- (NSString *) messageText{
-    return self.bubbleView.messageBody.text;
-}
-
-- (void) setMessageText:(NSString *)messageText{
-    self.bubbleView.messageBody.text = messageText;
-    [self applyLayout];
-}
-
 - (void) setCellStyle:(VKMessageCellStyle)cellStyle{
     _cellStyle = cellStyle;
     switch (cellStyle) {
@@ -96,12 +87,6 @@
     return UIEdgeInsetsMake(5, 5, 5, 5);
 }
 
-+ (CGFloat) estimatedHeightForText:(NSString *) text Widht:(CGFloat) width BubbleProperties:(VKBubbleViewProperties *) properties{
-    UIEdgeInsets insets = [[self class] edgeInsets];
-    return insets.top + insets.bottom + [properties estimatedSizeForText:text
-                                                                   Widht:width*[[self class] bubbleViewWidthMultiplier]-insets.right-insets.left].height;
-}
-
 #pragma - mark Init
 
 - (void) postInit{
@@ -119,8 +104,7 @@
 
 - (void) applyLayout{
     UIEdgeInsets insets = [[self class] edgeInsets];
-    CGFloat estimatedWidth = [self.bubbleView.properties estimatedWidthForText:self.bubbleView.messageBody.text
-                                                                         Width:self.frame.size.width*[[self class] bubbleViewWidthMultiplier]-insets.right-insets.left];
+    CGFloat estimatedWidth = [self.bubbleView estimatedWidthWithMaximumWidth: self.frame.size.width * [[self class] bubbleViewWidthMultiplier] - insets.right - insets.left];
     
     switch (self.bubbleAlign) {
         case VKBubbleAlignRight:

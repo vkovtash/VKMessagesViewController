@@ -8,7 +8,7 @@
 
 #import "VKViewController.h"
 #import "VKTextBubbleView.h"
-#import "VKMessageCell+VKTextBubbleEstimate.h"
+#import "VKBubbleCell+VKTextBubbleEstimate.h"
 
 @interface VKViewController()
 @property (strong, nonatomic) NSMutableArray *messageStorage;
@@ -44,7 +44,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     NSDictionary *message = self.messageStorage[indexPath.row];
-    VKMessageCell *messageCell = nil;
+    VKBubbleCell *messageCell = nil;
     
     if (indexPath.row%2) {
         messageCell = [self getInboundTextMessageCell:tableView];
@@ -84,12 +84,12 @@
 {
     NSDictionary *message = self.messageStorage[indexPath.row];
     if (indexPath.row%2) {
-        return [VKMessageCell estimatedHeightForText:message[@"text"]
+        return [VKBubbleCell estimatedHeightForText:message[@"text"]
                                                Widht:self.view.bounds.size.width
                                     BubbleProperties:self.inboundBubbleViewProperties];
     }
     else {
-        return [VKMessageCell estimatedHeightForText:message[@"text"]
+        return [VKBubbleCell estimatedHeightForText:message[@"text"]
                                                Widht:self.view.bounds.size.width
                                     BubbleProperties:self.outboundBubbleViewProperties];
     }

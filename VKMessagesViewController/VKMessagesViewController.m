@@ -257,14 +257,14 @@
 
 #pragma mark - Cell factory methods
 
-- (VKMessageCell *) getInboundTextMessageCell:(UITableView *) tableView{
+- (VKBubbleCell *) getInboundTextMessageCell:(UITableView *) tableView{
     NSString static *inboundReuseIdentifier =  @"InboundMessageCell";
-    VKMessageCell *messageCell = [tableView dequeueReusableCellWithIdentifier:inboundReuseIdentifier];
+    VKBubbleCell *messageCell = [tableView dequeueReusableCellWithIdentifier:inboundReuseIdentifier];
     
     if (messageCell == nil) {
         VKTextBubbleView *textBubbleView = [[VKTextBubbleView alloc] initWithProperties:self.inboundBubbleViewProperties];
         
-        messageCell = [[VKMessageCell alloc] initWithBubbleView:textBubbleView
+        messageCell = [[VKBubbleCell alloc] initWithBubbleView:textBubbleView
                                                 reuseIdentifier:inboundReuseIdentifier];
         [messageCell setBackgroundImage:self.inboundCellBackgroudImage forStyle:VKMessageCellStyleNormal];
         [messageCell setBackgroundImage:self.inboundSelectedCellBackgroudImage forStyle:VKMessageCellStyleSelected];
@@ -286,13 +286,13 @@
     return messageCell;
 }
 
-- (VKMessageCell *) getOutboundTextMessageCell:(UITableView *) tableView{
+- (VKBubbleCell *) getOutboundTextMessageCell:(UITableView *) tableView{
     NSString static *outboundReuseIdentifier =  @"OutboundMessageCell";
-    VKMessageCell *messageCell = [tableView dequeueReusableCellWithIdentifier:outboundReuseIdentifier];
+    VKBubbleCell *messageCell = [tableView dequeueReusableCellWithIdentifier:outboundReuseIdentifier];
     
     if (messageCell == nil) {
         VKTextBubbleView *textBubbleView = [[VKTextBubbleView alloc] initWithProperties:self.outboundBubbleViewProperties];
-        messageCell = [[VKMessageCell alloc] initWithBubbleView:textBubbleView
+        messageCell = [[VKBubbleCell alloc] initWithBubbleView:textBubbleView
                                                 reuseIdentifier:outboundReuseIdentifier];
         [messageCell setBackgroundImage:self.outboundCellBackgroudImage forStyle:VKMessageCellStyleNormal];
         [messageCell setBackgroundImage:self.outboundSelectedCellBackgroudImage forStyle:VKMessageCellStyleSelected];
@@ -392,7 +392,7 @@
     if (recognizer.state == UIGestureRecognizerStateBegan) {
         CGPoint point = [recognizer locationInView:self.tableView];
         NSIndexPath *cellIndex = [self.tableView indexPathForRowAtPoint:point];
-        VKMessageCell *cell = (VKMessageCell *)[self.tableView cellForRowAtIndexPath:cellIndex];
+        VKBubbleCell *cell = (VKBubbleCell *)[self.tableView cellForRowAtIndexPath:cellIndex];
         [cell setSelected:YES];
         
         [self.menuPresenter showDefaultMenuForView:cell.bubbleView

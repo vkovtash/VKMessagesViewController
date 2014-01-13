@@ -1,5 +1,5 @@
 //
-//  VKMessageCell.h
+//  VKBubbleCell.h
 //  VKMessagesViewController
 //
 //  Created by Vlad Kovtash on 11.03.13.
@@ -20,7 +20,7 @@ typedef enum VKBubbleAlign{
     VKBubbleAlignRight
 } VKBubbleAlign;
 
-@interface VKMessageCell : UITableViewCell
+@interface VKBubbleCell : UITableViewCell
 @property (nonatomic,strong) VKBubbleView *bubbleView;
 @property (nonatomic) VKMessageCellStyle cellStyle;
 @property (nonatomic) VKBubbleAlign bubbleAlign;

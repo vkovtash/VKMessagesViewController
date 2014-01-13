@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "UIInputToolbar.h"
 #import "VKEmojiPicker+style.h"
-#import "VKMessageCell.h"
+#import "VKBubbleCell.h"
 #import "VKTableView.h"
 #import "VKTextBubbleViewProperties.h"
 
@@ -34,6 +34,6 @@
 - (void) plusButtonPressed;
 
 #pragma mark - factory methods
-- (VKMessageCell *) getInboundTextMessageCell:(UITableView *) tableView;
-- (VKMessageCell *) getOutboundTextMessageCell:(UITableView *) tableView;
+- (VKBubbleCell *) getInboundTextMessageCell:(UITableView *) tableView;
+- (VKBubbleCell *) getOutboundTextMessageCell:(UITableView *) tableView;
 @end

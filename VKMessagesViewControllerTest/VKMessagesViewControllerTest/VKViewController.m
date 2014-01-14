@@ -9,7 +9,7 @@
 #import "VKViewController.h"
 #import "VKTextBubbleView.h"
 #import "VKBaseBubbleCell.h"
-#import "VKBubbleCell+VKTextBubbleEstimate.h"
+#import "VKBubbleCell+VKTextBubbleCell.h"
 
 @interface VKViewController()
 @property (strong, nonatomic) NSMutableArray *messageStorage;
@@ -72,7 +72,7 @@
         }
     }
     
-    [(VKTextBubbleView *)messageCell.bubbleView textBody].text = message[@"text"];
+    [(VKTextBubbleView *)messageCell.bubbleView messageBody].text = message[@"text"];
     messageCell.messageDate = message[@"date"];
     return messageCell;
 }
@@ -85,14 +85,10 @@
 {
     NSDictionary *message = self.messageStorage[indexPath.row];
     if (indexPath.row%2) {
-        return [VKBubbleCell estimatedHeightForText:message[@"text"]
-                                               Widht:self.view.bounds.size.width
-                                    BubbleProperties:self.inboundBubbleViewProperties];
+        return [VKBubbleCell heightForInboundTextBubbleCell:message[@"text"] Widht:self.view.bounds.size.width];
     }
     else {
-        return [VKBubbleCell estimatedHeightForText:message[@"text"]
-                                               Widht:self.view.bounds.size.width
-                                    BubbleProperties:self.outboundBubbleViewProperties];
+        return [VKBubbleCell heightForOutboundTextBubbleCell:message[@"text"] Widht:self.view.bounds.size.width];
     }
 }
 

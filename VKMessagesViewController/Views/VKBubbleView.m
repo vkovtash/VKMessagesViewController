@@ -22,9 +22,6 @@
         _messageRightHeader = [[UILabel alloc] init];
         _messageRightHeader.backgroundColor = [UIColor clearColor];
         _messageRightHeader.textAlignment = NSTextAlignmentRight;
-        _messageRightHeader.textColor = [UIColor colorWithRed:1 green:1 blue:1 alpha:0.4];
-        _messageRightHeader.shadowOffset = CGSizeMake(0, -1);
-        _messageRightHeader.shadowColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.4];
     }
     return _messageRightHeader;
 }
@@ -34,9 +31,6 @@
         _messageLeftHeader = [[UILabel alloc] init];
         _messageLeftHeader.backgroundColor = [UIColor clearColor];
         _messageLeftHeader.textAlignment = NSTextAlignmentLeft;
-        _messageLeftHeader.textColor = [UIColor colorWithRed:1 green:1 blue:1 alpha:0.4];
-        _messageLeftHeader.shadowOffset = CGSizeMake(0, -1);
-        _messageLeftHeader.shadowColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.4];
     }
     return _messageLeftHeader;
 }
@@ -63,7 +57,7 @@
     }
 }
 
-- (CGFloat) estimatedWidthWithMaximumWidth:(CGFloat) maximimWidth {
+- (CGFloat) widthConstrainedToWidth:(CGFloat) width {
     return 50;
 }
 

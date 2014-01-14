@@ -43,10 +43,6 @@
     if (cell) {
         cell.backgroundColor = [UIColor clearColor];
         cell.dateFormatter = dateFormatter;
-        if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7")) {
-            cell.bubbleView.messageRightHeader.shadowColor = nil;
-            cell.bubbleView.messageLeftHeader.shadowColor = nil;
-        }
     }
     return cell;
 }
@@ -62,6 +58,14 @@
         cell.bubbleView.messageRightHeader.textColor = headerColor;
         cell.bubbleView.messageLeftHeader.textColor = headerColor;
     }
+    else {
+        cell.bubbleView.messageRightHeader.textColor = [UIColor colorWithRed:1 green:1 blue:1 alpha:0.4];
+        cell.bubbleView.messageRightHeader.shadowOffset = CGSizeMake(0, -1);
+        cell.bubbleView.messageRightHeader.shadowColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.4];
+        cell.bubbleView.messageLeftHeader.textColor = [UIColor colorWithRed:1 green:1 blue:1 alpha:0.4];
+        cell.bubbleView.messageLeftHeader.shadowOffset = CGSizeMake(0, -1);
+        cell.bubbleView.messageLeftHeader.shadowColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.4];
+    }
     return cell;
 }
 
@@ -75,6 +79,14 @@
                                                alpha:0.5];
         cell.bubbleView.messageRightHeader.textColor = headerColor;
         cell.bubbleView.messageLeftHeader.textColor = headerColor;
+    }
+    else {
+        cell.bubbleView.messageRightHeader.textColor = [UIColor colorWithRed:1 green:1 blue:1 alpha:0.4];
+        cell.bubbleView.messageRightHeader.shadowOffset = CGSizeMake(0, -1);
+        cell.bubbleView.messageRightHeader.shadowColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.4];
+        cell.bubbleView.messageLeftHeader.textColor = [UIColor colorWithRed:1 green:1 blue:1 alpha:0.4];
+        cell.bubbleView.messageLeftHeader.shadowOffset = CGSizeMake(0, -1);
+        cell.bubbleView.messageLeftHeader.shadowColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.4];
     }
     return cell;
 }

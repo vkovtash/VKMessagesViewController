@@ -21,6 +21,7 @@ typedef enum VKBubbleAlign{
 @property (readwrite, nonatomic) NSString *messageLeftHeader;
 @property (readwrite, nonatomic) NSString *messageRightHeader;
 
+- (void) applyLayout;
 - (id) initWithBubbleView:(VKBubbleView *) bubbleView reuseIdentifier:(NSString *) reuseIdentifier;
 + (CGFloat) bubbleViewWidthMultiplier; //cell text width multiplier
 + (UIEdgeInsets) edgeInsets;

@@ -20,7 +20,7 @@
 @property (readonly, nonatomic) BOOL isSelected;
 
 - (void) setSelected:(BOOL) selected;
+- (CGFloat) widthConstrainedToWidth:(CGFloat) width;
 
-- (CGFloat) estimatedWidthWithMaximumWidth:(CGFloat) maximimWidth;
 - (id) initWithBubbleProperties:(VKBubbleViewProperties *) properties;
 @end

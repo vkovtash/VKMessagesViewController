@@ -20,13 +20,6 @@
 @property (strong, nonatomic) UIInputToolbar *messageToolbar;
 @property (strong, nonatomic) UIView *alternativeInputView; //view shown on plus button tap
 @property (readwrite, nonatomic) NSString *messagePlaceholder;
-@property (strong, nonatomic) VKTextBubbleViewProperties *inboundBubbleViewProperties;
-@property (strong, nonatomic) VKTextBubbleViewProperties *outboundBubbleViewProperties;
-@property (strong, nonatomic) UIImage *inboundCellBackgroudImage;
-@property (strong, nonatomic) UIImage *outboundCellBackgroudImage;
-@property (strong, nonatomic) UIImage *inboundSelectedCellBackgroudImage;
-@property (strong, nonatomic) UIImage *outboundSelectedCellBackgroudImage;
-@property (strong, nonatomic) NSDateFormatter *messageDateFormatter;
 
 - (void) scrollTableViewToBottomAnimated:(BOOL) animated;
 - (void) dismissKeyboard;

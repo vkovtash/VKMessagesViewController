@@ -12,8 +12,7 @@
 #import "VKMenuControllerPresenter.h"
 #import "VKiOSVersionCheck.h"
 #import "VKTextBubbleView.h"
-#import "VKBubbleView+VKDefaultBubbleView.h"
-#import "VKBaseBubbleCell.h"
+#import "VKBubbleCell+VKTextBubbleCell.h"
 
 #define kDefaultToolbarHeight 40
 #define kDefaultToolbarPortraitMaximumHeight 195
@@ -40,34 +39,6 @@
         _alternativeInputView = alternativeInputView;
         self.messageToolbar.isPlusButtonVisible = (BOOL)_alternativeInputView;
     }
-}
-
-- (VKTextBubbleViewProperties *) inboundBubbleViewProperties{
-    if (!_inboundBubbleViewProperties) {
-        if (SYSTEM_VERSION_LESS_THAN(@"7")) {
-            _inboundBubbleViewProperties = [VKTextBubbleViewProperties defaultProperties];
-            _inboundBubbleViewProperties.edgeInsets = UIEdgeInsetsMake(4, 8, 4, 4);
-        }
-        else {
-            _inboundBubbleViewProperties = [VKTextBubbleViewProperties defaultProperties];
-            _inboundBubbleViewProperties.edgeInsets = UIEdgeInsetsMake(4, 16, 4, 12);
-        }
-    }
-    return _inboundBubbleViewProperties;
-}
-
-- (VKTextBubbleViewProperties *) outboundBubbleViewProperties{
-    if (!_outboundBubbleViewProperties) {
-        if (SYSTEM_VERSION_LESS_THAN(@"7")) {
-            _outboundBubbleViewProperties = [VKTextBubbleViewProperties defaultProperties];
-            _outboundBubbleViewProperties.edgeInsets = UIEdgeInsetsMake(4, 4, 4, 8);
-        }
-        else {
-            _outboundBubbleViewProperties = [VKTextBubbleViewProperties defaultProperties];
-            _outboundBubbleViewProperties.edgeInsets = UIEdgeInsetsMake(4, 12, 4, 16);
-        }
-    }
-    return _outboundBubbleViewProperties;
 }
 
 - (VKMenuControllerPresenter *) menuPresenter{
@@ -182,23 +153,17 @@
 #pragma mark - Cell factory methods
 
 - (VKBubbleCell *) getInboundTextMessageCell:(UITableView *) tableView{
-    NSString static *inboundReuseIdentifier =  @"InboundMessageCell";
-    VKBaseBubbleCell *messageCell = [tableView dequeueReusableCellWithIdentifier:inboundReuseIdentifier];
-    
+    VKBubbleCell *messageCell = [tableView dequeueReusableCellWithIdentifier:VKInboundTextBubbleCellReuseIdentifier];
     if (messageCell == nil) {
-        VKTextBubbleView *textBubbleView = [VKTextBubbleView inboundBubbleWithProperties:self.inboundBubbleViewProperties];
-        messageCell = [VKBaseBubbleCell inboundCellWithBubbleView:textBubbleView reuseIdentifier:inboundReuseIdentifier];
+        messageCell = [VKBubbleCell newInboundTextBubbleCell];
     }
     return messageCell;
 }
 
 - (VKBubbleCell *) getOutboundTextMessageCell:(UITableView *) tableView{
-    NSString static *outboundReuseIdentifier =  @"OutboundMessageCell";
-    VKBaseBubbleCell *messageCell = [tableView dequeueReusableCellWithIdentifier:outboundReuseIdentifier];
-    
+    VKBubbleCell *messageCell = [tableView dequeueReusableCellWithIdentifier:VKOutboundTextBubbleCellReuseIdentifier];
     if (messageCell == nil) {
-        VKTextBubbleView *textBubbleView = [VKTextBubbleView outboundBubbleWithProperties:self.outboundBubbleViewProperties];
-        messageCell = [VKBaseBubbleCell outboundCellWithBubbleView:textBubbleView reuseIdentifier:outboundReuseIdentifier];
+        messageCell = [VKBubbleCell newOutboundTextBubbleCell];
     }
     return messageCell;
 }

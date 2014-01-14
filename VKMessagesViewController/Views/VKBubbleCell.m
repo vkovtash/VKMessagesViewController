@@ -57,7 +57,7 @@
 #pragma - mark Init
 
 - (void) postInit{
-    [self addSubview:self.bubbleView];
+    [self.contentView addSubview:self.bubbleView];
     self.autoresizesSubviews = YES;
 }
 
@@ -71,15 +71,15 @@
 
 - (void) applyLayout{
     UIEdgeInsets insets = [[self class] edgeInsets];
-    CGFloat estimatedWidth = [self.bubbleView estimatedWidthWithMaximumWidth: self.frame.size.width * [[self class] bubbleViewWidthMultiplier] - insets.right - insets.left];
+    CGFloat estimatedWidth = [self.bubbleView widthConstrainedToWidth: self.contentView.frame.size.width * [[self class] bubbleViewWidthMultiplier] - insets.right - insets.left];
     
     switch (self.bubbleAlign) {
         case VKBubbleAlignRight:
             self.bubbleView.autoresizingMask = UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleLeftMargin;
-            self.bubbleView.frame = CGRectMake(self.frame.size.width - estimatedWidth - insets.right,
+            self.bubbleView.frame = CGRectMake(self.contentView.frame.size.width - estimatedWidth - insets.right,
                                                insets.top,
                                                estimatedWidth,
-                                               self.frame.size.height - insets.top - insets.bottom);
+                                               self.contentView.frame.size.height - insets.top - insets.bottom);
             break;
         
         case VKBubbleAlignLeft:
@@ -88,7 +88,7 @@
             self.bubbleView.frame = CGRectMake(insets.left,
                                                insets.top,
                                                estimatedWidth,
-                                               self.frame.size.height - insets.top - insets.bottom);
+                                               self.contentView.frame.size.height - insets.top - insets.bottom);
             break;
     }
 }

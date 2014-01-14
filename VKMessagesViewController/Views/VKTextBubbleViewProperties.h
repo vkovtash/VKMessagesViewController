@@ -12,8 +12,5 @@
 @property (strong, nonatomic) UIFont *bodyFont;
 @property (nonatomic) NSLineBreakMode lineBreakMode;
 
-- (CGSize) estimatedSizeForText:(NSString *) text Widht:(CGFloat) width;
-- (CGFloat) estimatedWidthForText:(NSString *) text Width:(CGFloat) width;
-
 - (id) initWithHeaderFont:(UIFont *) headerFont BodyFont:(UIFont *) bodyFont EdgeInsets:(UIEdgeInsets) edgeInsets;
 @end

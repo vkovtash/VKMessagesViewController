@@ -10,8 +10,12 @@
 #import "VKTextBubbleViewProperties.h"
 
 @interface VKTextBubbleView : VKBubbleView
-@property (strong, nonatomic) UILabel *textBody;
+@property (strong, nonatomic) UILabel *messageBody;
 @property (nonatomic,strong) VKTextBubbleViewProperties *properties;
 
 - (id) initWithBubbleProperties:(VKTextBubbleViewProperties *) properties;
+
++ (CGSize) sizeWithText:(NSString *) text
+             Properties:(VKTextBubbleViewProperties *) properties
+      constrainedToWidth:(CGFloat) width;
 @end

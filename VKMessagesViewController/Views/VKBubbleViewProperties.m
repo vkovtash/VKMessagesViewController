@@ -36,7 +36,6 @@ static const CGFloat kViewMinimumWidth = 180;
     id defaultProperties = [[[self class] alloc] initWithHeaderFont:[UIFont systemFontOfSize:12]
                                                          EdgeInsets:UIEdgeInsetsMake(4, 10, 4, 10)];
     [defaultProperties setMinimumWidth:kViewMinimumWidth];
-    //[defaultProperties setLineBreakMode:NSLineBreakByWordWrapping];
     return defaultProperties;
 }
 

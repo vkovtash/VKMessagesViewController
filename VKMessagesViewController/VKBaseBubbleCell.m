@@ -1,6 +1,6 @@
 //
 //  VKBaseBubbleCell.m
-//  VKMessagesViewControllerTest
+//  VKMessagesViewController
 //
 //  Created by Vlad Kovtash on 13/01/14.
 //  Copyright (c) 2014 kovtash.com. All rights reserved.
@@ -9,6 +9,8 @@
 #import "VKBaseBubbleCell.h"
 #import "VKiOSVersionCheck.h"
 #import <QuartzCore/QuartzCore.h>
+
+static CGFloat bubbleViewWidthMultiplier = 0.9;
 
 @implementation VKBaseBubbleCell
 
@@ -19,10 +21,27 @@
     }
 }
 
+- (void) setMessageState:(NSString *)messageState {
+    self.bubbleView.messageLeftHeader.text = messageState;
+}
+
+- (NSString *) messageState {
+    return self.bubbleView.messageLeftHeader.text;
+}
+
+- (UIEdgeInsets) edgeInsets {
+    return [[self class] edgeInsets];
+}
+
+- (CGFloat) bubbleViewMaxWidth {
+    return self.contentView.bounds.size.width * bubbleViewWidthMultiplier;
+}
+
 #pragma mark - Class methods
 
-+ (CGFloat) bubbleViewWidthMultiplier{
-    return 0.9;
++ (CGFloat) bubbleViewWidthConstraintForCellWidth:(CGFloat) cellWidth {
+    UIEdgeInsets insets = [[self class] edgeInsets];
+    return cellWidth*bubbleViewWidthMultiplier - insets.right - insets.left;
 }
 
 + (UIEdgeInsets) edgeInsets{

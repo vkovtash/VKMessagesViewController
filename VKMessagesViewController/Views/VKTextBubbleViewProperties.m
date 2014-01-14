@@ -23,10 +23,12 @@
     return self;
 }
 
-+ (id) defaultProperties {
-    id properties = [super defaultProperties];
-    [properties setBodyFont:[UIFont systemFontOfSize:14]];
-    return properties;
+- (id)init {
+    self = [super init];
+    if (self) {
+        self.bodyFont = [UIFont systemFontOfSize:14];
+    }
+    return self;
 }
 
 @end

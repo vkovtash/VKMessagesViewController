@@ -8,34 +8,25 @@
 
 #import "VKBubbleCell.h"
 
+static CGFloat kDefaultBubbleViewWidth = 200;
+
 @interface VKBubbleCell()
-@property (nonatomic,strong) UIImage *normalBackgroundImgage;
-@property (nonatomic,strong) UIImage *selectedBackgroundImgage;
 @end
 
 @implementation VKBubbleCell
 
 #pragma mark - Publick properties
 
-- (NSString *) messageLeftHeader{
-    return self.bubbleView.messageLeftHeader.text;
-}
-
-- (void) setMessageLeftHeader:(NSString *)messageLeftHeader{
-    self.bubbleView.messageLeftHeader.text = messageLeftHeader;
-}
-
-- (NSString *) messageRightHeader {
-    return self.bubbleView.messageRightHeader.text;
-}
-
-- (void) setMessageRightHeader:(NSString *)messageRightHeader {
-    self.bubbleView.messageRightHeader.text = messageRightHeader;
-}
-
 - (void) setBubbleAlign:(VKBubbleAlign)bubbleAlign{
     _bubbleAlign = bubbleAlign;
     [self applyLayout];
+}
+
+- (void) setBubbleViewMaxWidth:(CGFloat)bubbleViewMaxWidth {
+    if (_bubbleViewMaxWidth != bubbleViewMaxWidth) {
+        _bubbleViewMaxWidth = bubbleViewMaxWidth;
+        [self applyLayout];
+    }
 }
 
 #pragma mark - Publick methods
@@ -44,19 +35,10 @@
     [self.bubbleView setSelected:selected];
 }
 
-#pragma mark - Class methods
-
-+ (CGFloat) bubbleViewWidthMultiplier{
-    return 0.9;
-}
-
-+ (UIEdgeInsets) edgeInsets{
-    return UIEdgeInsetsMake(5, 5, 5, 5);
-}
-
 #pragma - mark Init
 
 - (void) postInit{
+    self.bubbleViewMaxWidth = kDefaultBubbleViewWidth;
     [self.contentView addSubview:self.bubbleView];
     self.autoresizesSubviews = YES;
 }
@@ -70,16 +52,16 @@
 }
 
 - (void) applyLayout{
-    UIEdgeInsets insets = [[self class] edgeInsets];
-    CGFloat estimatedWidth = [self.bubbleView widthConstrainedToWidth: self.contentView.frame.size.width * [[self class] bubbleViewWidthMultiplier] - insets.right - insets.left];
+    UIEdgeInsets insets = self.edgeInsets;
+    CGFloat estimatedWidth = [self.bubbleView widthConstrainedToWidth:self.bubbleViewMaxWidth - insets.right - insets.left];
     
     switch (self.bubbleAlign) {
         case VKBubbleAlignRight:
             self.bubbleView.autoresizingMask = UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleLeftMargin;
-            self.bubbleView.frame = CGRectMake(self.contentView.frame.size.width - estimatedWidth - insets.right,
+            self.bubbleView.frame = CGRectMake(self.contentView.bounds.size.width - estimatedWidth - insets.right,
                                                insets.top,
                                                estimatedWidth,
-                                               self.contentView.frame.size.height - insets.top - insets.bottom);
+                                               self.contentView.bounds.size.height - insets.top - insets.bottom);
             break;
         
         case VKBubbleAlignLeft:
@@ -88,7 +70,7 @@
             self.bubbleView.frame = CGRectMake(insets.left,
                                                insets.top,
                                                estimatedWidth,
-                                               self.contentView.frame.size.height - insets.top - insets.bottom);
+                                               self.contentView.bounds.size.height - insets.top - insets.bottom);
             break;
     }
 }

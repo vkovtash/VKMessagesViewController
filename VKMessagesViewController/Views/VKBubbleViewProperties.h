@@ -14,5 +14,4 @@
 @property (nonatomic) NSUInteger minimumWidth;
 - (CGFloat) estimatedHeaderHeigth;
 - (id) initWithHeaderFont:(UIFont *) headerFont EdgeInsets:(UIEdgeInsets) edgeInsets;
-+ (id) defaultProperties;
 @end

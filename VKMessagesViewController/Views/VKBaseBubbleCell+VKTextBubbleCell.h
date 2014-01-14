@@ -1,18 +1,18 @@
 //
-//  VKBubbleCell+VKTextBubbleCell.h
+//  VKBaseBubbleCell+VKTextBubbleCell.h
 //  VKMessagesViewController
 //
 //  Created by Vlad Kovtash on 13/01/14.
 //  Copyright (c) 2014 kovtash.com. All rights reserved.
 //
 
-#import "VKBubbleCell.h"
+#import "VKBaseBubbleCell.h"
 #import "VKTextBubbleView.h"
 
 extern NSString *VKInboundTextBubbleCellReuseIdentifier;
 extern NSString *VKOutboundTextBubbleCellReuseIdentifier;
 
-@interface VKBubbleCell (VKTextBubbleCell)
+@interface VKBaseBubbleCell (VKTextBubbleCell)
 
 + (VKBubbleCell *) newInboundTextBubbleCell;
 + (VKBubbleCell *) newOutboundTextBubbleCell;

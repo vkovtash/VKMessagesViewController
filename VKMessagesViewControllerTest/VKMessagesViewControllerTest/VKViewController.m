@@ -9,7 +9,7 @@
 #import "VKViewController.h"
 #import "VKTextBubbleView.h"
 #import "VKBaseBubbleCell.h"
-#import "VKBubbleCell+VKTextBubbleCell.h"
+#import "VKBaseBubbleCell+VKTextBubbleCell.h"
 
 @interface VKViewController()
 @property (strong, nonatomic) NSMutableArray *messageStorage;
@@ -55,19 +55,19 @@
         
         switch (indexPath.row%3) {
             case 0:
-                messageCell.messageLeftHeader = @"Sending";
+                messageCell.messageState = @"Sending";
                 break;
                 
             case 1:
-                messageCell.messageLeftHeader = @"Sent";
+                messageCell.messageState = @"Sent";
                 break;
                 
             case 2:
-                messageCell.messageLeftHeader = @"Delivered";
+                messageCell.messageState = @"Delivered";
                 break;
                 
             default:
-                messageCell.messageLeftHeader = nil;
+                messageCell.messageState = nil;
                 break;
         }
     }
@@ -85,10 +85,10 @@
 {
     NSDictionary *message = self.messageStorage[indexPath.row];
     if (indexPath.row%2) {
-        return [VKBubbleCell heightForInboundTextBubbleCell:message[@"text"] Widht:self.view.bounds.size.width];
+        return [VKBaseBubbleCell heightForInboundTextBubbleCell:message[@"text"] Widht:self.view.bounds.size.width];
     }
     else {
-        return [VKBubbleCell heightForOutboundTextBubbleCell:message[@"text"] Widht:self.view.bounds.size.width];
+        return [VKBaseBubbleCell heightForOutboundTextBubbleCell:message[@"text"] Widht:self.view.bounds.size.width];
     }
 }
 

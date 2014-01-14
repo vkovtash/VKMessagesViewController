@@ -20,8 +20,13 @@ static const CGFloat kViewMinimumWidth = 180;
     if (self) {
         self.headerFont = headerFont;
         self.edgeInsets = edgeInsets;
+        self.minimumWidth = 180;
     }
     return self;
+}
+
+- (id) init {
+    return [self initWithHeaderFont:[UIFont systemFontOfSize:12] EdgeInsets:UIEdgeInsetsMake(4, 10, 4, 10)];
 }
 
 - (CGFloat) estimatedHeaderHeigth{
@@ -30,13 +35,6 @@ static const CGFloat kViewMinimumWidth = 180;
                                                       forWidth:self.minimumWidth
                                                  lineBreakMode:NSLineBreakByTruncatingTail];
     return headerSize.height;
-}
-
-+ (id) defaultProperties{
-    id defaultProperties = [[[self class] alloc] initWithHeaderFont:[UIFont systemFontOfSize:12]
-                                                         EdgeInsets:UIEdgeInsetsMake(4, 10, 4, 10)];
-    [defaultProperties setMinimumWidth:kViewMinimumWidth];
-    return defaultProperties;
 }
 
 @end

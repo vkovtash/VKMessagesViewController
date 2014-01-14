@@ -12,7 +12,7 @@
 		6B8D66811822A6500024C694 /* vk_backspace_button_pressed_ios7@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6B8D667F1822A6500024C694 /* vk_backspace_button_pressed_ios7@2x.png */; };
 		6BD7F6DE1822697400B511A0 /* vk_message_bubble_incoming_ios7@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6BD7F6DC1822697400B511A0 /* vk_message_bubble_incoming_ios7@2x.png */; };
 		6BD7F6DF1822697400B511A0 /* vk_message_bubble_outgouing_ios7@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6BD7F6DD1822697400B511A0 /* vk_message_bubble_outgouing_ios7@2x.png */; };
-		F313D9A51884015E00AEDFE2 /* VKBubbleCell+VKTextBubbleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F313D9A41884015E00AEDFE2 /* VKBubbleCell+VKTextBubbleCell.m */; };
+		F313D9A51884015E00AEDFE2 /* VKBaseBubbleCell+VKTextBubbleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F313D9A41884015E00AEDFE2 /* VKBaseBubbleCell+VKTextBubbleCell.m */; };
 		F313D9AC18840C8600AEDFE2 /* VKBubbleView+VKDefaultBubbleView.m in Sources */ = {isa = PBXBuildFile; fileRef = F313D9AB18840C8600AEDFE2 /* VKBubbleView+VKDefaultBubbleView.m */; };
 		F313D9AF1884137F00AEDFE2 /* VKBaseBubbleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F313D9AE1884137F00AEDFE2 /* VKBaseBubbleCell.m */; };
 		F31F288A1861DA9800816330 /* UIActionSheet+VKBlocks.m in Sources */ = {isa = PBXBuildFile; fileRef = F31F28891861DA9800816330 /* UIActionSheet+VKBlocks.m */; };
@@ -70,8 +70,8 @@
 		6BD7F6DD1822697400B511A0 /* vk_message_bubble_outgouing_ios7@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "vk_message_bubble_outgouing_ios7@2x.png"; sourceTree = "<group>"; };
 		6BD7F6E018226A0700B511A0 /* VKiOSVersionCheck.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VKiOSVersionCheck.h; sourceTree = "<group>"; };
 		7F79047F4EC44DC99B18943E /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		F313D9A31884015E00AEDFE2 /* VKBubbleCell+VKTextBubbleCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "VKBubbleCell+VKTextBubbleCell.h"; path = "Views/VKBubbleCell+VKTextBubbleCell.h"; sourceTree = "<group>"; };
-		F313D9A41884015E00AEDFE2 /* VKBubbleCell+VKTextBubbleCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "VKBubbleCell+VKTextBubbleCell.m"; path = "Views/VKBubbleCell+VKTextBubbleCell.m"; sourceTree = "<group>"; };
+		F313D9A31884015E00AEDFE2 /* VKBaseBubbleCell+VKTextBubbleCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "VKBaseBubbleCell+VKTextBubbleCell.h"; path = "Views/VKBaseBubbleCell+VKTextBubbleCell.h"; sourceTree = "<group>"; };
+		F313D9A41884015E00AEDFE2 /* VKBaseBubbleCell+VKTextBubbleCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "VKBaseBubbleCell+VKTextBubbleCell.m"; path = "Views/VKBaseBubbleCell+VKTextBubbleCell.m"; sourceTree = "<group>"; };
 		F313D9AA18840C8600AEDFE2 /* VKBubbleView+VKDefaultBubbleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "VKBubbleView+VKDefaultBubbleView.h"; sourceTree = "<group>"; };
 		F313D9AB18840C8600AEDFE2 /* VKBubbleView+VKDefaultBubbleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "VKBubbleView+VKDefaultBubbleView.m"; sourceTree = "<group>"; };
 		F313D9AD1884137F00AEDFE2 /* VKBaseBubbleCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VKBaseBubbleCell.h; sourceTree = "<group>"; };
@@ -167,8 +167,8 @@
 				F313D9AB18840C8600AEDFE2 /* VKBubbleView+VKDefaultBubbleView.m */,
 				F313D9AD1884137F00AEDFE2 /* VKBaseBubbleCell.h */,
 				F313D9AE1884137F00AEDFE2 /* VKBaseBubbleCell.m */,
-				F313D9A31884015E00AEDFE2 /* VKBubbleCell+VKTextBubbleCell.h */,
-				F313D9A41884015E00AEDFE2 /* VKBubbleCell+VKTextBubbleCell.m */,
+				F313D9A31884015E00AEDFE2 /* VKBaseBubbleCell+VKTextBubbleCell.h */,
+				F313D9A41884015E00AEDFE2 /* VKBaseBubbleCell+VKTextBubbleCell.m */,
 			);
 			name = DefaultStyle;
 			sourceTree = "<group>";
@@ -251,7 +251,6 @@
 		F3574D8F17BE402E00471785 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				F3937480186C8B46004F0416 /* VKBubbleViewProperies */,
 				F393747F186C8B22004F0416 /* VKBubbleView */,
 				F393747E186C8B10004F0416 /* VKEmojiPicker */,
 				F3574D9417BE402E00471785 /* VKBubbleCell.h */,
@@ -309,6 +308,28 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
+		F389BACE1885994000A74818 /* BaseBubbleView */ = {
+			isa = PBXGroup;
+			children = (
+				F3574D9017BE402E00471785 /* VKBubbleView.h */,
+				F3574D9117BE402E00471785 /* VKBubbleView.m */,
+				F3574D9217BE402E00471785 /* VKBubbleViewProperties.h */,
+				F3574D9317BE402E00471785 /* VKBubbleViewProperties.m */,
+			);
+			name = BaseBubbleView;
+			sourceTree = "<group>";
+		};
+		F389BACF1885994F00A74818 /* TextBubbleView */ = {
+			isa = PBXGroup;
+			children = (
+				F3D10DD81869DB72009C03D0 /* VKTextBubbleView.h */,
+				F3D10DD91869DB72009C03D0 /* VKTextBubbleView.m */,
+				F393747B186C8850004F0416 /* VKTextBubbleViewProperties.h */,
+				F393747C186C8850004F0416 /* VKTextBubbleViewProperties.m */,
+			);
+			name = TextBubbleView;
+			sourceTree = "<group>";
+		};
 		F393747E186C8B10004F0416 /* VKEmojiPicker */ = {
 			isa = PBXGroup;
 			children = (
@@ -323,23 +344,10 @@
 		F393747F186C8B22004F0416 /* VKBubbleView */ = {
 			isa = PBXGroup;
 			children = (
-				F3574D9017BE402E00471785 /* VKBubbleView.h */,
-				F3574D9117BE402E00471785 /* VKBubbleView.m */,
-				F3D10DD81869DB72009C03D0 /* VKTextBubbleView.h */,
-				F3D10DD91869DB72009C03D0 /* VKTextBubbleView.m */,
+				F389BACF1885994F00A74818 /* TextBubbleView */,
+				F389BACE1885994000A74818 /* BaseBubbleView */,
 			);
 			name = VKBubbleView;
-			sourceTree = "<group>";
-		};
-		F3937480186C8B46004F0416 /* VKBubbleViewProperies */ = {
-			isa = PBXGroup;
-			children = (
-				F3574D9217BE402E00471785 /* VKBubbleViewProperties.h */,
-				F3574D9317BE402E00471785 /* VKBubbleViewProperties.m */,
-				F393747B186C8850004F0416 /* VKTextBubbleViewProperties.h */,
-				F393747C186C8850004F0416 /* VKTextBubbleViewProperties.m */,
-			);
-			name = VKBubbleViewProperies;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -478,7 +486,7 @@
 				F3574DA417BE417700471785 /* VKEmojiPicker+style.m in Sources */,
 				F393747D186C8851004F0416 /* VKTextBubbleViewProperties.m in Sources */,
 				F3D10DDA1869DB72009C03D0 /* VKTextBubbleView.m in Sources */,
-				F313D9A51884015E00AEDFE2 /* VKBubbleCell+VKTextBubbleCell.m in Sources */,
+				F313D9A51884015E00AEDFE2 /* VKBaseBubbleCell+VKTextBubbleCell.m in Sources */,
 				F3574DA817BE422900471785 /* NSString+deletingLastSymbol.m in Sources */,
 				F31F288A1861DA9800816330 /* UIActionSheet+VKBlocks.m in Sources */,
 				F3574DAB17BE42B800471785 /* VKMenuControllerPresenter.m in Sources */,

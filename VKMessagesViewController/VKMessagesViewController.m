@@ -11,8 +11,7 @@
 #import "UIViewController+firstResponder.h"
 #import "VKMenuControllerPresenter.h"
 #import "VKiOSVersionCheck.h"
-#import "VKTextBubbleView.h"
-#import "VKBubbleCell+VKTextBubbleCell.h"
+#import "VKBaseBubbleCell+VKTextBubbleCell.h"
 
 #define kDefaultToolbarHeight 40
 #define kDefaultToolbarPortraitMaximumHeight 195
@@ -155,7 +154,7 @@
 - (VKBubbleCell *) getInboundTextMessageCell:(UITableView *) tableView{
     VKBubbleCell *messageCell = [tableView dequeueReusableCellWithIdentifier:VKInboundTextBubbleCellReuseIdentifier];
     if (messageCell == nil) {
-        messageCell = [VKBubbleCell newInboundTextBubbleCell];
+        messageCell = [VKBaseBubbleCell newInboundTextBubbleCell];
     }
     return messageCell;
 }
@@ -163,7 +162,7 @@
 - (VKBubbleCell *) getOutboundTextMessageCell:(UITableView *) tableView{
     VKBubbleCell *messageCell = [tableView dequeueReusableCellWithIdentifier:VKOutboundTextBubbleCellReuseIdentifier];
     if (messageCell == nil) {
-        messageCell = [VKBubbleCell newOutboundTextBubbleCell];
+        messageCell = [VKBaseBubbleCell newOutboundTextBubbleCell];
     }
     return messageCell;
 }

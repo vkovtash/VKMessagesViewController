@@ -1,12 +1,12 @@
 //
-//  VKBubbleCell+VKTextBubbleCell.m
+//  VKBaseBubbleCell+VKTextBubbleCell.m
 //  VKMessagesViewController
 //
 //  Created by Vlad Kovtash on 13/01/14.
 //  Copyright (c) 2014 kovtash.com. All rights reserved.
 //
 
-#import "VKBubbleCell+VKTextBubbleCell.h"
+#import "VKBaseBubbleCell+VKTextBubbleCell.h"
 #import "VKiOSVersionCheck.h"
 #import "VKBaseBubbleCell.h"
 #import "VKBubbleView+VKDefaultBubbleView.h"
@@ -20,11 +20,11 @@ NSString *VKOutboundTextBubbleCellReuseIdentifier =  @"VKOutboundTextBubbleCell"
     static VKTextBubbleViewProperties *inboundTextBubbleViewProperties = nil;
     if (!inboundTextBubbleViewProperties) {
         if (SYSTEM_VERSION_LESS_THAN(@"7")) {
-            inboundTextBubbleViewProperties = [VKTextBubbleViewProperties defaultProperties];
+            inboundTextBubbleViewProperties = [VKTextBubbleViewProperties new];
             inboundTextBubbleViewProperties.edgeInsets = UIEdgeInsetsMake(4, 8, 4, 4);
         }
         else {
-            inboundTextBubbleViewProperties = [VKTextBubbleViewProperties defaultProperties];
+            inboundTextBubbleViewProperties = [VKTextBubbleViewProperties new];
             inboundTextBubbleViewProperties.edgeInsets = UIEdgeInsetsMake(4, 16, 4, 12);
         }
     }
@@ -35,25 +35,25 @@ NSString *VKOutboundTextBubbleCellReuseIdentifier =  @"VKOutboundTextBubbleCell"
     static VKTextBubbleViewProperties *outboundTextBubbleViewProperties = nil;
     if (!outboundTextBubbleViewProperties) {
         if (SYSTEM_VERSION_LESS_THAN(@"7")) {
-            outboundTextBubbleViewProperties = [VKTextBubbleViewProperties defaultProperties];
+            outboundTextBubbleViewProperties = [VKTextBubbleViewProperties new];
             outboundTextBubbleViewProperties.edgeInsets = UIEdgeInsetsMake(4, 4, 4, 8);
         }
         else {
-            outboundTextBubbleViewProperties = [VKTextBubbleViewProperties defaultProperties];
+            outboundTextBubbleViewProperties = [VKTextBubbleViewProperties new];
             outboundTextBubbleViewProperties.edgeInsets = UIEdgeInsetsMake(4, 12, 4, 16);
         }
     }
     return outboundTextBubbleViewProperties;
 }
 
-+ (VKBubbleCell *) newInboundTextBubbleCell {
++ (VKBaseBubbleCell *) newInboundTextBubbleCell {
     VKTextBubbleView *textBubbleView = [VKTextBubbleView inboundBubbleWithProperties:[[self class] inboundTextBubbleViewProperties]];
     textBubbleView.messageBody.textColor = [UIColor darkGrayColor];
     return [VKBaseBubbleCell inboundCellWithBubbleView:textBubbleView
                                        reuseIdentifier:VKInboundTextBubbleCellReuseIdentifier];
 }
 
-+ (VKBubbleCell *) newOutboundTextBubbleCell {
++ (VKBaseBubbleCell *) newOutboundTextBubbleCell {
     VKTextBubbleView *textBubbleView = [VKTextBubbleView outboundBubbleWithProperties:[[self class] outboundTextBubbleViewProperties]];
     if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7")) {
         textBubbleView.messageBody.textColor = [UIColor whiteColor];
@@ -77,7 +77,7 @@ NSString *VKOutboundTextBubbleCellReuseIdentifier =  @"VKOutboundTextBubbleCell"
     UIEdgeInsets insets = [[self class] edgeInsets];
     return insets.top + insets.bottom + [VKTextBubbleView sizeWithText:text
                                                             Properties:properties
-                                                    constrainedToWidth:width*[[self class] bubbleViewWidthMultiplier]-insets.right-insets.left].height;
+                                                    constrainedToWidth:[[self class] bubbleViewWidthConstraintForCellWidth:width]].height;
 }
 
 @end

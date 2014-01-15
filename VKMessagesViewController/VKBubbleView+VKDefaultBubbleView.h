@@ -9,6 +9,10 @@
 #import "VKBubbleView.h"
 
 @interface VKBubbleView (VKDefaultBubbleView)
++ (UIImage *) inboundBackgroudImage;
++ (UIImage *) outboundBackgroudImage;
++ (UIImage *) inboundSelectedBackgroudImage;
++ (UIImage *) outboundSelectedBackgroudImage;
 + (instancetype) inboundBubbleWithProperties:(VKBubbleViewProperties *) properties;
 + (instancetype) outboundBubbleWithProperties:(VKBubbleViewProperties *) properties;
 @end

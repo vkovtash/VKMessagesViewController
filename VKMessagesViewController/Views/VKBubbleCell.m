@@ -111,7 +111,7 @@ static CGFloat kDefaultBubbleViewWidth = 200;
 - (id)initWithBubbleView:(VKBubbleView *)bubbleView reuseIdentifier:(NSString *)reuseIdentifier{
     self = [super initWithStyle:UITableViewCellStyleDefault reuseIdentifier:reuseIdentifier];
     if (self) {
-        self.bubbleView = bubbleView;
+        _bubbleView = bubbleView;
         [self postInit];
     }
     return self;

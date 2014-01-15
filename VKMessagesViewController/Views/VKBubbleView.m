@@ -17,24 +17,6 @@
 
 #pragma mark - Publick Properties
 
-- (UILabel *) messageRightHeader{
-    if (!_messageRightHeader) {
-        _messageRightHeader = [[UILabel alloc] init];
-        _messageRightHeader.backgroundColor = [UIColor clearColor];
-        _messageRightHeader.textAlignment = NSTextAlignmentRight;
-    }
-    return _messageRightHeader;
-}
-
-- (UILabel *) messageLeftHeader{
-    if (!_messageLeftHeader) {
-        _messageLeftHeader = [[UILabel alloc] init];
-        _messageLeftHeader.backgroundColor = [UIColor clearColor];
-        _messageLeftHeader.textAlignment = NSTextAlignmentLeft;
-    }
-    return _messageLeftHeader;
-}
-
 - (void) setNormalBackgroundImage:(UIImage *)normalBackgroundImage {
     _normalBackgroundImage = normalBackgroundImage;
     [self applyProperties];
@@ -82,33 +64,14 @@
 }
 
 - (void) applyProperties {
-    self.messageRightHeader.font =  self.properties.headerFont;
-    self.messageLeftHeader.font = self.properties.headerFont;
-    
-    CGRect rect;
-    
     self.background.frame = self.bounds;
-    rect = self.messageRightHeader.frame;
-    rect.origin.x = self.properties.edgeInsets.left;
-    rect.origin.y = self.properties.edgeInsets.top;
-    rect.size.width = self.bounds.size.width - self.properties.edgeInsets.left - self.properties.edgeInsets.right;
-    rect.size.height = self.properties.estimatedHeaderHeigth;
-    self.messageRightHeader.frame = rect;
-    
-    rect = self.messageLeftHeader.frame;
-    rect.origin.x = self.properties.edgeInsets.left;
-    rect.origin.y = self.properties.edgeInsets.top;
-    rect.size.width = self.bounds.size.width - self.properties.edgeInsets.left - self.properties.edgeInsets.right;
-    rect.size.height = self.properties.estimatedHeaderHeigth;
-    self.messageLeftHeader.frame = rect;
-    
+    CGRect rect;
     rect = self.messageBody.frame;
     rect.origin.x = self.properties.edgeInsets.left;
-    rect.origin.y = self.messageRightHeader.frame.size.height + self.messageRightHeader.frame.origin.y;
+    rect.origin.y = self.properties.edgeInsets.top;
     rect.size.width = self.bounds.size.width - self.properties.edgeInsets.left - self.properties.edgeInsets.right;
-    rect.size.height = self.bounds.size.height - self.messageRightHeader.frame.size.height - self.messageRightHeader.frame.origin.y - self.properties.edgeInsets.bottom;
+    rect.size.height = self.bounds.size.height - self.properties.edgeInsets.top - self.properties.edgeInsets.bottom;
     self.messageBody.frame = rect;
-    
 }
 
 #pragma mark - UIView methods
@@ -127,13 +90,9 @@
 
 - (void) postInit{
     [self addSubview:self.background];
-    [self addSubview:self.messageRightHeader];
-    [self addSubview:self.messageLeftHeader];
     [self addSubview:self.messageBody];
     
     self.autoresizesSubviews = YES;
-    self.messageRightHeader.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-    self.messageLeftHeader.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     self.messageBody.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
     self.background.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
     

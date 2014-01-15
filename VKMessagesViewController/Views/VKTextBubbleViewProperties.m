@@ -8,15 +8,13 @@
 
 #import "VKTextBubbleViewProperties.h"
 
-@interface VKTextBubbleViewProperties()
-@end
+static CGFloat kDefaultBodyFont = 14;
 
 @implementation VKTextBubbleViewProperties
 
-- (id) initWithHeaderFont:(UIFont *) headerFont BodyFont:(UIFont *) bodyFont EdgeInsets:(UIEdgeInsets) edgeInsets {
+- (id) initWithBodyFont:(UIFont *) bodyFont EdgeInsets:(UIEdgeInsets) edgeInsets {
     self = [super init];
     if (self) {
-        self.headerFont = headerFont;
         self.bodyFont = bodyFont;
         self.edgeInsets = edgeInsets;
     }
@@ -26,7 +24,7 @@
 - (id)init {
     self = [super init];
     if (self) {
-        self.bodyFont = [UIFont systemFontOfSize:14];
+        self.bodyFont = [UIFont systemFontOfSize:kDefaultBodyFont];
     }
     return self;
 }

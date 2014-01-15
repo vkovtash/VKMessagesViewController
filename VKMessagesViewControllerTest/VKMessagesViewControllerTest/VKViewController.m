@@ -8,7 +8,7 @@
 
 #import "VKViewController.h"
 #import "VKTextBubbleView.h"
-#import "VKBaseBubbleCell.h"
+#import "VKDefaultBubbleCell.h"
 #import "VKBaseBubbleCell+VKTextBubbleCell.h"
 
 @interface VKViewController()
@@ -45,13 +45,13 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     NSDictionary *message = self.messageStorage[indexPath.row];
-    VKBaseBubbleCell *messageCell = nil;
+    VKDefaultBubbleCell *messageCell = nil;
     
     if (indexPath.row%2) {
-        messageCell = (VKBaseBubbleCell*)[self getInboundTextMessageCell:tableView];
+        messageCell = (VKDefaultBubbleCell*)[self getInboundTextMessageCell:tableView];
     }
     else{
-        messageCell = (VKBaseBubbleCell*)[self getOutboundTextMessageCell:tableView];
+        messageCell = (VKDefaultBubbleCell*)[self getOutboundTextMessageCell:tableView];
         
         switch (indexPath.row%3) {
             case 0:
@@ -85,10 +85,10 @@
 {
     NSDictionary *message = self.messageStorage[indexPath.row];
     if (indexPath.row%2) {
-        return [VKBaseBubbleCell heightForInboundTextBubbleCell:message[@"text"] Widht:self.view.bounds.size.width];
+        return [VKDefaultBubbleCell heightForInboundTextBubbleCell:message[@"text"] Widht:self.view.bounds.size.width];
     }
     else {
-        return [VKBaseBubbleCell heightForOutboundTextBubbleCell:message[@"text"] Widht:self.view.bounds.size.width];
+        return [VKDefaultBubbleCell heightForOutboundTextBubbleCell:message[@"text"] Widht:self.view.bounds.size.width];
     }
 }
 

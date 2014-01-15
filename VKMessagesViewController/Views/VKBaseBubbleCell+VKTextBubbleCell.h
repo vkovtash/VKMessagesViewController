@@ -6,13 +6,13 @@
 //  Copyright (c) 2014 kovtash.com. All rights reserved.
 //
 
-#import "VKBaseBubbleCell.h"
+#import "VKDefaultBubbleCell.h"
 #import "VKTextBubbleView.h"
 
 extern NSString *VKInboundTextBubbleCellReuseIdentifier;
 extern NSString *VKOutboundTextBubbleCellReuseIdentifier;
 
-@interface VKBaseBubbleCell (VKTextBubbleCell)
+@interface VKDefaultBubbleCell (VKTextBubbleCell)
 
 + (VKBubbleCell *) newInboundTextBubbleCell;
 + (VKBubbleCell *) newOutboundTextBubbleCell;

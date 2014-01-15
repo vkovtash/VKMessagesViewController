@@ -56,7 +56,7 @@ static const CGFloat kViewMaxHeight = 9999;
     [etalonLabel sizeToFit];
     CGSize bodySize = etalonLabel.frame.size;
     bodySize.width += (properties.edgeInsets.left + properties.edgeInsets.right);
-    bodySize.height += ([properties estimatedHeaderHeigth] + properties.edgeInsets.top + properties.edgeInsets.bottom);
+    bodySize.height += (properties.edgeInsets.top + properties.edgeInsets.bottom);
     if (bodySize.width < properties.minimumWidth) {
         bodySize.width = properties.minimumWidth;
     }

@@ -8,7 +8,7 @@
 
 #import "VKBaseBubbleCell+VKTextBubbleCell.h"
 #import "VKiOSVersionCheck.h"
-#import "VKBaseBubbleCell.h"
+#import "VKDefaultBubbleCell.h"
 #import "VKBubbleView+VKDefaultBubbleView.h"
 
 NSString *VKInboundTextBubbleCellReuseIdentifier =  @"VKInboundTextBubbleCell";
@@ -25,7 +25,8 @@ NSString *VKOutboundTextBubbleCellReuseIdentifier =  @"VKOutboundTextBubbleCell"
         }
         else {
             inboundTextBubbleViewProperties = [VKTextBubbleViewProperties new];
-            inboundTextBubbleViewProperties.edgeInsets = UIEdgeInsetsMake(4, 16, 4, 12);
+            inboundTextBubbleViewProperties.edgeInsets = UIEdgeInsetsMake(8, 14, 8, 10);
+            inboundTextBubbleViewProperties.minimumWidth = 40;
         }
     }
     return inboundTextBubbleViewProperties;
@@ -40,20 +41,21 @@ NSString *VKOutboundTextBubbleCellReuseIdentifier =  @"VKOutboundTextBubbleCell"
         }
         else {
             outboundTextBubbleViewProperties = [VKTextBubbleViewProperties new];
-            outboundTextBubbleViewProperties.edgeInsets = UIEdgeInsetsMake(4, 12, 4, 16);
+            outboundTextBubbleViewProperties.edgeInsets = UIEdgeInsetsMake(8, 10, 8, 14);
+            outboundTextBubbleViewProperties.minimumWidth = 40;
         }
     }
     return outboundTextBubbleViewProperties;
 }
 
-+ (VKBaseBubbleCell *) newInboundTextBubbleCell {
++ (VKDefaultBubbleCell *) newInboundTextBubbleCell {
     VKTextBubbleView *textBubbleView = [VKTextBubbleView inboundBubbleWithProperties:[[self class] inboundTextBubbleViewProperties]];
     textBubbleView.messageBody.textColor = [UIColor darkGrayColor];
-    return [VKBaseBubbleCell inboundCellWithBubbleView:textBubbleView
+    return [VKDefaultBubbleCell inboundCellWithBubbleView:textBubbleView
                                        reuseIdentifier:VKInboundTextBubbleCellReuseIdentifier];
 }
 
-+ (VKBaseBubbleCell *) newOutboundTextBubbleCell {
++ (VKDefaultBubbleCell *) newOutboundTextBubbleCell {
     VKTextBubbleView *textBubbleView = [VKTextBubbleView outboundBubbleWithProperties:[[self class] outboundTextBubbleViewProperties]];
     if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7")) {
         textBubbleView.messageBody.textColor = [UIColor whiteColor];
@@ -61,7 +63,7 @@ NSString *VKOutboundTextBubbleCellReuseIdentifier =  @"VKOutboundTextBubbleCell"
     else {
         textBubbleView.messageBody.textColor = [UIColor darkGrayColor];
     }
-    return [VKBaseBubbleCell outboundCellWithBubbleView:textBubbleView
+    return [VKDefaultBubbleCell outboundCellWithBubbleView:textBubbleView
                                        reuseIdentifier:VKOutboundTextBubbleCellReuseIdentifier];
 }
 

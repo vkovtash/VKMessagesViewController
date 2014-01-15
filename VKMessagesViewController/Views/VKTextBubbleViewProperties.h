@@ -12,5 +12,5 @@
 @property (strong, nonatomic) UIFont *bodyFont;
 @property (nonatomic) NSLineBreakMode lineBreakMode;
 
-- (id) initWithHeaderFont:(UIFont *) headerFont BodyFont:(UIFont *) bodyFont EdgeInsets:(UIEdgeInsets) edgeInsets;
+- (id) initWithBodyFont:(UIFont *) bodyFont EdgeInsets:(UIEdgeInsets) edgeInsets;
 @end

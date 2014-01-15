@@ -154,7 +154,7 @@
 - (VKBubbleCell *) getInboundTextMessageCell:(UITableView *) tableView{
     VKBubbleCell *messageCell = [tableView dequeueReusableCellWithIdentifier:VKInboundTextBubbleCellReuseIdentifier];
     if (messageCell == nil) {
-        messageCell = [VKBaseBubbleCell newInboundTextBubbleCell];
+        messageCell = [VKDefaultBubbleCell newInboundTextBubbleCell];
     }
     return messageCell;
 }
@@ -162,7 +162,7 @@
 - (VKBubbleCell *) getOutboundTextMessageCell:(UITableView *) tableView{
     VKBubbleCell *messageCell = [tableView dequeueReusableCellWithIdentifier:VKOutboundTextBubbleCellReuseIdentifier];
     if (messageCell == nil) {
-        messageCell = [VKBaseBubbleCell newOutboundTextBubbleCell];
+        messageCell = [VKDefaultBubbleCell newOutboundTextBubbleCell];
     }
     return messageCell;
 }

@@ -8,10 +8,11 @@
 
 #import "VKBubbleCell.h"
 
-@interface VKBaseBubbleCell : VKBubbleCell
+@interface VKDefaultBubbleCell : VKBubbleCell
+@property (strong, nonatomic) UILabel *messageDetails;
 @property (strong, nonatomic) NSDate *messageDate;
 @property (strong, nonatomic) NSDateFormatter *dateFormatter;
-@property (readwrite, nonatomic) NSString *messageState;
+@property (strong, nonatomic) NSString *messageState;
 
 + (instancetype) inboundCellWithBubbleView:(VKBubbleView *) bubbleView reuseIdentifier:(NSString *) reuseIdentifier;
 + (instancetype) outboundCellWithBubbleView:(VKBubbleView *) bubbleView reuseIdentifier:(NSString *) reuseIdentifier;

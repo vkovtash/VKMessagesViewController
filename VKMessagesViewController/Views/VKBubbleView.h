@@ -14,8 +14,6 @@
 @property (nonatomic,strong) UIImage *normalBackgroundImage;
 @property (nonatomic,strong) UIImage *selectedBackgroundImage;
 @property (nonatomic,strong) UIView *messageBody;
-@property (nonatomic,strong) UILabel *messageLeftHeader;
-@property (nonatomic,strong) UILabel *messageRightHeader;
 @property (nonatomic,strong) VKBubbleViewProperties *properties;
 @property (readonly, nonatomic) BOOL isSelected;
 

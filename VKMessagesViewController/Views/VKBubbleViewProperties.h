@@ -9,9 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @interface VKBubbleViewProperties : NSObject
-@property (strong, nonatomic) UIFont *headerFont;
 @property (nonatomic) UIEdgeInsets edgeInsets;
 @property (nonatomic) NSUInteger minimumWidth;
-- (CGFloat) estimatedHeaderHeigth;
-- (id) initWithHeaderFont:(UIFont *) headerFont EdgeInsets:(UIEdgeInsets) edgeInsets;
+- (id) initWithEdgeInsets:(UIEdgeInsets) edgeInsets;
 @end

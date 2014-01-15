@@ -15,7 +15,7 @@ typedef enum VKBubbleAlign{
 } VKBubbleAlign;
 
 @interface VKBubbleCell : UITableViewCell
-@property (nonatomic,strong) VKBubbleView *bubbleView;
+@property (nonatomic, readonly) VKBubbleView *bubbleView;
 @property (nonatomic) VKBubbleAlign bubbleAlign;
 @property (nonatomic) UIEdgeInsets edgeInsets;
 @property (nonatomic) CGFloat bubbleViewMaxWidth;

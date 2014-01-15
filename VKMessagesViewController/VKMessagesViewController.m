@@ -149,24 +149,6 @@
     [self setAppropriateInputHeight];
 }
 
-#pragma mark - Cell factory methods
-
-- (VKBubbleCell *) getInboundTextMessageCell:(UITableView *) tableView{
-    VKBubbleCell *messageCell = [tableView dequeueReusableCellWithIdentifier:VKInboundTextBubbleCellReuseIdentifier];
-    if (messageCell == nil) {
-        messageCell = [VKDefaultBubbleCell newInboundTextBubbleCell];
-    }
-    return messageCell;
-}
-
-- (VKBubbleCell *) getOutboundTextMessageCell:(UITableView *) tableView{
-    VKBubbleCell *messageCell = [tableView dequeueReusableCellWithIdentifier:VKOutboundTextBubbleCellReuseIdentifier];
-    if (messageCell == nil) {
-        messageCell = [VKDefaultBubbleCell newOutboundTextBubbleCell];
-    }
-    return messageCell;
-}
-
 #pragma mark - Publick methods
 
 - (void) scrollTableViewToBottomAnimated:(BOOL) animated{

@@ -41,6 +41,24 @@
     return _messageStorage;
 }
 
+#pragma mark - Cell factory methods
+
+- (VKBubbleCell *) getInboundTextMessageCell:(UITableView *) tableView{
+    VKBubbleCell *messageCell = [tableView dequeueReusableCellWithIdentifier:VKInboundTextBubbleCellReuseIdentifier];
+    if (messageCell == nil) {
+        messageCell = [VKDefaultBubbleCell newInboundTextBubbleCell];
+    }
+    return messageCell;
+}
+
+- (VKBubbleCell *) getOutboundTextMessageCell:(UITableView *) tableView{
+    VKBubbleCell *messageCell = [tableView dequeueReusableCellWithIdentifier:VKOutboundTextBubbleCellReuseIdentifier];
+    if (messageCell == nil) {
+        messageCell = [VKDefaultBubbleCell newOutboundTextBubbleCell];
+    }
+    return messageCell;
+}
+
 #pragma mark - UITableViewDatasource
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{

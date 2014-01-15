@@ -26,7 +26,4 @@
 - (void) inputButtonPressed;
 - (void) plusButtonPressed;
 
-#pragma mark - factory methods
-- (VKBubbleCell *) getInboundTextMessageCell:(UITableView *) tableView;
-- (VKBubbleCell *) getOutboundTextMessageCell:(UITableView *) tableView;
 @end

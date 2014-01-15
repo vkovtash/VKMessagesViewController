@@ -1,12 +1,12 @@
 //
-//  VKBaseBubbleCell+VKTextBubbleCell.m
+//  VKDefaultBubbleCell+VKTextBubbleCell.m
 //  VKMessagesViewController
 //
 //  Created by Vlad Kovtash on 13/01/14.
 //  Copyright (c) 2014 kovtash.com. All rights reserved.
 //
 
-#import "VKBaseBubbleCell+VKTextBubbleCell.h"
+#import "VKDefaultBubbleCell+VKTextBubbleCell.h"
 #import "VKiOSVersionCheck.h"
 #import "VKDefaultBubbleCell.h"
 #import "VKBubbleView+VKDefaultBubbleView.h"
@@ -20,14 +20,14 @@ NSString *VKOutboundTextBubbleCellReuseIdentifier =  @"VKOutboundTextBubbleCell"
     static VKTextBubbleViewProperties *inboundTextBubbleViewProperties = nil;
     if (!inboundTextBubbleViewProperties) {
         if (SYSTEM_VERSION_LESS_THAN(@"7")) {
-            inboundTextBubbleViewProperties = [VKTextBubbleViewProperties new];
-            inboundTextBubbleViewProperties.edgeInsets = UIEdgeInsetsMake(4, 8, 4, 4);
+            inboundTextBubbleViewProperties = [[VKTextBubbleViewProperties alloc] initWithBodyFont:[UIFont systemFontOfSize:12]
+                                                                                        EdgeInsets:UIEdgeInsetsMake(4, 8, 4, 4)];
         }
         else {
-            inboundTextBubbleViewProperties = [VKTextBubbleViewProperties new];
-            inboundTextBubbleViewProperties.edgeInsets = UIEdgeInsetsMake(8, 14, 8, 10);
-            inboundTextBubbleViewProperties.minimumWidth = 40;
+            inboundTextBubbleViewProperties = [[VKTextBubbleViewProperties alloc] initWithBodyFont:[UIFont systemFontOfSize:12]
+                                                                                        EdgeInsets:UIEdgeInsetsMake(8, 14, 8, 10)];
         }
+        inboundTextBubbleViewProperties.minimumWidth = 40;
     }
     return inboundTextBubbleViewProperties;
 }
@@ -36,14 +36,14 @@ NSString *VKOutboundTextBubbleCellReuseIdentifier =  @"VKOutboundTextBubbleCell"
     static VKTextBubbleViewProperties *outboundTextBubbleViewProperties = nil;
     if (!outboundTextBubbleViewProperties) {
         if (SYSTEM_VERSION_LESS_THAN(@"7")) {
-            outboundTextBubbleViewProperties = [VKTextBubbleViewProperties new];
-            outboundTextBubbleViewProperties.edgeInsets = UIEdgeInsetsMake(4, 4, 4, 8);
+            outboundTextBubbleViewProperties = [[VKTextBubbleViewProperties alloc] initWithBodyFont:[UIFont systemFontOfSize:12]
+                                                                                         EdgeInsets:UIEdgeInsetsMake(4, 4, 4, 8)];
         }
         else {
-            outboundTextBubbleViewProperties = [VKTextBubbleViewProperties new];
-            outboundTextBubbleViewProperties.edgeInsets = UIEdgeInsetsMake(8, 10, 8, 14);
-            outboundTextBubbleViewProperties.minimumWidth = 40;
+            outboundTextBubbleViewProperties = [[VKTextBubbleViewProperties alloc] initWithBodyFont:[UIFont systemFontOfSize:12]
+                                                                                         EdgeInsets:UIEdgeInsetsMake(8, 10, 8, 44)];
         }
+        outboundTextBubbleViewProperties.minimumWidth = 40;
     }
     return outboundTextBubbleViewProperties;
 }
@@ -80,6 +80,22 @@ NSString *VKOutboundTextBubbleCellReuseIdentifier =  @"VKOutboundTextBubbleCell"
     return insets.top + insets.bottom + [VKTextBubbleView sizeWithText:text
                                                             Properties:properties
                                                     constrainedToWidth:[[self class] bubbleViewWidthConstraintForCellWidth:width]].height;
+}
+
++ (VKDefaultBubbleCell *) getInboundTextMessageCell:(UITableView *) tableView {
+    VKDefaultBubbleCell *messageCell = [tableView dequeueReusableCellWithIdentifier:VKInboundTextBubbleCellReuseIdentifier];
+    if (messageCell == nil) {
+        messageCell = [VKDefaultBubbleCell newInboundTextBubbleCell];
+    }
+    return messageCell;
+}
+
++ (VKDefaultBubbleCell *) getOutboundTextMessageCell:(UITableView *) tableView {
+    VKDefaultBubbleCell *messageCell = [tableView dequeueReusableCellWithIdentifier:VKOutboundTextBubbleCellReuseIdentifier];
+    if (messageCell == nil) {
+        messageCell = [VKDefaultBubbleCell newOutboundTextBubbleCell];
+    }
+    return messageCell;
 }
 
 @end

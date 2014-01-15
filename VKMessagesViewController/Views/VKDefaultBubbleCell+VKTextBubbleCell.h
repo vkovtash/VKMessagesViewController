@@ -1,5 +1,5 @@
 //
-//  VKBaseBubbleCell+VKTextBubbleCell.h
+//  VKDefaultBubbleCell+VKTextBubbleCell.h
 //  VKMessagesViewController
 //
 //  Created by Vlad Kovtash on 13/01/14.
@@ -19,5 +19,8 @@ extern NSString *VKOutboundTextBubbleCellReuseIdentifier;
 
 + (CGFloat) heightForInboundTextBubbleCell:(NSString *) text Widht:(CGFloat) width;
 + (CGFloat) heightForOutboundTextBubbleCell:(NSString *) text Widht:(CGFloat) width;
+
++ (VKDefaultBubbleCell *) getInboundTextMessageCell:(UITableView *) tableView;
++ (VKDefaultBubbleCell *) getOutboundTextMessageCell:(UITableView *) tableView;
 
 @end

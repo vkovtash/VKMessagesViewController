@@ -9,7 +9,8 @@
 #import "VKViewController.h"
 #import "VKTextBubbleView.h"
 #import "VKDefaultBubbleCell.h"
-#import "VKBaseBubbleCell+VKTextBubbleCell.h"
+#import "VKDefaultBubbleCell+VKTextBubbleCell.h"
+#import "VKDefaultBubbleCell+VKImageBubbleCell.h"
 
 @interface VKViewController()
 @property (strong, nonatomic) NSMutableArray *messageStorage;
@@ -22,16 +23,38 @@
     self.alternativeInputView = [self newEmojiPicker];
     
     [self.messageStorage addObjectsFromArray:@[
-                                               @{@"text":@"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam cursus diam diam, vitae gravida urna blandit non.",
+                                               @{@"type":@"text",
+                                                 @"text":@"1 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam cursus diam diam, vitae gravida urna blandit non.",
                                                  @"date":[NSDate date]},
-                                               @{@"text":@"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam cursus diam diam, vitae gravida urna blandit non.",
+                                               
+                                               @{@"type":@"text",
+                                                 @"text":@"2 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam cursus diam diam, vitae gravida urna blandit non.",
                                                  @"date":[NSDate date]},
-                                               @{@"text":@"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam cursus diam diam, vitae gravida urna blandit non.",
+                                               
+                                               @{@"type":@"text",
+                                                 @"text":@"3 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam cursus diam diam, vitae gravida urna blandit non.",
                                                  @"date":[NSDate date]},
-                                               @{@"text":@"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam cursus diam diam, vitae gravida urna blandit non.",
+                                               
+                                               @{@"type":@"text",
+                                                 @"text":@"4 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam cursus diam diam, vitae gravida urna blandit non.",
                                                  @"date":[NSDate date]},
-                                               @{@"text":@"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam cursus diam diam, vitae gravida urna blandit non.",
-                                                 @"date":[NSDate date]}]];
+                                               
+                                               @{@"type":@"text",
+                                                 @"text":@"5 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam cursus diam diam, vitae gravida urna blandit non.",
+                                                 @"date":[NSDate date]},
+                                               
+                                               @{@"type":@"image",
+                                                 @"image_name":@"image01.jpg",
+                                                 @"date":[NSDate date]},
+                                               
+                                               @{@"type":@"image",
+                                                 @"image_name":@"image02.png",
+                                                 @"date":[NSDate date]},
+                                               
+                                               @{@"type":@"image",
+                                                 @"image_name":@"image03.jpg",
+                                                 @"date":[NSDate date]}
+                                               ]];
 }
 
 - (NSMutableArray *) messageStorage{
@@ -41,36 +64,34 @@
     return _messageStorage;
 }
 
-#pragma mark - Cell factory methods
-
-- (VKBubbleCell *) getInboundTextMessageCell:(UITableView *) tableView{
-    VKBubbleCell *messageCell = [tableView dequeueReusableCellWithIdentifier:VKInboundTextBubbleCellReuseIdentifier];
-    if (messageCell == nil) {
-        messageCell = [VKDefaultBubbleCell newInboundTextBubbleCell];
-    }
-    return messageCell;
-}
-
-- (VKBubbleCell *) getOutboundTextMessageCell:(UITableView *) tableView{
-    VKBubbleCell *messageCell = [tableView dequeueReusableCellWithIdentifier:VKOutboundTextBubbleCellReuseIdentifier];
-    if (messageCell == nil) {
-        messageCell = [VKDefaultBubbleCell newOutboundTextBubbleCell];
-    }
-    return messageCell;
-}
-
 #pragma mark - UITableViewDatasource
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     NSDictionary *message = self.messageStorage[indexPath.row];
     VKDefaultBubbleCell *messageCell = nil;
     
-    if (indexPath.row%2) {
-        messageCell = (VKDefaultBubbleCell*)[self getInboundTextMessageCell:tableView];
-    }
-    else{
-        messageCell = (VKDefaultBubbleCell*)[self getOutboundTextMessageCell:tableView];
+    if ([message[@"type"] isEqualToString:@"text"]) {
+        if (indexPath.row%2) {
+            messageCell = [VKDefaultBubbleCell getInboundTextMessageCell:tableView];
+        }
+        else{
+            messageCell = [VKDefaultBubbleCell getOutboundTextMessageCell:tableView];
+        }
         
+         [(VKTextBubbleView *)messageCell.bubbleView messageBody].text = message[@"text"];
+    }
+    else if ([message[@"type"] isEqualToString:@"image"]) {
+        if (indexPath.row%2) {
+            messageCell = [VKDefaultBubbleCell getInboundImageMessageCell:tableView];
+        }
+        else{
+            messageCell = [VKDefaultBubbleCell getOutboundImageMessageCell:tableView];
+        }
+        
+        [(VKImageBubbleView *)messageCell.bubbleView messageBody].image = [UIImage imageNamed:message[@"image_name"]];
+    }
+    
+    if (!indexPath.row%2) {
         switch (indexPath.row%3) {
             case 0:
                 messageCell.messageState = @"Sending";
@@ -90,7 +111,6 @@
         }
     }
     
-    [(VKTextBubbleView *)messageCell.bubbleView messageBody].text = message[@"text"];
     messageCell.messageDate = message[@"date"];
     return messageCell;
 }
@@ -102,12 +122,28 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSDictionary *message = self.messageStorage[indexPath.row];
-    if (indexPath.row%2) {
-        return [VKDefaultBubbleCell heightForInboundTextBubbleCell:message[@"text"] Widht:self.view.bounds.size.width];
+    if ([message[@"type"] isEqualToString:@"text"]) {
+        if (indexPath.row%2) {
+            return [VKDefaultBubbleCell heightForInboundTextBubbleCell:message[@"text"]
+                                                                 Widht:self.view.bounds.size.width];
+        }
+        else {
+            return [VKDefaultBubbleCell heightForOutboundTextBubbleCell:message[@"text"]
+                                                                  Widht:self.view.bounds.size.width];
+        }
     }
-    else {
-        return [VKDefaultBubbleCell heightForOutboundTextBubbleCell:message[@"text"] Widht:self.view.bounds.size.width];
+    else if ([message[@"type"] isEqualToString:@"image"]) {
+        if (indexPath.row%2) {
+            return [VKDefaultBubbleCell heightForInboundImageBubbleCell:[UIImage imageNamed:message[@"image_name"]]
+                                                                  Widht:self.view.bounds.size.width];
+        }
+        else {
+            return [VKDefaultBubbleCell heightForOutboundImageBubbleCell:[UIImage imageNamed:message[@"image_name"]]
+                                                                   Widht:self.view.bounds.size.width];
+        }
     }
+    
+    return 0;
 }
 
 #pragma mark VKMessagesViewController methods

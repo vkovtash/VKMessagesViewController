@@ -65,8 +65,7 @@
 
 - (void) applyProperties {
     self.background.frame = self.bounds;
-    CGRect rect;
-    rect = self.messageBody.frame;
+    CGRect rect = self.messageBody.frame;
     rect.origin.x = self.properties.edgeInsets.left;
     rect.origin.y = self.properties.edgeInsets.top;
     rect.size.width = self.bounds.size.width - self.properties.edgeInsets.left - self.properties.edgeInsets.right;
@@ -76,13 +75,11 @@
 
 #pragma mark - UIView methods
 
-- (BOOL) canBecomeFirstResponder{
+- (BOOL) canBecomeFirstResponder {
     return YES;
 }
 
-- (BOOL)canPerformAction:(SEL)action
-              withSender:(id)sender
-{
+- (BOOL)canPerformAction:(SEL)action withSender:(id)sender {
     return (action == @selector(copy:));
 }
 

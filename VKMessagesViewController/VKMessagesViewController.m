@@ -11,7 +11,6 @@
 #import "UIViewController+firstResponder.h"
 #import "VKMenuControllerPresenter.h"
 #import "VKiOSVersionCheck.h"
-#import "VKBaseBubbleCell+VKTextBubbleCell.h"
 
 #define kDefaultToolbarHeight 40
 #define kDefaultToolbarPortraitMaximumHeight 195

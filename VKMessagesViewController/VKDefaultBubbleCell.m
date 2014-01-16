@@ -11,6 +11,7 @@
 #import <QuartzCore/QuartzCore.h>
 
 static CGFloat bubbleViewWidthMultiplier = 0.9;
+static CGFloat kMessageDetailsFontSize = 12;
 
 @interface VKDefaultBubbleCell()
 @end
@@ -45,7 +46,7 @@ static CGFloat bubbleViewWidthMultiplier = 0.9;
         _messageDetails.backgroundColor = [UIColor clearColor];
         _messageDetails.textAlignment = NSTextAlignmentRight;
         _messageDetails.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleTopMargin;
-        _messageDetails.font = [UIFont systemFontOfSize:12];
+        _messageDetails.font = [UIFont systemFontOfSize:kMessageDetailsFontSize];
     }
     return _messageDetails;
 }

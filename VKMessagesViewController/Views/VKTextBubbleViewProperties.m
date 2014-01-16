@@ -12,7 +12,7 @@ static CGFloat kDefaultBodyFont = 14;
 
 @implementation VKTextBubbleViewProperties
 
-- (id) initWithBodyFont:(UIFont *) bodyFont EdgeInsets:(UIEdgeInsets) edgeInsets {
+- (instancetype) initWithEdgeInsets:(UIEdgeInsets)edgeInsets bodyFont:(UIFont *) bodyFont {
     self = [super init];
     if (self) {
         self.bodyFont = bodyFont;

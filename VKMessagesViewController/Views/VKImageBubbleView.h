@@ -7,11 +7,13 @@
 //
 
 #import "VKBubbleView.h"
+#import "VKImageBubbleViewProperties.h"
 
 @interface VKImageBubbleView : VKBubbleView
 @property (strong, nonatomic) UIImageView *messageBody;
+@property (strong, nonatomic) VKImageBubbleViewProperties *properties;
 
 + (CGSize) sizeWithImage:(UIImage *) image
-              Properties:(VKBubbleViewProperties *) properties
+              Properties:(VKImageBubbleViewProperties *) properties
        constrainedToWidth:(CGFloat) width;
 @end

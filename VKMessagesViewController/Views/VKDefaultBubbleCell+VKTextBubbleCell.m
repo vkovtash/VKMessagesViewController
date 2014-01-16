@@ -14,20 +14,23 @@
 NSString *VKInboundTextBubbleCellReuseIdentifier =  @"VKInboundTextBubbleCell";
 NSString *VKOutboundTextBubbleCellReuseIdentifier =  @"VKOutboundTextBubbleCell";
 
+static CGFloat kBodyFontSyze = 12;
+static CGFloat kMinimumWidth = 40;
+
 @implementation VKBubbleCell (VKTextBubbleCell)
 
 + (VKTextBubbleViewProperties *) inboundTextBubbleViewProperties {
     static VKTextBubbleViewProperties *inboundTextBubbleViewProperties = nil;
     if (!inboundTextBubbleViewProperties) {
         if (SYSTEM_VERSION_LESS_THAN(@"7")) {
-            inboundTextBubbleViewProperties = [[VKTextBubbleViewProperties alloc] initWithBodyFont:[UIFont systemFontOfSize:12]
-                                                                                        EdgeInsets:UIEdgeInsetsMake(4, 8, 4, 4)];
+            inboundTextBubbleViewProperties = [[VKTextBubbleViewProperties alloc] initWithEdgeInsets:UIEdgeInsetsMake(4, 8, 4, 4)
+                                                                                            bodyFont:[UIFont systemFontOfSize:kBodyFontSyze]];
         }
         else {
-            inboundTextBubbleViewProperties = [[VKTextBubbleViewProperties alloc] initWithBodyFont:[UIFont systemFontOfSize:12]
-                                                                                        EdgeInsets:UIEdgeInsetsMake(8, 14, 8, 10)];
+            inboundTextBubbleViewProperties = [[VKTextBubbleViewProperties alloc] initWithEdgeInsets:UIEdgeInsetsMake(8, 14, 8, 10)
+                                                                                            bodyFont:[UIFont systemFontOfSize:kBodyFontSyze]];
         }
-        inboundTextBubbleViewProperties.minimumWidth = 40;
+        inboundTextBubbleViewProperties.minimumWidth = kMinimumWidth;
     }
     return inboundTextBubbleViewProperties;
 }
@@ -36,14 +39,15 @@ NSString *VKOutboundTextBubbleCellReuseIdentifier =  @"VKOutboundTextBubbleCell"
     static VKTextBubbleViewProperties *outboundTextBubbleViewProperties = nil;
     if (!outboundTextBubbleViewProperties) {
         if (SYSTEM_VERSION_LESS_THAN(@"7")) {
-            outboundTextBubbleViewProperties = [[VKTextBubbleViewProperties alloc] initWithBodyFont:[UIFont systemFontOfSize:12]
-                                                                                         EdgeInsets:UIEdgeInsetsMake(4, 4, 4, 8)];
+            outboundTextBubbleViewProperties = [[VKTextBubbleViewProperties alloc] initWithEdgeInsets:UIEdgeInsetsMake(4, 4, 4, 8)
+                                                                                             bodyFont:[UIFont systemFontOfSize:kBodyFontSyze]];
+            
         }
         else {
-            outboundTextBubbleViewProperties = [[VKTextBubbleViewProperties alloc] initWithBodyFont:[UIFont systemFontOfSize:12]
-                                                                                         EdgeInsets:UIEdgeInsetsMake(8, 10, 8, 44)];
+            outboundTextBubbleViewProperties = [[VKTextBubbleViewProperties alloc] initWithEdgeInsets:UIEdgeInsetsMake(8, 10, 8, 14)
+                                                                                             bodyFont:[UIFont systemFontOfSize:kBodyFontSyze]];
         }
-        outboundTextBubbleViewProperties.minimumWidth = 40;
+        outboundTextBubbleViewProperties.minimumWidth = kMinimumWidth;
     }
     return outboundTextBubbleViewProperties;
 }

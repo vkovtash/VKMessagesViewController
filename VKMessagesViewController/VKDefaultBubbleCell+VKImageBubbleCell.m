@@ -13,33 +13,39 @@
 
 NSString *VKInboundImageBubbleCellReuseIdentifier = @"VKInboundImageBubbleCell";
 NSString *VKOutboundImageBubbleCellReuseIdentifier = @"VKOutboundImageBubbleCell";
+static CGFloat kMinimumWidth = 40;
+static CGFloat kMaximumSize = 230;
 
 @implementation VKDefaultBubbleCell (VKImageBubbleCell)
 
-+ (VKBubbleViewProperties *) inboundImageBubbleViewProperties {
-    static VKBubbleViewProperties *inboundImageBubbleViewProperties = nil;
++ (VKImageBubbleViewProperties *) inboundImageBubbleViewProperties {
+    static VKImageBubbleViewProperties *inboundImageBubbleViewProperties = nil;
     if (!inboundImageBubbleViewProperties) {
         if (SYSTEM_VERSION_LESS_THAN(@"7")) {
-            inboundImageBubbleViewProperties = [[VKBubbleViewProperties alloc] initWithEdgeInsets:UIEdgeInsetsMake(6, 6, 7, 2)];
+            inboundImageBubbleViewProperties = [[VKImageBubbleViewProperties alloc] initWithEdgeInsets:UIEdgeInsetsMake(6, 6, 7, 2)
+                                                                                               maxSize:kMaximumSize];
         }
         else {
-            inboundImageBubbleViewProperties = [[VKBubbleViewProperties alloc] initWithEdgeInsets:UIEdgeInsetsMake(16, 6, 16, 0)];
+            inboundImageBubbleViewProperties = [[VKImageBubbleViewProperties alloc] initWithEdgeInsets:UIEdgeInsetsMake(16, 6, 16, 0)
+                                                                                               maxSize:kMaximumSize];
         }
-        inboundImageBubbleViewProperties.minimumWidth = 40;
+        inboundImageBubbleViewProperties.minimumWidth = kMinimumWidth;
     }
     return inboundImageBubbleViewProperties;
 }
 
-+ (VKBubbleViewProperties *) outboundImageBubbleViewProperties {
-    static VKBubbleViewProperties *outboundImageBubbleViewProperties = nil;
++ (VKImageBubbleViewProperties *) outboundImageBubbleViewProperties {
+    static VKImageBubbleViewProperties *outboundImageBubbleViewProperties = nil;
     if (!outboundImageBubbleViewProperties) {
         if (SYSTEM_VERSION_LESS_THAN(@"7")) {
-            outboundImageBubbleViewProperties = [[VKBubbleViewProperties alloc] initWithEdgeInsets:UIEdgeInsetsMake(6, 2, 7, 6)];
+            outboundImageBubbleViewProperties = [[VKImageBubbleViewProperties alloc] initWithEdgeInsets:UIEdgeInsetsMake(6, 2, 7, 6)
+                                                                                                maxSize:kMaximumSize];
         }
         else {
-            outboundImageBubbleViewProperties = [[VKBubbleViewProperties alloc] initWithEdgeInsets:UIEdgeInsetsMake(16, 0, 16, 5)];
+            outboundImageBubbleViewProperties = [[VKImageBubbleViewProperties alloc] initWithEdgeInsets:UIEdgeInsetsMake(16, 0, 16, 5)
+                                                                                                maxSize:kMaximumSize];
         }
-        outboundImageBubbleViewProperties.minimumWidth = 40;
+        outboundImageBubbleViewProperties.minimumWidth = kMinimumWidth;
     }
     return outboundImageBubbleViewProperties;
 }
@@ -68,7 +74,7 @@ NSString *VKOutboundImageBubbleCellReuseIdentifier = @"VKOutboundImageBubbleCell
                         BubbleProperties:[[self class] outboundImageBubbleViewProperties]];
 }
 
-+ (CGFloat) estimatedHeightForImage:(UIImage *) image Widht:(CGFloat) width BubbleProperties:(VKBubbleViewProperties *) properties{
++ (CGFloat) estimatedHeightForImage:(UIImage *) image Widht:(CGFloat) width BubbleProperties:(VKImageBubbleViewProperties *) properties{
     UIEdgeInsets insets = [[self class] edgeInsets];
     return insets.top + insets.bottom + [VKImageBubbleView sizeWithImage:image
                                                               Properties:properties

@@ -25,9 +25,10 @@
 }
 
 + (CGSize) sizeWithImage:(UIImage *) image
-              Properties:(VKBubbleViewProperties *) properties
+              Properties:(VKImageBubbleViewProperties *) properties
        constrainedToWidth:(CGFloat) width {
     
+    CGFloat maxWidth = width > properties.maxSize ? properties.maxSize : width;
     CGFloat horizontalInsets = properties.edgeInsets.left + properties.edgeInsets.right;
     CGFloat verticalInsets = properties.edgeInsets.top + properties.edgeInsets.bottom;
     
@@ -40,13 +41,15 @@
     resultSize.width += horizontalInsets;
     resultSize.height += verticalInsets;
     
-    if (resultSize.width > width) {
-        resultSize.width = width;
+    if (resultSize.width > maxWidth) {
+        resultSize.width = maxWidth;
+        resultSize.height = (resultSize.width - horizontalInsets)*ratio + verticalInsets;
     }
-    else if (resultSize.width < properties.minimumWidth) {
-        resultSize.width = properties.minimumWidth;
+    
+    if (resultSize.height > properties.maxSize) {
+        resultSize.height = properties.maxSize;
+        resultSize.width = (resultSize.height - verticalInsets)/ratio + horizontalInsets;
     }
-    resultSize.height = (resultSize.width - horizontalInsets)*ratio + verticalInsets;
     
     return resultSize;
 }

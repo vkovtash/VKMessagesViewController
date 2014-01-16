@@ -14,7 +14,6 @@
 - (UIImageView *) messageBody {
     if (!_messageBody) {
         _messageBody = [[UIImageView alloc] init];
-        _messageBody.backgroundColor = [UIColor redColor];
     }
     return _messageBody;
 }
@@ -29,23 +28,25 @@
               Properties:(VKBubbleViewProperties *) properties
        constrainedToWidth:(CGFloat) width {
     
-    if (!image || image.size.height == 0) {
-        return CGSizeZero;
+    CGFloat horizontalInsets = properties.edgeInsets.left + properties.edgeInsets.right;
+    CGFloat verticalInsets = properties.edgeInsets.top + properties.edgeInsets.bottom;
+    
+    if (!image || image.size.height == 0 || image.size.width == 0) {
+        return CGSizeMake(horizontalInsets, verticalInsets);
     }
     
     CGSize resultSize = image.size;
     CGFloat ratio = image.size.height / image.size.width;
-    resultSize.width += (properties.edgeInsets.left + properties.edgeInsets.right);
-    resultSize.height += (properties.edgeInsets.top + properties.edgeInsets.bottom);
+    resultSize.width += horizontalInsets;
+    resultSize.height += verticalInsets;
     
     if (resultSize.width > width) {
         resultSize.width = width;
-        resultSize.height = width * ratio;
     }
     else if (resultSize.width < properties.minimumWidth) {
         resultSize.width = properties.minimumWidth;
-        resultSize.height = width * ratio;
     }
+    resultSize.height = (resultSize.width - horizontalInsets)*ratio + verticalInsets;
     
     return resultSize;
 }

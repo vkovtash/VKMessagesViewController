@@ -122,7 +122,7 @@
 }
 
 - (id) initWithBubbleProperties:(VKBubbleViewProperties *) properties{
-    self = [super initWithFrame:CGRectMake(0, 0, 80, 80)];
+    self = [super initWithFrame:CGRectMake(0, 0, 400, 400)];
     if (self) {
         self.properties = properties;
         [self postInit];

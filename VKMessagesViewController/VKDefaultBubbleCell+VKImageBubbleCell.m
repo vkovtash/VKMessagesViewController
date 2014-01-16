@@ -20,10 +20,10 @@ NSString *VKOutboundImageBubbleCellReuseIdentifier = @"VKOutboundImageBubbleCell
     static VKBubbleViewProperties *inboundImageBubbleViewProperties = nil;
     if (!inboundImageBubbleViewProperties) {
         if (SYSTEM_VERSION_LESS_THAN(@"7")) {
-            inboundImageBubbleViewProperties = [[VKBubbleViewProperties alloc] initWithEdgeInsets:UIEdgeInsetsMake(4, 8, 4, 4)];
+            inboundImageBubbleViewProperties = [[VKBubbleViewProperties alloc] initWithEdgeInsets:UIEdgeInsetsMake(6, 6, 7, 2)];
         }
         else {
-            inboundImageBubbleViewProperties = [[VKBubbleViewProperties alloc] initWithEdgeInsets:UIEdgeInsetsMake(8, 14, 8, 10)];
+            inboundImageBubbleViewProperties = [[VKBubbleViewProperties alloc] initWithEdgeInsets:UIEdgeInsetsMake(16, 6, 16, 0)];
         }
         inboundImageBubbleViewProperties.minimumWidth = 40;
     }
@@ -34,10 +34,10 @@ NSString *VKOutboundImageBubbleCellReuseIdentifier = @"VKOutboundImageBubbleCell
     static VKBubbleViewProperties *outboundImageBubbleViewProperties = nil;
     if (!outboundImageBubbleViewProperties) {
         if (SYSTEM_VERSION_LESS_THAN(@"7")) {
-            outboundImageBubbleViewProperties = [[VKBubbleViewProperties alloc] initWithEdgeInsets:UIEdgeInsetsMake(4, 4, 4, 8)];
+            outboundImageBubbleViewProperties = [[VKBubbleViewProperties alloc] initWithEdgeInsets:UIEdgeInsetsMake(6, 2, 7, 6)];
         }
         else {
-            outboundImageBubbleViewProperties = [[VKBubbleViewProperties alloc] initWithEdgeInsets:UIEdgeInsetsMake(8, 10, 8, 44)];
+            outboundImageBubbleViewProperties = [[VKBubbleViewProperties alloc] initWithEdgeInsets:UIEdgeInsetsMake(16, 0, 16, 5)];
         }
         outboundImageBubbleViewProperties.minimumWidth = 40;
     }
@@ -51,8 +51,8 @@ NSString *VKOutboundImageBubbleCellReuseIdentifier = @"VKOutboundImageBubbleCell
 }
 
 + (VKDefaultBubbleCell *) newOutboundImageBubbleCell {
-    VKImageBubbleView *textBubbleView = [VKImageBubbleView outboundBubbleWithProperties:[[self class] outboundImageBubbleViewProperties]];
-    return [VKDefaultBubbleCell outboundCellWithBubbleView:textBubbleView
+    VKImageBubbleView *imageBubbleView = [VKImageBubbleView outboundBubbleWithProperties:[[self class] outboundImageBubbleViewProperties]];
+    return [VKDefaultBubbleCell outboundCellWithBubbleView:imageBubbleView
                                            reuseIdentifier:VKOutboundImageBubbleCellReuseIdentifier];
 }
 

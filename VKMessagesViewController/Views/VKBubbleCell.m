@@ -38,6 +38,13 @@ static CGFloat kDefaultBubbleViewWidth = 200;
 #pragma - mark Init
 
 - (void) postInit{
+    //used for propetly layout bubble views
+    [super setFrame:CGRectMake(self.frame.origin.x,
+                               self.frame.origin.y,
+                               self.frame.size.width,
+                               500)];
+    self.contentView.frame = self.bounds;
+    
     self.bubbleViewMaxWidth = kDefaultBubbleViewWidth;
     [self.contentView addSubview:self.bubbleView];
     self.autoresizesSubviews = YES;
@@ -73,30 +80,6 @@ static CGFloat kDefaultBubbleViewWidth = 200;
                                                self.contentView.bounds.size.height - insets.top - insets.bottom);
             break;
     }
-}
-
-- (id) initWithCoder:(NSCoder *)aDecoder{
-    self = [super initWithCoder:aDecoder];
-    if (self) {
-        [self postInit];
-    }
-    return self;
-}
-
-- (id)  init{
-    self = [super init];
-    if (self) {
-        [self postInit];
-    }
-    return self;
-}
-
-- (id) initWithFrame:(CGRect)frame{
-    self = [super initWithFrame:frame];
-    if (self) {
-        [self postInit];
-    }
-    return self;
 }
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier

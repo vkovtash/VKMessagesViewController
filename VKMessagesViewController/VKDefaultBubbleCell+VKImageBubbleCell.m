@@ -22,11 +22,11 @@ static CGFloat kMaximumSize = 230;
     static VKImageBubbleViewProperties *inboundImageBubbleViewProperties = nil;
     if (!inboundImageBubbleViewProperties) {
         if (SYSTEM_VERSION_LESS_THAN(@"7")) {
-            inboundImageBubbleViewProperties = [[VKImageBubbleViewProperties alloc] initWithEdgeInsets:UIEdgeInsetsMake(6, 6, 7, 2)
+            inboundImageBubbleViewProperties = [[VKImageBubbleViewProperties alloc] initWithEdgeInsets:UIEdgeInsetsMake(2, 7, 5, 3)
                                                                                                maxSize:kMaximumSize];
         }
         else {
-            inboundImageBubbleViewProperties = [[VKImageBubbleViewProperties alloc] initWithEdgeInsets:UIEdgeInsetsMake(16, 6, 16, 0)
+            inboundImageBubbleViewProperties = [[VKImageBubbleViewProperties alloc] initWithEdgeInsets:UIEdgeInsetsMake(2, 7, 2, 2)
                                                                                                maxSize:kMaximumSize];
         }
         inboundImageBubbleViewProperties.minimumWidth = kMinimumWidth;
@@ -38,11 +38,11 @@ static CGFloat kMaximumSize = 230;
     static VKImageBubbleViewProperties *outboundImageBubbleViewProperties = nil;
     if (!outboundImageBubbleViewProperties) {
         if (SYSTEM_VERSION_LESS_THAN(@"7")) {
-            outboundImageBubbleViewProperties = [[VKImageBubbleViewProperties alloc] initWithEdgeInsets:UIEdgeInsetsMake(6, 2, 7, 6)
+            outboundImageBubbleViewProperties = [[VKImageBubbleViewProperties alloc] initWithEdgeInsets:UIEdgeInsetsMake(2, 3, 5, 7)
                                                                                                 maxSize:kMaximumSize];
         }
         else {
-            outboundImageBubbleViewProperties = [[VKImageBubbleViewProperties alloc] initWithEdgeInsets:UIEdgeInsetsMake(16, 0, 16, 5)
+            outboundImageBubbleViewProperties = [[VKImageBubbleViewProperties alloc] initWithEdgeInsets:UIEdgeInsetsMake(2, 2, 2, 7)
                                                                                                 maxSize:kMaximumSize];
         }
         outboundImageBubbleViewProperties.minimumWidth = kMinimumWidth;
@@ -52,12 +52,26 @@ static CGFloat kMaximumSize = 230;
 
 + (VKDefaultBubbleCell *) newInboundImageBubbleCell {
     VKImageBubbleView *imageBubbleView = [VKImageBubbleView inboundBubbleWithProperties:[[self class] inboundImageBubbleViewProperties]];
+    if (SYSTEM_VERSION_LESS_THAN(@"7")) {
+        imageBubbleView.messageBody.layer.cornerRadius = 5;
+    }
+    else {
+        imageBubbleView.messageBody.layer.cornerRadius = 16;
+    }
+    imageBubbleView.messageBody.clipsToBounds = YES;
     return [VKDefaultBubbleCell inboundCellWithBubbleView:imageBubbleView
                                           reuseIdentifier:VKInboundImageBubbleCellReuseIdentifier];
 }
 
 + (VKDefaultBubbleCell *) newOutboundImageBubbleCell {
     VKImageBubbleView *imageBubbleView = [VKImageBubbleView outboundBubbleWithProperties:[[self class] outboundImageBubbleViewProperties]];
+    if (SYSTEM_VERSION_LESS_THAN(@"7")) {
+        imageBubbleView.messageBody.layer.cornerRadius = 5;
+    }
+    else {
+        imageBubbleView.messageBody.layer.cornerRadius = 16;
+    }
+    imageBubbleView.messageBody.clipsToBounds = YES;
     return [VKDefaultBubbleCell outboundCellWithBubbleView:imageBubbleView
                                            reuseIdentifier:VKOutboundImageBubbleCellReuseIdentifier];
 }

@@ -51,11 +51,8 @@ static CGFloat kDefaultBubbleViewWidth = 200;
 }
 
 - (void) setFrame:(CGRect)frame{
-    BOOL layoutNeeded = !CGSizeEqualToSize(self.frame.size, frame.size);
     [super setFrame:frame];
-    if (layoutNeeded) {
-        [self applyLayout];
-    }
+    [self applyLayout];
 }
 
 - (void) applyLayout{

@@ -24,19 +24,19 @@
     
     [self.messageStorage addObjectsFromArray:@[
                                                @{@"type":@"text",
-                                                 @"text":@"1 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam cursus diam diam, vitae gravida urna blandit non.",
+                                                 @"text":@"1 Lorem ipsum",
                                                  @"date":[NSDate date]},
                                                
                                                @{@"type":@"text",
-                                                 @"text":@"2 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam cursus diam diam, vitae gravida urna blandit non.",
+                                                 @"text":@"2 Lorem ipsum dolor sit amet",
                                                  @"date":[NSDate date]},
                                                
                                                @{@"type":@"text",
-                                                 @"text":@"3 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam cursus diam diam, vitae gravida urna blandit non.",
+                                                 @"text":@"3 Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
                                                  @"date":[NSDate date]},
                                                
                                                @{@"type":@"text",
-                                                 @"text":@"4 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam cursus diam diam, vitae gravida urna blandit non.",
+                                                 @"text":@"4 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam cursus diam diam",
                                                  @"date":[NSDate date]},
                                                
                                                @{@"type":@"text",
@@ -94,7 +94,7 @@
     if (!indexPath.row%2) {
         switch (indexPath.row%3) {
             case 0:
-                messageCell.messageState = @"Sending";
+                messageCell.messageState = @"Sending...";
                 break;
                 
             case 1:
@@ -150,7 +150,8 @@
 
 - (void) inputButtonPressed{
     [self.messageStorage addObject:@{@"text":self.messageToolbar.textView.text,
-                                     @"date":[NSDate date]}];
+                                     @"date":[NSDate date],
+                                     @"type":@"text"}];
     [self.tableView reloadData];
 }
 

@@ -14,7 +14,7 @@
 NSString *VKInboundTextBubbleCellReuseIdentifier =  @"VKInboundTextBubbleCell";
 NSString *VKOutboundTextBubbleCellReuseIdentifier =  @"VKOutboundTextBubbleCell";
 
-static CGFloat kBodyFontSyze = 12;
+static CGFloat kBodyFontSyze = 14;
 static CGFloat kMinimumWidth = 40;
 
 @implementation VKBubbleCell (VKTextBubbleCell)

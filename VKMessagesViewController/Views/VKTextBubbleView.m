@@ -18,9 +18,42 @@ static const CGFloat kViewMaxHeight = 9999;
     return self;
 }
 
+/*
+ - (CGFloat) estimatedWidthForText:(NSString *) text Width:(CGFloat) width{
+ CGFloat resultWidth = [text sizeWithFont:self.bodyFont
+ constrainedToSize:CGSizeMake(VK_MAX_HEIGHT, VK_MAX_HEIGHT)
+ lineBreakMode:self.lineBreakMode].width;
+ resultWidth += (self.edgeInsets.left + self.edgeInsets.right);
+ resultWidth = ceilf(resultWidth);
+ if (resultWidth < self.minimumWidth) {
+ resultWidth = self.minimumWidth;
+ }
+ else if (resultWidth > width){
+ resultWidth = width;
+ }
+ return resultWidth;
+ }
+ */
+
+
 - (CGFloat) widthConstrainedToWidth:(CGFloat) width {
     return [[self class] widthWithText:self.messageBody.text Properties:self.properties constrainedToWidth:width];
-}
+ }
+
+/*- (CGFloat) widthConstrainedToWidth:(CGFloat) width {
+    CGFloat resultWidth = [_messageBody.text sizeWithFont:_messageBody.font
+                                        constrainedToSize:CGSizeMake(kViewMaxHeight, kViewMaxHeight)
+                                            lineBreakMode:_messageBody.lineBreakMode].width;
+    resultWidth += (self.properties.edgeInsets.left + self.properties.edgeInsets.right);
+    resultWidth = ceilf(resultWidth);
+    if (resultWidth < self.properties.minimumWidth) {
+        resultWidth = self.properties.minimumWidth;
+    }
+    else if (resultWidth > width){
+        resultWidth = width;
+    }
+    return resultWidth;
+}*/
 
 - (UILabel *) messageBody {
     if (!_messageBody) {

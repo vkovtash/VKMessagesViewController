@@ -88,11 +88,48 @@ static CGFloat kMaximumSize = 230;
                         BubbleProperties:[[self class] outboundImageBubbleViewProperties]];
 }
 
-+ (CGFloat) estimatedHeightForImage:(UIImage *) image Widht:(CGFloat) width BubbleProperties:(VKImageBubbleViewProperties *) properties{
++ (CGFloat) heightForInboundBubbleCellWithImage:(UIImage *) image widht:(CGFloat) width {
+    return [[self class] estimatedHeightForImage:image
+                                           Widht:width
+                                BubbleProperties:[[self class] inboundImageBubbleViewProperties]];
+}
+
++ (CGFloat) heightForOutboundBubbleCellWithImage:(UIImage *) image widht:(CGFloat) width {
+    return [[self class] estimatedHeightForImage:image
+                                           Widht:width
+                                BubbleProperties:[[self class] outboundImageBubbleViewProperties]];
+}
+
++ (CGFloat) heightForInboundBubbleCellWithImageSize:(CGSize) imageSize widht:(CGFloat) width {
+    return [[self class] estimatedHeightForImageSize:imageSize
+                                               Widht:width
+                                    BubbleProperties:[[self class] inboundImageBubbleViewProperties]];
+}
+
++ (CGFloat) heightForOutboundBubbleCellWithImageSize:(CGSize) imageSize widht:(CGFloat) width {
+    return [[self class] estimatedHeightForImageSize:imageSize
+                                               Widht:width
+                                    BubbleProperties:[[self class] outboundImageBubbleViewProperties]];
+}
+
++ (CGFloat) estimatedHeightForImageSize:(CGSize) imageSize Widht:(CGFloat) width BubbleProperties:(VKImageBubbleViewProperties *) properties{
     UIEdgeInsets insets = [[self class] edgeInsets];
-    return insets.top + insets.bottom + [VKImageBubbleView sizeWithImage:image
+    return insets.top + insets.bottom + [VKImageBubbleView sizeWithImageSize:imageSize
                                                               Properties:properties
                                                       constrainedToWidth:[[self class] bubbleViewWidthConstraintForCellWidth:width]].height;
+}
+
++ (CGFloat) estimatedHeightForImage:(UIImage *) image Widht:(CGFloat) width BubbleProperties:(VKImageBubbleViewProperties *) properties{
+    if (image) {
+        return [[self class] estimatedHeightForImageSize:image.size
+                                                   Widht:width
+                                        BubbleProperties:properties];
+    }
+    else {
+        return [[self class] estimatedHeightForImageSize:CGSizeZero
+                                                   Widht:width
+                                        BubbleProperties:properties];
+    }
 }
 
 + (VKDefaultBubbleCell *) getInboundImageMessageCell:(UITableView *) tableView {

@@ -19,25 +19,31 @@
 }
 
 - (CGFloat) widthConstrainedToWidth:(CGFloat) width {
-    return [[self class] sizeWithImage:self.messageBody.image
-                            Properties:self.properties
-                    constrainedToWidth:width].width;
+    if (self.messageBody.image) {
+        return [[self class] sizeWithImage:self.messageBody.image
+                                Properties:self.properties
+                        constrainedToWidth:width].width;
+    }
+    else {
+        return [[self class] sizeWithImageSize:self.placeholderSize
+                                Properties:self.properties
+                        constrainedToWidth:width].width;
+    }
 }
 
-+ (CGSize) sizeWithImage:(UIImage *) image
++ (CGSize) sizeWithImageSize:(CGSize) imageSize
               Properties:(VKImageBubbleViewProperties *) properties
-       constrainedToWidth:(CGFloat) width {
-    
+      constrainedToWidth:(CGFloat) width {
     CGFloat maxWidth = width > properties.maxSize ? properties.maxSize : width;
     CGFloat horizontalInsets = properties.edgeInsets.left + properties.edgeInsets.right;
     CGFloat verticalInsets = properties.edgeInsets.top + properties.edgeInsets.bottom;
     
-    if (!image || image.size.height == 0 || image.size.width == 0) {
+    if (imageSize.height == 0 || imageSize.width == 0) {
         return CGSizeMake(horizontalInsets, verticalInsets);
     }
     
-    CGSize resultSize = image.size;
-    CGFloat ratio = image.size.height / image.size.width;
+    CGSize resultSize = imageSize;
+    CGFloat ratio = imageSize.height / imageSize.width;
     resultSize.width += horizontalInsets;
     resultSize.height += verticalInsets;
     
@@ -52,6 +58,17 @@
     }
     
     return resultSize;
+}
+
++ (CGSize) sizeWithImage:(UIImage *) image
+              Properties:(VKImageBubbleViewProperties *) properties
+       constrainedToWidth:(CGFloat) width {
+    if (!image) {
+        return [[self class] sizeWithImageSize:CGSizeZero Properties:properties constrainedToWidth:width];
+    }
+    else {
+        return [[self class] sizeWithImageSize:image.size Properties:properties constrainedToWidth:width];
+    }
 }
 
 @end

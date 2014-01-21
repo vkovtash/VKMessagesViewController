@@ -12,8 +12,9 @@
 @interface VKImageBubbleView : VKBubbleView
 @property (strong, nonatomic) UIImageView *messageBody;
 @property (strong, nonatomic) VKImageBubbleViewProperties *properties;
+@property (nonatomic) CGSize placeholderSize;
 
-+ (CGSize) sizeWithImage:(UIImage *) image
++ (CGSize) sizeWithImageSize:(CGSize) imageSize
               Properties:(VKImageBubbleViewProperties *) properties
-       constrainedToWidth:(CGFloat) width;
+      constrainedToWidth:(CGFloat) width;
 @end

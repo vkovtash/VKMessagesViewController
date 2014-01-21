@@ -17,8 +17,10 @@ extern NSString *VKOutboundImageBubbleCellReuseIdentifier;
 + (VKBubbleCell *) newInboundImageBubbleCell;
 + (VKBubbleCell *) newOutboundImageBubbleCell;
 
-+ (CGFloat) heightForInboundImageBubbleCell:(UIImage *) image Widht:(CGFloat) width;
-+ (CGFloat) heightForOutboundImageBubbleCell:(UIImage *) image Widht:(CGFloat) width;
++ (CGFloat) heightForInboundBubbleCellWithImageSize:(CGSize) image widht:(CGFloat) width;
++ (CGFloat) heightForOutboundBubbleCellWithImageSize:(CGSize) image widht:(CGFloat) width;
++ (CGFloat) heightForInboundBubbleCellWithImage:(UIImage *) image widht:(CGFloat) width;
++ (CGFloat) heightForOutboundBubbleCellWithImage:(UIImage *) image widht:(CGFloat) width;
 
 + (VKDefaultBubbleCell *) getInboundImageMessageCell:(UITableView *) tableView;
 + (VKDefaultBubbleCell *) getOutboundImageMessageCell:(UITableView *) tableView;

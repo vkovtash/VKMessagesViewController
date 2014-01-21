@@ -53,6 +53,10 @@
                                                
                                                @{@"type":@"image",
                                                  @"image_name":@"image03.jpg",
+                                                 @"date":[NSDate date]},
+                                               
+                                               @{@"type":@"image",
+                                                 @"image_name":@"no_image.jpg",
                                                  @"date":[NSDate date]}
                                                ]];
 }
@@ -87,8 +91,13 @@
         else{
             messageCell = [VKDefaultBubbleCell getOutboundImageMessageCell:tableView];
         }
-        
-        [(VKImageBubbleView *)messageCell.bubbleView messageBody].image = [UIImage imageNamed:message[@"image_name"]];
+        VKImageBubbleView *imageBubble = (VKImageBubbleView *)messageCell.bubbleView;
+        imageBubble.messageBody.image = [UIImage imageNamed:message[@"image_name"]];
+        CGSize imageSize = CGSizeMake(500, 400);
+        if (imageBubble.messageBody.image) {
+            imageSize = imageBubble.messageBody.image.size;
+        }
+        imageBubble.placeholderSize = imageSize;
     }
     
     if (!indexPath.row%2) {
@@ -133,13 +142,18 @@
         }
     }
     else if ([message[@"type"] isEqualToString:@"image"]) {
+        UIImage *image = [UIImage imageNamed:message[@"image_name"]];
+        CGSize imageSize = CGSizeMake(500, 400);
+        if (image) {
+            imageSize = image.size;
+        }
         if (indexPath.row%2) {
-            return [VKDefaultBubbleCell heightForInboundImageBubbleCell:[UIImage imageNamed:message[@"image_name"]]
-                                                                  Widht:self.view.bounds.size.width];
+            return [VKDefaultBubbleCell heightForInboundBubbleCellWithImageSize:imageSize
+                                                                          widht:self.view.bounds.size.width];
         }
         else {
-            return [VKDefaultBubbleCell heightForOutboundImageBubbleCell:[UIImage imageNamed:message[@"image_name"]]
-                                                                   Widht:self.view.bounds.size.width];
+            return [VKDefaultBubbleCell heightForOutboundBubbleCellWithImageSize:imageSize
+                                                                           widht:self.view.bounds.size.width];
         }
     }
     

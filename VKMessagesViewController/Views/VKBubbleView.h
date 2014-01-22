@@ -11,9 +11,9 @@
 #import "TTTAttributedLabel.h"
 
 @interface VKBubbleView : UIView <TTTAttributedLabelDelegate>
-@property (nonatomic,strong) UIImage *normalBackgroundImage;
-@property (nonatomic,strong) UIImage *selectedBackgroundImage;
-@property (nonatomic,strong) UIView *messageBody;
+@property (nonatomic, strong) UIImage *normalBackgroundImage;
+@property (nonatomic, strong) UIImage *selectedBackgroundImage;
+@property (readonly, nonatomic) UIView *messageBody;
 @property (nonatomic,strong) VKBubbleViewProperties *properties;
 @property (readonly, nonatomic) BOOL isSelected;
 

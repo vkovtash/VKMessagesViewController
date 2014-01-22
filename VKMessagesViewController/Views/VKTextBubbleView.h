@@ -8,9 +8,10 @@
 
 #import "VKBubbleView.h"
 #import "VKTextBubbleViewProperties.h"
+#import <TTTAttributedLabel/TTTAttributedLabel.h>
 
 @interface VKTextBubbleView : VKBubbleView
-@property (strong, nonatomic) UILabel *messageBody;
+@property (readonly, nonatomic) TTTAttributedLabel *messageBody;
 @property (nonatomic,strong) VKTextBubbleViewProperties *properties;
 
 - (id) initWithBubbleProperties:(VKTextBubbleViewProperties *) properties;
@@ -18,4 +19,8 @@
 + (CGSize) sizeWithText:(NSString *) text
              Properties:(VKTextBubbleViewProperties *) properties
       constrainedToWidth:(CGFloat) width;
+
++ (CGSize) sizeWithAttributedString:(NSAttributedString *) attributedString
+                         Properties:(VKTextBubbleViewProperties *) properties
+                 constrainedToWidth:(CGFloat) width;
 @end

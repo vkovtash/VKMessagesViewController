@@ -10,6 +10,7 @@
 
 static const CGFloat kViewMaxHeight = 9999;
 
+
 @implementation VKTextBubbleView
 @synthesize messageBody = _messageBody;
 
@@ -18,18 +19,11 @@ static const CGFloat kViewMaxHeight = 9999;
     return self;
 }
 
-- (CGFloat) widthConstrainedToWidth:(CGFloat) width {
-    return [[self class] sizeWithText:self.messageBody.text
-                           Properties:self.properties
-                   constrainedToWidth:width].width;
- }
-
-- (UILabel *) messageBody {
+- (TTTAttributedLabel *) messageBody {
     if (!_messageBody) {
-        TTTAttributedLabel *attributedLabel = [[TTTAttributedLabel alloc] init];
-        attributedLabel.enabledTextCheckingTypes = NSTextCheckingTypeLink|NSTextCheckingTypePhoneNumber;
-        attributedLabel.delegate = self;
-        _messageBody = attributedLabel;
+        _messageBody = [[TTTAttributedLabel alloc] init];
+        _messageBody.enabledTextCheckingTypes = NSTextCheckingTypeLink|NSTextCheckingTypePhoneNumber;
+        _messageBody.delegate = self;
         _messageBody.backgroundColor = [UIColor clearColor];
         _messageBody.lineBreakMode = self.properties.lineBreakMode;
         _messageBody.numberOfLines = 0;
@@ -42,17 +36,21 @@ static const CGFloat kViewMaxHeight = 9999;
     self.messageBody.font = self.properties.bodyFont;
 }
 
+- (CGFloat) widthConstrainedToWidth:(CGFloat) width {
+    return [[self class] sizeWithAttributedString:self.messageBody.attributedText
+                                       Properties:self.properties
+                               constrainedToWidth:width].width;
+ }
+
 #pragma mark - class methods
 
-+ (CGSize) sizeWithText:(NSString *) text
-             Properties:(VKTextBubbleViewProperties *) properties
-      constrainedToWidth:(CGFloat) width {
-    
++ (CGSize) sizeWithAttributedString:(NSAttributedString *) attributedString
+                         Properties:(VKTextBubbleViewProperties *) properties
+                 constrainedToWidth:(CGFloat) width {
     CGSize bodySize = CGSizeZero;
     
-    if (text) {
-        bodySize = [TTTAttributedLabel sizeThatFitsAttributedString:[[NSAttributedString alloc] initWithString:text
-                                                                                                    attributes:properties.textAttributes]
+    if (attributedString) {
+        bodySize = [TTTAttributedLabel sizeThatFitsAttributedString:attributedString
                                                     withConstraints:CGSizeMake(width - properties.edgeInsets.left - properties.edgeInsets.right, kViewMaxHeight)
                                              limitedToNumberOfLines:0];
     }
@@ -63,6 +61,21 @@ static const CGFloat kViewMaxHeight = 9999;
         bodySize.width = properties.minimumWidth;
     }
     return bodySize;
+}
+
++ (CGSize) sizeWithText:(NSString *) text
+             Properties:(VKTextBubbleViewProperties *) properties
+      constrainedToWidth:(CGFloat) width {
+    
+    NSAttributedString *attributedString = nil;
+    if (text) {
+        attributedString = [[NSAttributedString alloc] initWithString:text
+                                                           attributes:properties.textAttributes];
+    }
+    
+    return [[self class] sizeWithAttributedString:attributedString
+                                       Properties:properties
+                               constrainedToWidth:width];
 }
 
 #pragma mark - UIResponderStandardEditActions

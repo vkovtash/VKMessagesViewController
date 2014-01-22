@@ -11,6 +11,7 @@
 @interface VKTextBubbleViewProperties : VKBubbleViewProperties
 @property (strong, nonatomic) UIFont *bodyFont;
 @property (nonatomic) NSLineBreakMode lineBreakMode;
+@property (nonatomic, readonly) NSDictionary *textAttributes;
 
 - (instancetype) initWithEdgeInsets:(UIEdgeInsets)edgeInsets bodyFont:(UIFont *) bodyFont;
 @end

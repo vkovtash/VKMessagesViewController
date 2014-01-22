@@ -18,42 +18,11 @@ static const CGFloat kViewMaxHeight = 9999;
     return self;
 }
 
-/*
- - (CGFloat) estimatedWidthForText:(NSString *) text Width:(CGFloat) width{
- CGFloat resultWidth = [text sizeWithFont:self.bodyFont
- constrainedToSize:CGSizeMake(VK_MAX_HEIGHT, VK_MAX_HEIGHT)
- lineBreakMode:self.lineBreakMode].width;
- resultWidth += (self.edgeInsets.left + self.edgeInsets.right);
- resultWidth = ceilf(resultWidth);
- if (resultWidth < self.minimumWidth) {
- resultWidth = self.minimumWidth;
- }
- else if (resultWidth > width){
- resultWidth = width;
- }
- return resultWidth;
- }
- */
-
-
 - (CGFloat) widthConstrainedToWidth:(CGFloat) width {
-    return [[self class] widthWithText:self.messageBody.text Properties:self.properties constrainedToWidth:width];
+    return [[self class] sizeWithText:self.messageBody.text
+                           Properties:self.properties
+                   constrainedToWidth:width].width;
  }
-
-/*- (CGFloat) widthConstrainedToWidth:(CGFloat) width {
-    CGFloat resultWidth = [_messageBody.text sizeWithFont:_messageBody.font
-                                        constrainedToSize:CGSizeMake(kViewMaxHeight, kViewMaxHeight)
-                                            lineBreakMode:_messageBody.lineBreakMode].width;
-    resultWidth += (self.properties.edgeInsets.left + self.properties.edgeInsets.right);
-    resultWidth = ceilf(resultWidth);
-    if (resultWidth < self.properties.minimumWidth) {
-        resultWidth = self.properties.minimumWidth;
-    }
-    else if (resultWidth > width){
-        resultWidth = width;
-    }
-    return resultWidth;
-}*/
 
 - (UILabel *) messageBody {
     if (!_messageBody) {
@@ -79,38 +48,21 @@ static const CGFloat kViewMaxHeight = 9999;
              Properties:(VKTextBubbleViewProperties *) properties
       constrainedToWidth:(CGFloat) width {
     
-    TTTAttributedLabel *etalonLabel = [[TTTAttributedLabel alloc] init];
-    etalonLabel.numberOfLines = 0;
-    etalonLabel.lineBreakMode = properties.lineBreakMode;
-    etalonLabel.font = properties.bodyFont;
+    CGSize bodySize = CGSizeZero;
     
-    etalonLabel.frame = CGRectMake(0, 0, width - properties.edgeInsets.left - properties.edgeInsets.right, kViewMaxHeight);
-    etalonLabel.text = text;
-    [etalonLabel sizeToFit];
-    CGSize bodySize = etalonLabel.frame.size;
+    if (text) {
+        bodySize = [TTTAttributedLabel sizeThatFitsAttributedString:[[NSAttributedString alloc] initWithString:text
+                                                                                                    attributes:properties.textAttributes]
+                                                    withConstraints:CGSizeMake(width - properties.edgeInsets.left - properties.edgeInsets.right, kViewMaxHeight)
+                                             limitedToNumberOfLines:0];
+    }
+    
     bodySize.width += (properties.edgeInsets.left + properties.edgeInsets.right);
     bodySize.height += (properties.edgeInsets.top + properties.edgeInsets.bottom);
     if (bodySize.width < properties.minimumWidth) {
         bodySize.width = properties.minimumWidth;
     }
     return bodySize;
-}
-
-+ (CGFloat) widthWithText:(NSString *) text
-               Properties:(VKTextBubbleViewProperties *) properties
-       constrainedToWidth:(CGFloat) width {
-    CGFloat resultWidth = [text sizeWithFont:properties.bodyFont
-                           constrainedToSize:CGSizeMake(kViewMaxHeight, kViewMaxHeight)
-                               lineBreakMode:properties.lineBreakMode].width;
-    resultWidth += (properties.edgeInsets.left + properties.edgeInsets.right);
-    resultWidth = ceilf(resultWidth);
-    if (resultWidth < properties.minimumWidth) {
-        resultWidth = properties.minimumWidth;
-    }
-    else if (resultWidth > width){
-        resultWidth = width;
-    }
-    return resultWidth;
 }
 
 #pragma mark - UIResponderStandardEditActions

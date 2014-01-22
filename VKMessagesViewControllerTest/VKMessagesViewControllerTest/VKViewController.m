@@ -167,6 +167,7 @@
                                      @"date":[NSDate date],
                                      @"type":@"text"}];
     [self.tableView reloadData];
+    [self scrollTableViewToBottomAnimated:YES];
 }
 
 @end

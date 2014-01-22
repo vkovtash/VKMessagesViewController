@@ -251,7 +251,6 @@
 -(void)inputButtonPressed:(UIInputToolbar *)toolbar{
     [self inputButtonPressed];
     if ([toolbar.textView.text length] > 0) {
-        [self scrollTableViewToBottomAnimated:YES];
         toolbar.textView.text = @"";
     }
 }

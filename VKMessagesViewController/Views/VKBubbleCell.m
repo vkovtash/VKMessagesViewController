@@ -50,8 +50,8 @@ static CGFloat kDefaultBubbleViewWidth = 200;
     self.autoresizesSubviews = YES;
 }
 
-- (void) setFrame:(CGRect)frame{
-    [super setFrame:frame];
+- (void) layoutSubviews {
+    [super layoutSubviews];
     [self applyLayout];
 }
 
@@ -61,16 +61,16 @@ static CGFloat kDefaultBubbleViewWidth = 200;
     
     switch (self.bubbleAlign) {
         case VKBubbleAlignRight:
-            self.bubbleView.autoresizingMask = UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleLeftMargin;
+            self.bubbleView.autoresizingMask = UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleLeftMargin;
             self.bubbleView.frame = CGRectMake(self.contentView.bounds.size.width - estimatedWidth - insets.right,
                                                insets.top,
                                                estimatedWidth,
                                                self.contentView.bounds.size.height - insets.top - insets.bottom);
             break;
-        
+            
         case VKBubbleAlignLeft:
         default:
-            self.bubbleView.autoresizingMask = UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleRightMargin;
+            self.bubbleView.autoresizingMask = UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleRightMargin;
             self.bubbleView.frame = CGRectMake(insets.left,
                                                insets.top,
                                                estimatedWidth,

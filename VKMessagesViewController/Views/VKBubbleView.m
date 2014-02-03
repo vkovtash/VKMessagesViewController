@@ -79,10 +79,6 @@
     return YES;
 }
 
-- (BOOL)canPerformAction:(SEL)action withSender:(id)sender {
-    return (action == @selector(copy:));
-}
-
 #pragma - mark Init
 
 - (void) postInit{

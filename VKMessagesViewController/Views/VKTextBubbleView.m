@@ -42,6 +42,12 @@ static const CGFloat kViewMaxHeight = 9999;
                                constrainedToWidth:width].width;
  }
 
+#pragma mark - UIView methods
+
+- (BOOL) canPerformAction:(SEL)action withSender:(id)sender {
+    return (action == @selector(copy:));
+}
+
 #pragma mark - class methods
 
 + (CGSize) sizeWithAttributedString:(NSAttributedString *) attributedString

@@ -23,8 +23,15 @@
 
 - (void) scrollTableViewToBottomAnimated:(BOOL) animated;
 - (void) dismissKeyboard;
--(void) inputButtonPressed:(UIInputToolbar *)toolbar;
+- (void) inputButtonPressed:(UIInputToolbar *)toolbar;
 - (void) plusButtonPressed:(UIInputToolbar *)toolbar;
 - (void) inputToolbar:(UIInputToolbar *)inputToolbar DidChangeHeight:(CGFloat)height;
 - (void) inputToolbarDidBeginEditing:(UIInputToolbar *)inputToolbar;
+- (BOOL) shouldShowMenuForRowAtIndexPath:(NSIndexPath *)indexPath;
+- (BOOL) canPerformAction:(SEL)action
+        forRowAtIndexPath:(NSIndexPath *)indexPath
+               withSender:(id)sender;
+- (void) performAction:(SEL)action
+     forRowAtIndexPath:(NSIndexPath *)indexPath
+            withSender:(id)sender;
 @end

@@ -160,6 +160,25 @@
     return 0;
 }
 
+- (BOOL) shouldShowMenuForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if ([self.messageStorage[indexPath.row][@"type"] isEqualToString:@"image"]) {
+        return NO;
+    }
+    return YES;
+}
+
+- (BOOL) canPerformAction:(SEL)action
+        forRowAtIndexPath:(NSIndexPath *)indexPath
+               withSender:(id)sender {
+    return YES;
+}
+
+- (void) performAction:(SEL)action
+     forRowAtIndexPath:(NSIndexPath *)indexPath
+            withSender:(id)sender {
+    
+}
+
 #pragma mark - UIInputToolbarDelegate
 
 - (void) inputButtonPressed:(UIInputToolbar *)toolbar {

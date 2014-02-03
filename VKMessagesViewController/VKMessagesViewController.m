@@ -15,7 +15,7 @@
 #define kDefaultToolbarPortraitMaximumHeight 195
 #define kDefaultToolbarLandscapeMaximumHeight 101
 
-@interface VKMessagesViewController () <UIGestureRecognizerDelegate>
+@interface VKMessagesViewController () <UIGestureRecognizerDelegate, VKMenuControllerPresenterDelegate>
 @property (strong, nonatomic) VKMenuControllerPresenter *menuPresenter;
 @property (weak, nonatomic) UIView *keyboard;
 @property (nonatomic) CGFloat originalKeyboardY;
@@ -44,7 +44,7 @@
     }
 }
 
-- (VKMenuControllerPresenter *) menuPresenter{
+- (VKMenuControllerPresenter *) menuPresenter {
     if (!_menuPresenter) {
         _menuPresenter = [[VKMenuControllerPresenter alloc] initWithParentView:self.view];
     }
@@ -76,7 +76,7 @@
     }
 }
 
-- (void)viewDidLoad
+- (void) viewDidLoad
 {
     [super viewDidLoad];
     
@@ -209,20 +209,55 @@
     if (recognizer.state == UIGestureRecognizerStateBegan) {
         CGPoint point = [recognizer locationInView:self.tableView];
         NSIndexPath *cellIndex = [self.tableView indexPathForRowAtPoint:point];
-        VKBubbleCell *cell = (VKBubbleCell *)[self.tableView cellForRowAtIndexPath:cellIndex];
-        [cell setSelected:YES];
         
-        [self.menuPresenter showDefaultMenuForView:cell.bubbleView
-                                     returnFocusTo:self.firstResponder
-                                        completeon:^{
-                                            [cell setSelected:NO];
-                                        }];
+        if (![self shouldShowMenuForRowAtIndexPath:cellIndex]) {
+            return;
+        }
+        
+        VKBubbleCell *cell = (VKBubbleCell *)[self.tableView cellForRowAtIndexPath:cellIndex];
+        
+        [cell setSelected:YES];
+        [self.menuPresenter showDefaultMenuWithResponder:self
+                                                userInfo:@{@"cellIndexPath":cellIndex}
+                                                  inView:cell.bubbleView
+                                           returnFocusTo:self.firstResponder
+                                              completeon:^{
+                                                  [cell setSelected:NO];
+                                              }];
     }
+}
+
+- (BOOL) canPerformAction:(SEL)action
+               withSender:(id)sender
+                 userInfo:(NSDictionary *) userInfo {
+    return [self canPerformAction:action
+         forRowAtIndexPath:userInfo[@"cellIndexPath"]
+                withSender:sender];
+}
+
+- (void) performAction:(SEL)action withSender:(id)sender userInfo:(NSDictionary *)userInfo {
+    [self performAction:action forRowAtIndexPath:userInfo[@"cellIndexPath"] withSender:sender];
+}
+
+- (BOOL) shouldShowMenuForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return NO;
+}
+
+- (BOOL) canPerformAction:(SEL)action
+        forRowAtIndexPath:(NSIndexPath *)indexPath
+               withSender:(id)sender {
+    return NO;
+}
+
+- (void) performAction:(SEL)action
+     forRowAtIndexPath:(NSIndexPath *)indexPath
+            withSender:(id)sender {
+    
 }
 
 #pragma mark - UITableViewDatasource
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return 0;
 }
 
@@ -232,7 +267,7 @@
 
 #pragma mark - UIInputToolbarDelegate
 
--(void)inputButtonPressed:(UIInputToolbar *)toolbar{
+-(void)inputButtonPressed:(UIInputToolbar *)toolbar {
     if ([toolbar.textView.text length] > 0) {
         toolbar.textView.text = @"";
     }
@@ -264,7 +299,9 @@
 }
 
 - (void) inputToolbarDidBeginEditing:(UIInputToolbar *)inputToolbar {
-    [self scrollTableViewToBottomAnimated:YES];
+    if (!self.menuPresenter.shouldDisplayKeyboard) { //Scroll down only when keyboard was hidden
+        [self scrollTableViewToBottomAnimated:YES];
+    }
 }
 
 #pragma  mark - NSNotificationCenter

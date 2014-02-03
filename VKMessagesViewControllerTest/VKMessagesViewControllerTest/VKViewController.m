@@ -160,9 +160,10 @@
     return 0;
 }
 
-#pragma mark VKMessagesViewController methods
+#pragma mark - UIInputToolbarDelegate
 
-- (void) inputButtonPressed{
+- (void) inputButtonPressed:(UIInputToolbar *)toolbar {
+    [super inputButtonPressed:toolbar];
     [self.messageStorage addObject:@{@"text":self.messageToolbar.textView.text,
                                      @"date":[NSDate date],
                                      @"type":@"text"}];

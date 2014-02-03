@@ -7,7 +7,6 @@
 //
 
 #import "VKMessagesViewController.h"
-#import "DAKeyboardControl.h"
 #import "UIViewController+firstResponder.h"
 #import "VKMenuControllerPresenter.h"
 #import "VKiOSVersionCheck.h"
@@ -16,8 +15,14 @@
 #define kDefaultToolbarPortraitMaximumHeight 195
 #define kDefaultToolbarLandscapeMaximumHeight 101
 
-@interface VKMessagesViewController ()
+@interface VKMessagesViewController () <UIGestureRecognizerDelegate>
 @property (strong, nonatomic) VKMenuControllerPresenter *menuPresenter;
+@property (weak, nonatomic) UIView *keyboard;
+@property (nonatomic) CGFloat originalKeyboardY;
+@property (nonatomic) CGFloat originalLocation;
+@property (nonatomic) NSTimeInterval keyboardAnimationDuration;
+@property (nonatomic) UIViewAnimationCurve keyboardAnimationCurve;
+@property (strong, nonatomic) UIGestureRecognizer *keyboardPanRecognizer;
 @end
 
 @implementation VKMessagesViewController
@@ -50,21 +55,19 @@
 
 - (void) viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    [self setupKeyboardControl];
     [self.tableView reloadData];
     [self scrollTableViewToBottomAnimated:NO];
 }
 
 - (void) viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    [self.view removeKeyboardControl];
+    [self restoreKeyboard];
 }
 
 - (void) viewDidAppear:(BOOL)animated{
     [super viewDidAppear:YES];
     static BOOL isFirstRun = NO;
     if (!isFirstRun) {
-        [self.view hideKeyboard];
         isFirstRun = YES;
         
         CGRect toolbarFrame = self.messageToolbar.frame;
@@ -113,27 +116,37 @@
                                                  name:UIKeyboardWillShowNotification
                                                object:nil];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardDidShow:)
+                                                 name:UIKeyboardDidShowNotification
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillHide:)
+                                                 name:UIKeyboardWillHideNotification
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardDidHide:)
+                                                 name:UIKeyboardDidHideNotification
+                                               object:nil];
+    
     if (SYSTEM_VERSION_LESS_THAN(@"7")) {
         //Setting style
         self.tableView.backgroundColor = [UIColor colorWithRed:0.9 green:0.9 blue:0.9 alpha:1];
-        
-        //Message copying
-        UILongPressGestureRecognizer *longPressRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPressRecognized:)];
-        [self.tableView addGestureRecognizer:longPressRecognizer];
-        [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(keyboardDidShow:)
-                                                     name:UIKeyboardDidShowNotification
-                                                   object:nil];
-        
-        [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(keyboardDidHide:)
-                                                     name:UIKeyboardDidHideNotification
-                                                   object:nil];
     }
+    
+    //Message copying
+    UILongPressGestureRecognizer *longPressRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPressRecognized:)];
+    [self.tableView addGestureRecognizer:longPressRecognizer];
+    
+    self.keyboardPanRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panGesture:)];
+    self.keyboardPanRecognizer.delegate = self;
+    self.keyboardPanRecognizer.enabled = NO;
+    [self.view addGestureRecognizer:self.keyboardPanRecognizer];
 }
 
 - (void) dealloc{
-    [self.view removeKeyboardControl];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
@@ -156,14 +169,6 @@
 
 - (void) dismissKeyboard{
     [self.messageToolbar.textView resignFirstResponder];
-}
-
-- (void) inputButtonPressed{
-    
-}
-
-- (void) plusButtonPressed{
-    
 }
 
 #pragma mark - Private methods
@@ -189,27 +194,6 @@
         insets.top = topInset;
         self.tableView.scrollIndicatorInsets = insets;
     }
-}
-
-- (void) setupKeyboardControl {
-    // Prepare keyboard control
-    self.view.keyboardTriggerOffset = self.messageToolbar.frame.size.height;
-    __weak __typeof(&*self) weakSelf = self;
-    [self.view addKeyboardPanningWithActionHandler:^(CGRect keyboardFrameInView) {
-        weakSelf.tableView.scrollEnabled = NO;
-        weakSelf.tableView.scrollEnabled = YES;
-        CGRect toolBarFrame = weakSelf.messageToolbar.frame;
-        toolBarFrame.origin.y = keyboardFrameInView.origin.y - toolBarFrame.size.height;
-        weakSelf.messageToolbar.frame = toolBarFrame;
-        
-        CGRect tableViewFrame = weakSelf.tableView.frame;
-        tableViewFrame.size.height = toolBarFrame.origin.y;
-        
-        UIEdgeInsets insets = weakSelf.tableView.contentInset;
-        insets.bottom = weakSelf.view.bounds.size.height - toolBarFrame.origin.y;
-        weakSelf.tableView.contentInset = insets;
-        weakSelf.tableView.scrollIndicatorInsets = insets;
-    }];
 }
 
 - (void) setAppropriateInputHeight{
@@ -249,15 +233,12 @@
 #pragma mark - UIInputToolbarDelegate
 
 -(void)inputButtonPressed:(UIInputToolbar *)toolbar{
-    [self inputButtonPressed];
     if ([toolbar.textView.text length] > 0) {
         toolbar.textView.text = @"";
     }
 }
 
 - (void) plusButtonPressed:(UIInputToolbar *)toolbar{
-    [self plusButtonPressed];
-    
     if (self.alternativeInputView) {
         if (toolbar.textView.internalTextView != self.firstResponder) {
             toolbar.textView.inputView = self.alternativeInputView;
@@ -280,30 +261,195 @@
     insets.bottom = self.view.bounds.size.height - self.messageToolbar.frame.origin.y;
     self.tableView.contentInset = insets;
     self.tableView.scrollIndicatorInsets = insets;
-    self.view.keyboardTriggerOffset = self.messageToolbar.frame.size.height;
 }
 
-#pragma  mark - NSNotificationCenter
-- (void) keyboardWillShow:(NSNotification *) notification{
+- (void) inputToolbarDidBeginEditing:(UIInputToolbar *)inputToolbar {
     [self scrollTableViewToBottomAnimated:YES];
 }
 
-- (void) keyboardDidShow:(NSNotification *) notification{
-    NSDictionary* info = [notification userInfo];
-    CGRect kbRect = [self.view convertRect:[[info objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue] fromView:self.view.window];
-    if (!kbRect.size.height){
-        return;
-    }
-    self.menuPresenter.shouldDisplayKeyboard = YES;
+#pragma  mark - NSNotificationCenter
+
+static inline UIViewAnimationOptions animationOptionsWithCurve(UIViewAnimationCurve curve) {
+    return curve << 16;
 }
 
-- (void) keyboardDidHide:(NSNotification *) notification{
+static inline CGRect keyboardRectInView(UIView *view, NSDictionary *keyboardUserInfo) {
+    if (keyboardUserInfo) {
+        return [view convertRect:[[keyboardUserInfo objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue] fromView:view.window];
+    }
+    else {
+        return CGRectZero;
+    }
+}
+
+- (void) keyboardWillShow:(NSNotification *) notification {
+    // To remove the animation for the keyboard dropping showing
+    // we have to hide the keyboard, and on will show we set it back.
+    self.keyboard.hidden = NO;
+    
     NSDictionary* info = [notification userInfo];
-    CGRect kbRect = [self.view convertRect:[[info objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue] fromView:self.view.window];
-    if (!kbRect.size.height){
+    CGRect kbRect = keyboardRectInView(self.view, info);
+    if (kbRect.size.height){
+        self.keyboardAnimationCurve = [[info objectForKey:UIKeyboardAnimationCurveUserInfoKey] integerValue];
+        self.keyboardAnimationDuration = [[info objectForKey:UIKeyboardAnimationDurationUserInfoKey] floatValue];
+        [self alighKeyboardControlsToRect:kbRect animated:YES];
+    }
+
+}
+
+- (void) keyboardWillHide:(NSNotification *) notification {
+    CGRect kbRect = keyboardRectInView(self.view, [notification userInfo]);
+    if (kbRect.size.height){
+        [self alighKeyboardControlsToRect:kbRect animated:YES];
+    }
+}
+
+- (void) keyboardDidShow:(NSNotification *) notification {
+    if (keyboardRectInView(self.view, [notification userInfo]).size.height) {
+        [self catchKeyboard];
+        
+        self.menuPresenter.shouldDisplayKeyboard = YES;
+        self.keyboardPanRecognizer.enabled = YES;
+    }
+}
+
+- (void) keyboardDidHide:(NSNotification *) notification {
+    if (keyboardRectInView(self.view, [notification userInfo]).size.height) {
+        self.menuPresenter.shouldDisplayKeyboard = NO;
+        self.keyboardPanRecognizer.enabled = NO;
+    }
+}
+
+#pragma mark - Keyboard control
+
+- (void) catchKeyboard {
+    if(self.keyboard) return;
+    
+    //Because we cant get access to the UIKeyboard throught the SDK we will just use UIView.
+    //UIKeyboard is a subclass of UIView anyways
+    //see discussion http://www.iphonedevsdk.com/forum/iphone-sdk-development/6573-howto-customize-uikeyboard.html
+    
+    UIWindow* tempWindow = [[[UIApplication sharedApplication] windows] objectAtIndex:1];
+    for(int i = 0; i < [tempWindow.subviews count]; i++) {
+        UIView *possibleKeyboard = [tempWindow.subviews objectAtIndex:i];
+        if([[possibleKeyboard description] hasPrefix:@"<UIPeripheralHostView"] == YES){
+            self.keyboard = possibleKeyboard;
+            return;
+        }
+    }
+}
+
+- (void) alighKeyboardControlsToRect:(CGRect) rect animated:(BOOL) animated {
+    
+    __weak __typeof(&*self) weakSelf = self;
+    void (^alignControlsToRect)(CGRect keyboardFrame)  = ^(CGRect keyboardFrame) {
+        if (!weakSelf) {
+            return;
+        }
+        
+        weakSelf.tableView.scrollEnabled = NO;
+        weakSelf.tableView.scrollEnabled = YES;
+        CGRect toolBarFrame = weakSelf.messageToolbar.frame;
+        toolBarFrame.origin.y = keyboardFrame.origin.y - toolBarFrame.size.height;
+        weakSelf.messageToolbar.frame = toolBarFrame;
+        
+        CGRect tableViewFrame = weakSelf.tableView.frame;
+        tableViewFrame.size.height = toolBarFrame.origin.y;
+        
+        UIEdgeInsets insets = weakSelf.tableView.contentInset;
+        insets.bottom = weakSelf.view.bounds.size.height - toolBarFrame.origin.y;
+        weakSelf.tableView.contentInset = insets;
+        weakSelf.tableView.scrollIndicatorInsets = insets;
+    };
+    
+    if (animated) {
+        if (self.keyboardAnimationDuration > 0) {
+            [UIView animateWithDuration:self.keyboardAnimationDuration
+                                  delay:0
+                                options:animationOptionsWithCurve(self.keyboardAnimationCurve)
+                             animations:^{
+                                 alignControlsToRect(rect);
+                             }
+                             completion:nil];
+        }
+    }
+    else {
+        alignControlsToRect(rect);
+    }
+}
+
+-(void) panGesture:(UIPanGestureRecognizer *)gestureRecognizer {
+    CGPoint location = [gestureRecognizer locationInView:[self view]];
+    CGPoint velocity = [gestureRecognizer velocityInView:self.view];
+    
+    CGFloat spaceAboveKeyboard = self.view.bounds.size.height - (self.keyboard.frame.size.height + self.messageToolbar.frame.size.height);
+    
+    if(gestureRecognizer.state == UIGestureRecognizerStateBegan){
+        self.originalKeyboardY = self.keyboard.frame.origin.y;
+        self.keyboard.userInteractionEnabled = NO;
+    }
+    
+    if(gestureRecognizer.state == UIGestureRecognizerStateEnded){
+        if (velocity.y > 0 && location.y > spaceAboveKeyboard) {
+            [self animateKeyboardOffscreen];
+        }
+        else {
+            [self animateKeyboardReturnToOriginalPosition];
+        }
+        self.keyboard.userInteractionEnabled = YES;
         return;
     }
-    self.menuPresenter.shouldDisplayKeyboard = NO;
+    
+    if (location.y < spaceAboveKeyboard) {
+        return;
+    }
+    
+    CGRect newFrame = self.keyboard.frame;
+    CGFloat newY = self.originalKeyboardY + (location.y - spaceAboveKeyboard);
+    newY = MAX(newY, self.originalKeyboardY);
+    newFrame.origin.y = newY;
+    [self.keyboard setFrame: newFrame];
+    [self alighKeyboardControlsToRect:newFrame animated:NO];
+}
+
+- (void) animateKeyboardOffscreen {
+    __block CGRect newFrame = self.keyboard.frame;
+    newFrame.origin.y = self.keyboard.window.frame.size.height;
+    self.keyboardPanRecognizer.enabled = NO;
+    
+    [UIView animateWithDuration:self.keyboardAnimationDuration
+                          delay:0
+                        options:animationOptionsWithCurve(self.keyboardAnimationCurve)
+                     animations:^{
+                         [self.keyboard setFrame: newFrame];
+                         [self alighKeyboardControlsToRect:newFrame animated:NO];
+                     }
+                     completion:^(BOOL finished){
+                         self.keyboard.hidden = YES;
+                         [self.messageToolbar.textView resignFirstResponder];
+                     }];
+}
+
+- (void) animateKeyboardReturnToOriginalPosition {
+    CGRect newFrame = self.keyboard.frame;
+    newFrame.origin.y = self.originalKeyboardY;
+    
+    [UIView beginAnimations:nil context:NULL];
+    [self.keyboard setFrame: newFrame];
+    [self alighKeyboardControlsToRect:newFrame animated:NO];
+    [UIView commitAnimations];
+}
+
+- (void) restoreKeyboard {
+    self.keyboard.userInteractionEnabled = YES;
+    self.keyboard.hidden = NO;
+}
+
+#pragma mark - UIGestureRecognizerDelegate
+
+- (BOOL) gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer
+shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer {
+    return (gestureRecognizer == self.keyboardPanRecognizer || otherGestureRecognizer == self.keyboardPanRecognizer);
 }
 
 @end

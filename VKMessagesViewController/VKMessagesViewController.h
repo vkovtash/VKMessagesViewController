@@ -23,7 +23,8 @@
 
 - (void) scrollTableViewToBottomAnimated:(BOOL) animated;
 - (void) dismissKeyboard;
-- (void) inputButtonPressed;
-- (void) plusButtonPressed;
-
+-(void) inputButtonPressed:(UIInputToolbar *)toolbar;
+- (void) plusButtonPressed:(UIInputToolbar *)toolbar;
+- (void) inputToolbar:(UIInputToolbar *)inputToolbar DidChangeHeight:(CGFloat)height;
+- (void) inputToolbarDidBeginEditing:(UIInputToolbar *)inputToolbar;
 @end

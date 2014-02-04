@@ -61,6 +61,8 @@
 		F3574DF217BE508200471785 /* vk_pagecontrol_selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F3574DE617BE508200471785 /* vk_pagecontrol_selected@2x.png */; };
 		F393747D186C8851004F0416 /* VKTextBubbleViewProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = F393747C186C8850004F0416 /* VKTextBubbleViewProperties.m */; };
 		F3A9B92F185F12C20095877C /* VKMessagesViewController+VKEmojiPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = F3A9B92E185F12C20095877C /* VKMessagesViewController+VKEmojiPicker.m */; };
+		F3C8B38F18A0FF3900832D73 /* vk_message_bubble_outgouing_selected_ios7@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F3C8B38D18A0FF3900832D73 /* vk_message_bubble_outgouing_selected_ios7@2x.png */; };
+		F3C8B39018A0FF3900832D73 /* vk_message_bubble_incoming_selected_ios7@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F3C8B38E18A0FF3900832D73 /* vk_message_bubble_incoming_selected_ios7@2x.png */; };
 		F3D10DDA1869DB72009C03D0 /* VKTextBubbleView.m in Sources */ = {isa = PBXBuildFile; fileRef = F3D10DD91869DB72009C03D0 /* VKTextBubbleView.m */; };
 		F3E56FE21886D64C00B6D7C0 /* VKImageBubbleView.m in Sources */ = {isa = PBXBuildFile; fileRef = F3E56FE11886D64C00B6D7C0 /* VKImageBubbleView.m */; };
 		F3E56FE51886DA2400B6D7C0 /* VKDefaultBubbleCell+VKImageBubbleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F3E56FE41886DA2400B6D7C0 /* VKDefaultBubbleCell+VKImageBubbleCell.m */; };
@@ -148,6 +150,8 @@
 		F393747C186C8850004F0416 /* VKTextBubbleViewProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VKTextBubbleViewProperties.m; sourceTree = "<group>"; };
 		F3A9B92D185F12C10095877C /* VKMessagesViewController+VKEmojiPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "VKMessagesViewController+VKEmojiPicker.h"; sourceTree = "<group>"; };
 		F3A9B92E185F12C20095877C /* VKMessagesViewController+VKEmojiPicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "VKMessagesViewController+VKEmojiPicker.m"; sourceTree = "<group>"; };
+		F3C8B38D18A0FF3900832D73 /* vk_message_bubble_outgouing_selected_ios7@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "vk_message_bubble_outgouing_selected_ios7@2x.png"; sourceTree = "<group>"; };
+		F3C8B38E18A0FF3900832D73 /* vk_message_bubble_incoming_selected_ios7@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "vk_message_bubble_incoming_selected_ios7@2x.png"; sourceTree = "<group>"; };
 		F3D10DD81869DB72009C03D0 /* VKTextBubbleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VKTextBubbleView.h; sourceTree = "<group>"; };
 		F3D10DD91869DB72009C03D0 /* VKTextBubbleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VKTextBubbleView.m; sourceTree = "<group>"; };
 		F3E56FE01886D64C00B6D7C0 /* VKImageBubbleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VKImageBubbleView.h; sourceTree = "<group>"; };
@@ -298,6 +302,8 @@
 		F3574DCA17BE4FF000471785 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				F3C8B38D18A0FF3900832D73 /* vk_message_bubble_outgouing_selected_ios7@2x.png */,
+				F3C8B38E18A0FF3900832D73 /* vk_message_bubble_incoming_selected_ios7@2x.png */,
 				6B8D667E1822A6500024C694 /* vk_backspace_button_ios7@2x.png */,
 				6B8D667F1822A6500024C694 /* vk_backspace_button_pressed_ios7@2x.png */,
 				6BD7F6DC1822697400B511A0 /* vk_message_bubble_incoming_ios7@2x.png */,
@@ -449,6 +455,7 @@
 				F3574D7A17BE2A1700471785 /* Default.png in Resources */,
 				F3574D7C17BE2A1700471785 /* Default@2x.png in Resources */,
 				F3574D7E17BE2A1700471785 /* Default-568h@2x.png in Resources */,
+				F3C8B38F18A0FF3900832D73 /* vk_message_bubble_outgouing_selected_ios7@2x.png in Resources */,
 				F3574D8117BE2A1700471785 /* MainStoryboard.storyboard in Resources */,
 				F3574DD317BE4FF100471785 /* vk_backspace_button.png in Resources */,
 				F3574DD417BE4FF100471785 /* vk_backspace_button@2x.png in Resources */,
@@ -461,6 +468,7 @@
 				F3574DD917BE4FF100471785 /* vk_keyboard_overlay.png in Resources */,
 				F3E56FEB1886E14700B6D7C0 /* image01.jpg in Resources */,
 				F3574DDA17BE4FF100471785 /* vk_keyboard_overlay@2x.png in Resources */,
+				F3C8B39018A0FF3900832D73 /* vk_message_bubble_incoming_selected_ios7@2x.png in Resources */,
 				F3574DE717BE508200471785 /* vk_message_bubble_outgouing_selected.png in Resources */,
 				F3574DE817BE508200471785 /* vk_message_bubble_incoming_selected.png in Resources */,
 				F3574DE917BE508200471785 /* vk_message_bubble_incoming_selected@2x.png in Resources */,

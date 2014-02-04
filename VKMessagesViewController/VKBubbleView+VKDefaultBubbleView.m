@@ -60,11 +60,21 @@
 + (UIImage *) inboundSelectedBackgroudImage{
     static UIImage *inboundSelectedBackgroudImage = nil;
     if (!inboundSelectedBackgroudImage) {
-        UIImage *image = [UIImage imageNamed:@"vk_message_bubble_incoming_selected"];
-        image = [image resizableImageWithCapInsets:UIEdgeInsetsMake(floorf(image.size.height * (2.0/3.0)),
-                                                                    floorf(image.size.width * (2.0/3.0)),
-                                                                    floorf(image.size.height * (1.0/3.0)),
-                                                                    floorf(image.size.width * (1.0/3.0)))];
+        UIImage *image = nil;
+        if (SYSTEM_VERSION_LESS_THAN(@"7")) {
+            image = [UIImage imageNamed:@"vk_message_bubble_incoming_selected"];
+            image = [image resizableImageWithCapInsets:UIEdgeInsetsMake(floorf(image.size.height * (2.0/3.0)),
+                                                                        floorf(image.size.width * (2.0/3.0)),
+                                                                        floorf(image.size.height * (1.0/3.0)),
+                                                                        floorf(image.size.width * (1.0/3.0)))];
+        }
+        else {
+            image = [UIImage imageNamed:@"vk_message_bubble_incoming_selected_ios7"];
+            image = [image resizableImageWithCapInsets:UIEdgeInsetsMake(floorf(image.size.height / 2),
+                                                                        floorf(image.size.width * 0.56),
+                                                                        floorf(image.size.height / 2),
+                                                                        floorf(image.size.width * 0.44))];
+        }
         inboundSelectedBackgroudImage = image;
     }
     return inboundSelectedBackgroudImage;
@@ -73,11 +83,21 @@
 + (UIImage *) outboundSelectedBackgroudImage{
     static UIImage *outboundSelectedBackgroudImage = nil;
     if (!outboundSelectedBackgroudImage) {
-        UIImage *image = [UIImage imageNamed:@"vk_message_bubble_outgouing_selected"];
-        image = [image resizableImageWithCapInsets:UIEdgeInsetsMake(floorf(image.size.height * (2.0/3.0)),
-                                                                    floorf(image.size.width * (1.0/3.0)),
-                                                                    floorf(image.size.height * (1.0/3.0)),
-                                                                    floorf(image.size.width * (2.0/3.0)))];
+        UIImage *image = nil;
+        if (SYSTEM_VERSION_LESS_THAN(@"7")) {
+            image = [UIImage imageNamed:@"vk_message_bubble_outgouing_selected"];
+            image = [image resizableImageWithCapInsets:UIEdgeInsetsMake(floorf(image.size.height * (2.0/3.0)),
+                                                                        floorf(image.size.width * (1.0/3.0)),
+                                                                        floorf(image.size.height * (1.0/3.0)),
+                                                                        floorf(image.size.width * (2.0/3.0)))];
+        }
+        else {
+            image = [UIImage imageNamed:@"vk_message_bubble_outgouing_selected_ios7"];
+            image = [image resizableImageWithCapInsets:UIEdgeInsetsMake(floorf(image.size.height / 2),
+                                                                        floorf(image.size.width * 0.44),
+                                                                        floorf(image.size.height / 2),
+                                                                        floorf(image.size.width * 0.56))];
+        }
         outboundSelectedBackgroudImage = image;
     }
     return outboundSelectedBackgroudImage;

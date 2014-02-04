@@ -161,22 +161,36 @@
 }
 
 - (BOOL) shouldShowMenuForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if ([self.messageStorage[indexPath.row][@"type"] isEqualToString:@"image"]) {
-        return NO;
-    }
     return YES;
 }
 
 - (BOOL) canPerformAction:(SEL)action
         forRowAtIndexPath:(NSIndexPath *)indexPath
                withSender:(id)sender {
-    return YES;
+    NSString *selectorName = NSStringFromSelector(action);
+    if ([selectorName isEqualToString:@"copy:"] && [self.messageStorage[indexPath.row][@"type"] isEqualToString:@"text"]) {
+        return YES;
+    }
+    else if ([selectorName isEqualToString:@"delete:"]) {
+        return YES;
+    }
+    else {
+        return NO;
+    }
 }
 
 - (void) performAction:(SEL)action
      forRowAtIndexPath:(NSIndexPath *)indexPath
             withSender:(id)sender {
-    
+    NSString *selectorName = NSStringFromSelector(action);
+    if ([selectorName isEqualToString:@"copy:"] && [self.messageStorage[indexPath.row][@"type"] isEqualToString:@"text"]) {
+        UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
+        pasteboard.string = self.messageStorage[indexPath.row][@"text"];
+    }
+    else if ([selectorName isEqualToString:@"delete:"]) {
+        [self.messageStorage removeObjectAtIndex:indexPath.row];
+        [self.tableView reloadData];
+    }
 }
 
 #pragma mark - UIInputToolbarDelegate

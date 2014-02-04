@@ -13,6 +13,7 @@
 @property (readonly, nonatomic) NSDateFormatter *dateFormatter;
 @property (strong, nonatomic) NSDate *messageDate;
 @property (strong, nonatomic) NSString *messageState;
+@property (strong, nonatomic) UIView *bubbleAccessoryView;
 
 + (CGFloat) bubbleViewWidthConstraintForCellWidth:(CGFloat) cellWidth;
 

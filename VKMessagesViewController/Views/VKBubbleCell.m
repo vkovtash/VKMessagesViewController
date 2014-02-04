@@ -44,6 +44,7 @@ static CGFloat kDefaultBubbleViewWidth = 200;
                                self.frame.size.width,
                                500)];
     self.contentView.frame = self.bounds;
+    self.selectionStyle = UITableViewCellSelectionStyleNone;
     
     self.bubbleViewMaxWidth = kDefaultBubbleViewWidth;
     [self.contentView addSubview:self.bubbleView];

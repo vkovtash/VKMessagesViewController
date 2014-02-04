@@ -96,6 +96,31 @@ static CGFloat kMessageDetailsFontSize = 12;
     
 }
 
+- (void) setBubbleAccessoryView:(UIView *)bubbleAccessoryView {
+    if (_bubbleAccessoryView != bubbleAccessoryView) {
+        [_bubbleAccessoryView removeFromSuperview];
+        _bubbleAccessoryView = bubbleAccessoryView;
+        
+        if (_bubbleAccessoryView) {
+            [self.contentView addSubview:_bubbleAccessoryView];
+        }
+    }
+}
+
+- (void) layoutSubviews {
+    [super layoutSubviews];
+    if (_bubbleAccessoryView) {
+        if (self.bubbleAlign == VKBubbleAlignLeft) {
+            _bubbleAccessoryView.center = CGPointMake(self.bubbleView.frame.origin.x + self.bubbleView.frame.size.width + [[self class] edgeInsets].right + _bubbleAccessoryView.bounds.size.width/2,
+                                                      (self.bubbleView.frame.origin.y + [[self class] edgeInsets].top + self.bubbleView.frame.size.height)/2);
+        }
+        else {
+            _bubbleAccessoryView.center = CGPointMake(self.bubbleView.frame.origin.x - [[self class] edgeInsets].left - _bubbleAccessoryView.bounds.size.width/2,
+                                                      (self.bubbleView.frame.origin.y + [[self class] edgeInsets].top + self.bubbleView.frame.size.height)/2);
+        }
+    }
+}
+
 #pragma mark - Class methods
 
 + (CGFloat) bubbleViewWidthConstraintForCellWidth:(CGFloat) cellWidth {

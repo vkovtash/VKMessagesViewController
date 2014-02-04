@@ -67,6 +67,7 @@
 		F3C8B3B618A124FE00832D73 /* VKOutboundBaseBubbleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F3C8B3AD18A124FE00832D73 /* VKOutboundBaseBubbleCell.m */; };
 		F3C8B3B718A124FE00832D73 /* VKOutboundImageBubbleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F3C8B3AF18A124FE00832D73 /* VKOutboundImageBubbleCell.m */; };
 		F3C8B3B818A124FE00832D73 /* VKOutboundTextBubbleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F3C8B3B118A124FE00832D73 /* VKOutboundTextBubbleCell.m */; };
+		F3C8B3BC18A1418300832D73 /* geo_point@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F3C8B3BB18A1418200832D73 /* geo_point@2x.png */; };
 		F3D10DDA1869DB72009C03D0 /* VKTextBubbleView.m in Sources */ = {isa = PBXBuildFile; fileRef = F3D10DD91869DB72009C03D0 /* VKTextBubbleView.m */; };
 		F3E56FE21886D64C00B6D7C0 /* VKImageBubbleView.m in Sources */ = {isa = PBXBuildFile; fileRef = F3E56FE11886D64C00B6D7C0 /* VKImageBubbleView.m */; };
 		F3E56FEB1886E14700B6D7C0 /* image01.jpg in Resources */ = {isa = PBXBuildFile; fileRef = F3E56FE81886E14700B6D7C0 /* image01.jpg */; };
@@ -163,6 +164,7 @@
 		F3C8B3AF18A124FE00832D73 /* VKOutboundImageBubbleCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VKOutboundImageBubbleCell.m; sourceTree = "<group>"; };
 		F3C8B3B018A124FE00832D73 /* VKOutboundTextBubbleCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VKOutboundTextBubbleCell.h; sourceTree = "<group>"; };
 		F3C8B3B118A124FE00832D73 /* VKOutboundTextBubbleCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VKOutboundTextBubbleCell.m; sourceTree = "<group>"; };
+		F3C8B3BB18A1418200832D73 /* geo_point@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "geo_point@2x.png"; sourceTree = "<group>"; };
 		F3D10DD81869DB72009C03D0 /* VKTextBubbleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VKTextBubbleView.h; sourceTree = "<group>"; };
 		F3D10DD91869DB72009C03D0 /* VKTextBubbleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VKTextBubbleView.m; sourceTree = "<group>"; };
 		F3E56FE01886D64C00B6D7C0 /* VKImageBubbleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VKImageBubbleView.h; sourceTree = "<group>"; };
@@ -420,6 +422,7 @@
 		F3E56FE71886E14700B6D7C0 /* TestImages */ = {
 			isa = PBXGroup;
 			children = (
+				F3C8B3BB18A1418200832D73 /* geo_point@2x.png */,
 				F3E56FE81886E14700B6D7C0 /* image01.jpg */,
 				F3E56FE91886E14700B6D7C0 /* image02.png */,
 				F3E56FEA1886E14700B6D7C0 /* image03.jpg */,
@@ -489,6 +492,7 @@
 				F3C8B38F18A0FF3900832D73 /* vk_message_bubble_outgouing_selected_ios7@2x.png in Resources */,
 				F3574D8117BE2A1700471785 /* MainStoryboard.storyboard in Resources */,
 				F3574DD317BE4FF100471785 /* vk_backspace_button.png in Resources */,
+				F3C8B3BC18A1418300832D73 /* geo_point@2x.png in Resources */,
 				F3574DD417BE4FF100471785 /* vk_backspace_button@2x.png in Resources */,
 				F3574DD517BE4FF100471785 /* vk_backspace_button_pressed.png in Resources */,
 				F3574DD617BE4FF100471785 /* vk_backspace_button_pressed@2x.png in Resources */,

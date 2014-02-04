@@ -130,6 +130,20 @@
     }
     
     messageCell.messageDate = message[@"date"];
+    
+    if (indexPath.row%3) {
+        if (!messageCell.bubbleAccessoryView) {
+            UIButton *geoButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 44, 44)];
+            [geoButton setBackgroundColor:[UIColor clearColor]];
+            [geoButton setImage:[UIImage imageNamed:@"geo_point"] forState:UIControlStateNormal];
+            [geoButton setImageEdgeInsets:UIEdgeInsetsMake(8, 8, 8, 8)];
+            [messageCell setBubbleAccessoryView:geoButton];
+        }
+    }
+    else {
+        [messageCell setBubbleAccessoryView:nil];
+    }
+    
     return messageCell;
 }
 

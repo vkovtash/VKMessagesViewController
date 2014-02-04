@@ -11,9 +11,9 @@
 #import "VKMenuControllerPresenter.h"
 #import "VKiOSVersionCheck.h"
 
-#define kDefaultToolbarHeight 40
-#define kDefaultToolbarPortraitMaximumHeight 195
-#define kDefaultToolbarLandscapeMaximumHeight 101
+static CGFloat const kDefaultToolbarHeight = 40;
+static CGFloat const kDefaultToolbarPortraitMaximumHeight = 195;
+static CGFloat const kDefaultToolbarLandscapeMaximumHeight = 101;
 
 @interface VKMessagesViewController () <UIGestureRecognizerDelegate, VKMenuControllerPresenterDelegate>
 @property (strong, nonatomic) VKMenuControllerPresenter *menuPresenter;

@@ -205,12 +205,12 @@
 #pragma mark - UIInputToolbarDelegate
 
 - (void) inputButtonPressed:(UIInputToolbar *)toolbar {
-    [super inputButtonPressed:toolbar];
     [self.messageStorage addObject:@{@"text":self.messageToolbar.textView.text,
                                      @"date":[NSDate date],
                                      @"type":@"text"}];
     [self.tableView reloadData];
     [self scrollTableViewToBottomAnimated:YES];
+    [super inputButtonPressed:toolbar];
 }
 
 @end

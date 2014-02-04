@@ -15,5 +15,4 @@ Pod::Spec.new do |s|
   
   s.dependency 'TTTAttributedLabel'
   s.dependency 'VKInputToolbar', '~> 0.3.3'
-  s.dependency 'VKDAKeyboardControl'
 end

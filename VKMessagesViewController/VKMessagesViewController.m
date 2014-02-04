@@ -171,6 +171,26 @@
     [self.messageToolbar.textView resignFirstResponder];
 }
 
+- (void) performAction:(SEL)action withSender:(id)sender userInfo:(NSDictionary *)userInfo {
+    [self performAction:action forRowAtIndexPath:userInfo[@"cellIndexPath"] withSender:sender];
+}
+
+- (BOOL) shouldShowMenuForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return NO;
+}
+
+- (BOOL) canPerformAction:(SEL)action
+        forRowAtIndexPath:(NSIndexPath *)indexPath
+               withSender:(id)sender {
+    return NO;
+}
+
+- (void) performAction:(SEL)action
+     forRowAtIndexPath:(NSIndexPath *)indexPath
+            withSender:(id)sender {
+    
+}
+
 #pragma mark - Private methods
 
 - (void) applyTopInset { //apply table view offsets for iOS7
@@ -233,26 +253,6 @@
     return [self canPerformAction:action
          forRowAtIndexPath:userInfo[@"cellIndexPath"]
                 withSender:sender];
-}
-
-- (void) performAction:(SEL)action withSender:(id)sender userInfo:(NSDictionary *)userInfo {
-    [self performAction:action forRowAtIndexPath:userInfo[@"cellIndexPath"] withSender:sender];
-}
-
-- (BOOL) shouldShowMenuForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return NO;
-}
-
-- (BOOL) canPerformAction:(SEL)action
-        forRowAtIndexPath:(NSIndexPath *)indexPath
-               withSender:(id)sender {
-    return NO;
-}
-
-- (void) performAction:(SEL)action
-     forRowAtIndexPath:(NSIndexPath *)indexPath
-            withSender:(id)sender {
-    
 }
 
 #pragma mark - UITableViewDatasource
@@ -360,16 +360,18 @@ static inline CGRect keyboardRectInView(UIView *view, NSDictionary *keyboardUser
 #pragma mark - Keyboard control
 
 - (void) catchKeyboard {
-    if(self.keyboard) return;
+    if(self.keyboard)
+        return;
     
     //Because we cant get access to the UIKeyboard throught the SDK we will just use UIView.
     //UIKeyboard is a subclass of UIView anyways
     //see discussion http://www.iphonedevsdk.com/forum/iphone-sdk-development/6573-howto-customize-uikeyboard.html
     
     UIWindow* tempWindow = [[[UIApplication sharedApplication] windows] objectAtIndex:1];
+    UIView *possibleKeyboard = nil;
     for(int i = 0; i < [tempWindow.subviews count]; i++) {
-        UIView *possibleKeyboard = [tempWindow.subviews objectAtIndex:i];
-        if([[possibleKeyboard description] hasPrefix:@"<UIPeripheralHostView"] == YES){
+        possibleKeyboard = [tempWindow.subviews objectAtIndex:i];
+        if([NSStringFromClass([possibleKeyboard class]) isEqualToString:@"UIPeripheralHostView"]) {
             self.keyboard = possibleKeyboard;
             return;
         }

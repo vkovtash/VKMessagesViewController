@@ -23,10 +23,20 @@
 
 - (void) scrollTableViewToBottomAnimated:(BOOL) animated;
 - (void) dismissKeyboard;
+
+#pragma mark - keyboard notifications
+- (void) keyboardWillShow:(NSNotification *) notification;
+- (void) keyboardWillHide:(NSNotification *) notification;
+- (void) keyboardDidShow:(NSNotification *) notification;
+- (void) keyboardDidHide:(NSNotification *) notification;
+
+#pragma mark - messageToolbal delegate
 - (void) inputButtonPressed:(UIInputToolbar *)toolbar;
 - (void) plusButtonPressed:(UIInputToolbar *)toolbar;
 - (void) inputToolbar:(UIInputToolbar *)inputToolbar DidChangeHeight:(CGFloat)height;
 - (void) inputToolbarDidBeginEditing:(UIInputToolbar *)inputToolbar;
+
+#pragma mark - cell menu
 - (BOOL) shouldShowMenuForRowAtIndexPath:(NSIndexPath *)indexPath;
 - (BOOL) canPerformAction:(SEL)action
         forRowAtIndexPath:(NSIndexPath *)indexPath

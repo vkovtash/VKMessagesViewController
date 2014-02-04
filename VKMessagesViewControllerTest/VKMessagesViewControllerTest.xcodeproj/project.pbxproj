@@ -12,9 +12,6 @@
 		6B8D66811822A6500024C694 /* vk_backspace_button_pressed_ios7@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6B8D667F1822A6500024C694 /* vk_backspace_button_pressed_ios7@2x.png */; };
 		6BD7F6DE1822697400B511A0 /* vk_message_bubble_incoming_ios7@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6BD7F6DC1822697400B511A0 /* vk_message_bubble_incoming_ios7@2x.png */; };
 		6BD7F6DF1822697400B511A0 /* vk_message_bubble_outgouing_ios7@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6BD7F6DD1822697400B511A0 /* vk_message_bubble_outgouing_ios7@2x.png */; };
-		F313D9A51884015E00AEDFE2 /* VKDefaultBubbleCell+VKTextBubbleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F313D9A41884015E00AEDFE2 /* VKDefaultBubbleCell+VKTextBubbleCell.m */; };
-		F313D9AC18840C8600AEDFE2 /* VKBubbleView+VKDefaultBubbleView.m in Sources */ = {isa = PBXBuildFile; fileRef = F313D9AB18840C8600AEDFE2 /* VKBubbleView+VKDefaultBubbleView.m */; };
-		F313D9AF1884137F00AEDFE2 /* VKDefaultBubbleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F313D9AE1884137F00AEDFE2 /* VKDefaultBubbleCell.m */; };
 		F31F288A1861DA9800816330 /* UIActionSheet+VKBlocks.m in Sources */ = {isa = PBXBuildFile; fileRef = F31F28891861DA9800816330 /* UIActionSheet+VKBlocks.m */; };
 		F333A4A518881B21002D8491 /* VKImageBubbleViewProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = F333A4A418881B21002D8491 /* VKImageBubbleViewProperties.m */; };
 		F3574D6817BE2A1700471785 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F3574D6717BE2A1700471785 /* UIKit.framework */; };
@@ -63,9 +60,15 @@
 		F3A9B92F185F12C20095877C /* VKMessagesViewController+VKEmojiPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = F3A9B92E185F12C20095877C /* VKMessagesViewController+VKEmojiPicker.m */; };
 		F3C8B38F18A0FF3900832D73 /* vk_message_bubble_outgouing_selected_ios7@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F3C8B38D18A0FF3900832D73 /* vk_message_bubble_outgouing_selected_ios7@2x.png */; };
 		F3C8B39018A0FF3900832D73 /* vk_message_bubble_incoming_selected_ios7@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F3C8B38E18A0FF3900832D73 /* vk_message_bubble_incoming_selected_ios7@2x.png */; };
+		F3C8B3B218A124FE00832D73 /* VKDefaultBubbleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F3C8B3A518A124FE00832D73 /* VKDefaultBubbleCell.m */; };
+		F3C8B3B318A124FE00832D73 /* VKInboundBaseBubbleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F3C8B3A718A124FE00832D73 /* VKInboundBaseBubbleCell.m */; };
+		F3C8B3B418A124FE00832D73 /* VKInboundImageBubbleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F3C8B3A918A124FE00832D73 /* VKInboundImageBubbleCell.m */; };
+		F3C8B3B518A124FE00832D73 /* VKInboundTextBubbleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F3C8B3AB18A124FE00832D73 /* VKInboundTextBubbleCell.m */; };
+		F3C8B3B618A124FE00832D73 /* VKOutboundBaseBubbleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F3C8B3AD18A124FE00832D73 /* VKOutboundBaseBubbleCell.m */; };
+		F3C8B3B718A124FE00832D73 /* VKOutboundImageBubbleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F3C8B3AF18A124FE00832D73 /* VKOutboundImageBubbleCell.m */; };
+		F3C8B3B818A124FE00832D73 /* VKOutboundTextBubbleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F3C8B3B118A124FE00832D73 /* VKOutboundTextBubbleCell.m */; };
 		F3D10DDA1869DB72009C03D0 /* VKTextBubbleView.m in Sources */ = {isa = PBXBuildFile; fileRef = F3D10DD91869DB72009C03D0 /* VKTextBubbleView.m */; };
 		F3E56FE21886D64C00B6D7C0 /* VKImageBubbleView.m in Sources */ = {isa = PBXBuildFile; fileRef = F3E56FE11886D64C00B6D7C0 /* VKImageBubbleView.m */; };
-		F3E56FE51886DA2400B6D7C0 /* VKDefaultBubbleCell+VKImageBubbleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F3E56FE41886DA2400B6D7C0 /* VKDefaultBubbleCell+VKImageBubbleCell.m */; };
 		F3E56FEB1886E14700B6D7C0 /* image01.jpg in Resources */ = {isa = PBXBuildFile; fileRef = F3E56FE81886E14700B6D7C0 /* image01.jpg */; };
 		F3E56FEC1886E14700B6D7C0 /* image02.png in Resources */ = {isa = PBXBuildFile; fileRef = F3E56FE91886E14700B6D7C0 /* image02.png */; };
 		F3E56FED1886E14700B6D7C0 /* image03.jpg in Resources */ = {isa = PBXBuildFile; fileRef = F3E56FEA1886E14700B6D7C0 /* image03.jpg */; };
@@ -78,12 +81,6 @@
 		6BD7F6DD1822697400B511A0 /* vk_message_bubble_outgouing_ios7@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "vk_message_bubble_outgouing_ios7@2x.png"; sourceTree = "<group>"; };
 		6BD7F6E018226A0700B511A0 /* VKiOSVersionCheck.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VKiOSVersionCheck.h; sourceTree = "<group>"; };
 		7F79047F4EC44DC99B18943E /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		F313D9A31884015E00AEDFE2 /* VKDefaultBubbleCell+VKTextBubbleCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "VKDefaultBubbleCell+VKTextBubbleCell.h"; path = "Views/VKDefaultBubbleCell+VKTextBubbleCell.h"; sourceTree = "<group>"; };
-		F313D9A41884015E00AEDFE2 /* VKDefaultBubbleCell+VKTextBubbleCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "VKDefaultBubbleCell+VKTextBubbleCell.m"; path = "Views/VKDefaultBubbleCell+VKTextBubbleCell.m"; sourceTree = "<group>"; };
-		F313D9AA18840C8600AEDFE2 /* VKBubbleView+VKDefaultBubbleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "VKBubbleView+VKDefaultBubbleView.h"; sourceTree = "<group>"; };
-		F313D9AB18840C8600AEDFE2 /* VKBubbleView+VKDefaultBubbleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "VKBubbleView+VKDefaultBubbleView.m"; sourceTree = "<group>"; };
-		F313D9AD1884137F00AEDFE2 /* VKDefaultBubbleCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VKDefaultBubbleCell.h; sourceTree = "<group>"; };
-		F313D9AE1884137F00AEDFE2 /* VKDefaultBubbleCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VKDefaultBubbleCell.m; sourceTree = "<group>"; };
 		F31F28881861DA9800816330 /* UIActionSheet+VKBlocks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIActionSheet+VKBlocks.h"; sourceTree = "<group>"; };
 		F31F28891861DA9800816330 /* UIActionSheet+VKBlocks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIActionSheet+VKBlocks.m"; sourceTree = "<group>"; };
 		F333A4A318881B21002D8491 /* VKImageBubbleViewProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VKImageBubbleViewProperties.h; sourceTree = "<group>"; };
@@ -152,12 +149,24 @@
 		F3A9B92E185F12C20095877C /* VKMessagesViewController+VKEmojiPicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "VKMessagesViewController+VKEmojiPicker.m"; sourceTree = "<group>"; };
 		F3C8B38D18A0FF3900832D73 /* vk_message_bubble_outgouing_selected_ios7@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "vk_message_bubble_outgouing_selected_ios7@2x.png"; sourceTree = "<group>"; };
 		F3C8B38E18A0FF3900832D73 /* vk_message_bubble_incoming_selected_ios7@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "vk_message_bubble_incoming_selected_ios7@2x.png"; sourceTree = "<group>"; };
+		F3C8B3A418A124FE00832D73 /* VKDefaultBubbleCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VKDefaultBubbleCell.h; sourceTree = "<group>"; };
+		F3C8B3A518A124FE00832D73 /* VKDefaultBubbleCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VKDefaultBubbleCell.m; sourceTree = "<group>"; };
+		F3C8B3A618A124FE00832D73 /* VKInboundBaseBubbleCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VKInboundBaseBubbleCell.h; sourceTree = "<group>"; };
+		F3C8B3A718A124FE00832D73 /* VKInboundBaseBubbleCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VKInboundBaseBubbleCell.m; sourceTree = "<group>"; };
+		F3C8B3A818A124FE00832D73 /* VKInboundImageBubbleCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VKInboundImageBubbleCell.h; sourceTree = "<group>"; };
+		F3C8B3A918A124FE00832D73 /* VKInboundImageBubbleCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VKInboundImageBubbleCell.m; sourceTree = "<group>"; };
+		F3C8B3AA18A124FE00832D73 /* VKInboundTextBubbleCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VKInboundTextBubbleCell.h; sourceTree = "<group>"; };
+		F3C8B3AB18A124FE00832D73 /* VKInboundTextBubbleCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VKInboundTextBubbleCell.m; sourceTree = "<group>"; };
+		F3C8B3AC18A124FE00832D73 /* VKOutboundBaseBubbleCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VKOutboundBaseBubbleCell.h; sourceTree = "<group>"; };
+		F3C8B3AD18A124FE00832D73 /* VKOutboundBaseBubbleCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VKOutboundBaseBubbleCell.m; sourceTree = "<group>"; };
+		F3C8B3AE18A124FE00832D73 /* VKOutboundImageBubbleCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VKOutboundImageBubbleCell.h; sourceTree = "<group>"; };
+		F3C8B3AF18A124FE00832D73 /* VKOutboundImageBubbleCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VKOutboundImageBubbleCell.m; sourceTree = "<group>"; };
+		F3C8B3B018A124FE00832D73 /* VKOutboundTextBubbleCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VKOutboundTextBubbleCell.h; sourceTree = "<group>"; };
+		F3C8B3B118A124FE00832D73 /* VKOutboundTextBubbleCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VKOutboundTextBubbleCell.m; sourceTree = "<group>"; };
 		F3D10DD81869DB72009C03D0 /* VKTextBubbleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VKTextBubbleView.h; sourceTree = "<group>"; };
 		F3D10DD91869DB72009C03D0 /* VKTextBubbleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VKTextBubbleView.m; sourceTree = "<group>"; };
 		F3E56FE01886D64C00B6D7C0 /* VKImageBubbleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VKImageBubbleView.h; sourceTree = "<group>"; };
 		F3E56FE11886D64C00B6D7C0 /* VKImageBubbleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VKImageBubbleView.m; sourceTree = "<group>"; };
-		F3E56FE31886DA2400B6D7C0 /* VKDefaultBubbleCell+VKImageBubbleCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "VKDefaultBubbleCell+VKImageBubbleCell.h"; sourceTree = "<group>"; };
-		F3E56FE41886DA2400B6D7C0 /* VKDefaultBubbleCell+VKImageBubbleCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "VKDefaultBubbleCell+VKImageBubbleCell.m"; sourceTree = "<group>"; };
 		F3E56FE81886E14700B6D7C0 /* image01.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = image01.jpg; sourceTree = "<group>"; };
 		F3E56FE91886E14700B6D7C0 /* image02.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = image02.png; sourceTree = "<group>"; };
 		F3E56FEA1886E14700B6D7C0 /* image03.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = image03.jpg; sourceTree = "<group>"; };
@@ -179,21 +188,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		F313D9A918840C3E00AEDFE2 /* DefaultStyle */ = {
-			isa = PBXGroup;
-			children = (
-				F313D9AD1884137F00AEDFE2 /* VKDefaultBubbleCell.h */,
-				F313D9AE1884137F00AEDFE2 /* VKDefaultBubbleCell.m */,
-				F313D9AA18840C8600AEDFE2 /* VKBubbleView+VKDefaultBubbleView.h */,
-				F313D9AB18840C8600AEDFE2 /* VKBubbleView+VKDefaultBubbleView.m */,
-				F313D9A31884015E00AEDFE2 /* VKDefaultBubbleCell+VKTextBubbleCell.h */,
-				F313D9A41884015E00AEDFE2 /* VKDefaultBubbleCell+VKTextBubbleCell.m */,
-				F3E56FE31886DA2400B6D7C0 /* VKDefaultBubbleCell+VKImageBubbleCell.h */,
-				F3E56FE41886DA2400B6D7C0 /* VKDefaultBubbleCell+VKImageBubbleCell.m */,
-			);
-			name = DefaultStyle;
-			sourceTree = "<group>";
-		};
 		F3574D5B17BE2A1600471785 = {
 			isa = PBXGroup;
 			children = (
@@ -255,7 +249,7 @@
 		F3574D8E17BE402E00471785 /* VKMessagesViewController */ = {
 			isa = PBXGroup;
 			children = (
-				F313D9A918840C3E00AEDFE2 /* DefaultStyle */,
+				F3C8B3A318A124FE00832D73 /* DefaultStyle */,
 				F3574DCA17BE4FF000471785 /* Resources */,
 				F3574DA517BE422900471785 /* Tools */,
 				F3574D8F17BE402E00471785 /* Views */,
@@ -373,6 +367,43 @@
 				F389BACE1885994000A74818 /* BaseBubbleView */,
 			);
 			name = VKBubbleView;
+			sourceTree = "<group>";
+		};
+		F3C8B3A318A124FE00832D73 /* DefaultStyle */ = {
+			isa = PBXGroup;
+			children = (
+				F3C8B3A418A124FE00832D73 /* VKDefaultBubbleCell.h */,
+				F3C8B3A518A124FE00832D73 /* VKDefaultBubbleCell.m */,
+				F3C8B3BA18A1252200832D73 /* Outbound */,
+				F3C8B3B918A1250C00832D73 /* Inbound */,
+			);
+			path = DefaultStyle;
+			sourceTree = "<group>";
+		};
+		F3C8B3B918A1250C00832D73 /* Inbound */ = {
+			isa = PBXGroup;
+			children = (
+				F3C8B3A618A124FE00832D73 /* VKInboundBaseBubbleCell.h */,
+				F3C8B3A718A124FE00832D73 /* VKInboundBaseBubbleCell.m */,
+				F3C8B3AA18A124FE00832D73 /* VKInboundTextBubbleCell.h */,
+				F3C8B3AB18A124FE00832D73 /* VKInboundTextBubbleCell.m */,
+				F3C8B3A818A124FE00832D73 /* VKInboundImageBubbleCell.h */,
+				F3C8B3A918A124FE00832D73 /* VKInboundImageBubbleCell.m */,
+			);
+			name = Inbound;
+			sourceTree = "<group>";
+		};
+		F3C8B3BA18A1252200832D73 /* Outbound */ = {
+			isa = PBXGroup;
+			children = (
+				F3C8B3AC18A124FE00832D73 /* VKOutboundBaseBubbleCell.h */,
+				F3C8B3AD18A124FE00832D73 /* VKOutboundBaseBubbleCell.m */,
+				F3C8B3AE18A124FE00832D73 /* VKOutboundImageBubbleCell.h */,
+				F3C8B3AF18A124FE00832D73 /* VKOutboundImageBubbleCell.m */,
+				F3C8B3B018A124FE00832D73 /* VKOutboundTextBubbleCell.h */,
+				F3C8B3B118A124FE00832D73 /* VKOutboundTextBubbleCell.m */,
+			);
+			name = Outbound;
 			sourceTree = "<group>";
 		};
 		F3E56FDF1886D5F700B6D7C0 /* ImageBubbleView */ = {
@@ -526,26 +557,29 @@
 			buildActionMask = 2147483647;
 			files = (
 				F3574D7417BE2A1700471785 /* main.m in Sources */,
+				F3C8B3B618A124FE00832D73 /* VKOutboundBaseBubbleCell.m in Sources */,
+				F3C8B3B718A124FE00832D73 /* VKOutboundImageBubbleCell.m in Sources */,
 				F3574D7817BE2A1700471785 /* VKAppDelegate.m in Sources */,
 				F3574D9A17BE402E00471785 /* VKBubbleView.m in Sources */,
 				F3574D9B17BE402E00471785 /* VKBubbleViewProperties.m in Sources */,
 				F3574D9C17BE402E00471785 /* VKBubbleCell.m in Sources */,
 				F3574D9D17BE402E00471785 /* VKTableView.m in Sources */,
 				F3574D9E17BE402E00471785 /* VKMessagesViewController.m in Sources */,
-				F313D9AC18840C8600AEDFE2 /* VKBubbleView+VKDefaultBubbleView.m in Sources */,
 				F333A4A518881B21002D8491 /* VKImageBubbleViewProperties.m in Sources */,
 				F3574DA317BE417700471785 /* VKEmojiPicker.m in Sources */,
+				F3C8B3B818A124FE00832D73 /* VKOutboundTextBubbleCell.m in Sources */,
 				F3574DA417BE417700471785 /* VKEmojiPicker+style.m in Sources */,
 				F393747D186C8851004F0416 /* VKTextBubbleViewProperties.m in Sources */,
 				F3D10DDA1869DB72009C03D0 /* VKTextBubbleView.m in Sources */,
-				F313D9A51884015E00AEDFE2 /* VKDefaultBubbleCell+VKTextBubbleCell.m in Sources */,
 				F3574DA817BE422900471785 /* NSString+deletingLastSymbol.m in Sources */,
+				F3C8B3B518A124FE00832D73 /* VKInboundTextBubbleCell.m in Sources */,
 				F31F288A1861DA9800816330 /* UIActionSheet+VKBlocks.m in Sources */,
 				F3574DAB17BE42B800471785 /* VKMenuControllerPresenter.m in Sources */,
-				F3E56FE51886DA2400B6D7C0 /* VKDefaultBubbleCell+VKImageBubbleCell.m in Sources */,
+				F3C8B3B218A124FE00832D73 /* VKDefaultBubbleCell.m in Sources */,
 				F3574DAE17BE430600471785 /* UIViewController+firstResponder.m in Sources */,
-				F313D9AF1884137F00AEDFE2 /* VKDefaultBubbleCell.m in Sources */,
+				F3C8B3B318A124FE00832D73 /* VKInboundBaseBubbleCell.m in Sources */,
 				F3A9B92F185F12C20095877C /* VKMessagesViewController+VKEmojiPicker.m in Sources */,
+				F3C8B3B418A124FE00832D73 /* VKInboundImageBubbleCell.m in Sources */,
 				F3574DB117BE439800471785 /* UIResponder+FirstResponder.m in Sources */,
 				F3574DC917BE4C8200471785 /* VKViewController.m in Sources */,
 				F3E56FE21886D64C00B6D7C0 /* VKImageBubbleView.m in Sources */,

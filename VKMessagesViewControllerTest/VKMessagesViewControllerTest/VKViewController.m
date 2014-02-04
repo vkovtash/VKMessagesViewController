@@ -7,10 +7,10 @@
 //
 
 #import "VKViewController.h"
-#import "VKTextBubbleView.h"
-#import "VKDefaultBubbleCell.h"
-#import "VKDefaultBubbleCell+VKTextBubbleCell.h"
-#import "VKDefaultBubbleCell+VKImageBubbleCell.h"
+#import "VKInboundTextBubbleCell.h"
+#import "VKOutboundTextBubbleCell.h"
+#import "VKInboundImageBubbleCell.h"
+#import "VKOutboundImageBubbleCell.h"
 
 @interface VKViewController()
 @property (strong, nonatomic) NSMutableArray *messageStorage;
@@ -59,6 +59,15 @@
                                                  @"image_name":@"no_image.jpg",
                                                  @"date":[NSDate date]}
                                                ]];
+    
+    [self.tableView registerClass:[VKOutboundTextBubbleCell class]
+           forCellReuseIdentifier:VKInboundTextBubbleCellReuseIdentifier];
+    [self.tableView registerClass:[VKInboundTextBubbleCell class]
+           forCellReuseIdentifier:VKOutboundTextBubbleCellReuseIdentifier];
+    [self.tableView registerClass:[VKInboundImageBubbleCell class]
+           forCellReuseIdentifier:VKInboundImageBubbleCellReuseIdentifier];
+    [self.tableView registerClass:[VKOutboundImageBubbleCell class]
+           forCellReuseIdentifier:VKOutboundImageBubbleCellReuseIdentifier];
 }
 
 - (NSMutableArray *) messageStorage{
@@ -76,20 +85,20 @@
     
     if ([message[@"type"] isEqualToString:@"text"]) {
         if (indexPath.row%2) {
-            messageCell = [VKDefaultBubbleCell getInboundTextMessageCell:tableView];
+            messageCell = [tableView dequeueReusableCellWithIdentifier:VKInboundTextBubbleCellReuseIdentifier];
         }
         else{
-            messageCell = [VKDefaultBubbleCell getOutboundTextMessageCell:tableView];
+            messageCell = [tableView dequeueReusableCellWithIdentifier:VKOutboundTextBubbleCellReuseIdentifier];
         }
         
          [(VKTextBubbleView *)messageCell.bubbleView messageBody].text = message[@"text"];
     }
     else if ([message[@"type"] isEqualToString:@"image"]) {
         if (indexPath.row%2) {
-            messageCell = [VKDefaultBubbleCell getInboundImageMessageCell:tableView];
+            messageCell = [tableView dequeueReusableCellWithIdentifier:VKInboundImageBubbleCellReuseIdentifier];
         }
         else{
-            messageCell = [VKDefaultBubbleCell getOutboundImageMessageCell:tableView];
+            messageCell = [tableView dequeueReusableCellWithIdentifier:VKOutboundImageBubbleCellReuseIdentifier];
         }
         VKImageBubbleView *imageBubble = (VKImageBubbleView *)messageCell.bubbleView;
         imageBubble.messageBody.image = [UIImage imageNamed:message[@"image_name"]];
@@ -133,12 +142,12 @@
     NSDictionary *message = self.messageStorage[indexPath.row];
     if ([message[@"type"] isEqualToString:@"text"]) {
         if (indexPath.row%2) {
-            return [VKDefaultBubbleCell heightForInboundTextBubbleCell:message[@"text"]
-                                                                 Widht:self.view.bounds.size.width];
+            return [VKInboundTextBubbleCell heightForText:message[@"text"]
+                                                    Widht:self.view.bounds.size.width];
         }
         else {
-            return [VKDefaultBubbleCell heightForOutboundTextBubbleCell:message[@"text"]
-                                                                  Widht:self.view.bounds.size.width];
+            return [VKOutboundTextBubbleCell heightForText:message[@"text"]
+                                                     Widht:self.view.bounds.size.width];
         }
     }
     else if ([message[@"type"] isEqualToString:@"image"]) {
@@ -148,12 +157,12 @@
             imageSize = image.size;
         }
         if (indexPath.row%2) {
-            return [VKDefaultBubbleCell heightForInboundBubbleCellWithImageSize:imageSize
-                                                                          widht:self.view.bounds.size.width];
+            return [VKInboundImageBubbleCell heightForImageSize:imageSize
+                                                          widht:self.view.bounds.size.width];
         }
         else {
-            return [VKDefaultBubbleCell heightForOutboundBubbleCellWithImageSize:imageSize
-                                                                           widht:self.view.bounds.size.width];
+            return [VKOutboundImageBubbleCell heightForImageSize:imageSize
+                                                           widht:self.view.bounds.size.width];
         }
     }
     

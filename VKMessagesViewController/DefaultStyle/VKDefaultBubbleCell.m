@@ -8,7 +8,6 @@
 
 #import "VKDefaultBubbleCell.h"
 #import "VKiOSVersionCheck.h"
-#import <QuartzCore/QuartzCore.h>
 
 static CGFloat bubbleViewWidthMultiplier = 0.9;
 static CGFloat kMessageDetailsFontSize = 12;
@@ -17,18 +16,24 @@ static CGFloat kMessageDetailsFontSize = 12;
 @end
 
 @implementation VKDefaultBubbleCell
+@synthesize messageDetails = _messageDetails;
 
 - (instancetype) initWithBubbleView:(VKBubbleView *)bubbleView reuseIdentifier:(NSString *)reuseIdentifier {
     self = [super initWithBubbleView:bubbleView reuseIdentifier:reuseIdentifier];
     if (self) {
         [self.contentView addSubview:self.messageDetails];
+        self.backgroundColor = [UIColor clearColor];
         
         CGFloat detailOffset = 0;
         if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7")) {
             detailOffset = 6;
+            self.messageDetails.textColor = [UIColor darkGrayColor];
         }
         else {
             detailOffset = 4;
+            self.messageDetails.shadowOffset = CGSizeMake(0, -1);
+            self.messageDetails.shadowColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5];
+            self.messageDetails.textColor = [UIColor colorWithRed:1 green:1 blue:1 alpha:0.4];
         }
         
         UIEdgeInsets cellEdgeInsets = [[self class] edgeInsets];
@@ -38,6 +43,17 @@ static CGFloat kMessageDetailsFontSize = 12;
                                                18);
     }
     return self;
+}
+
+- (NSDateFormatter *) dateFormatter {
+    static NSDateFormatter *dateFormatter = nil;
+    if (!dateFormatter) {
+        dateFormatter = [[NSDateFormatter alloc] init];
+        [dateFormatter setTimeStyle:NSDateFormatterShortStyle];
+        [dateFormatter setDateStyle:NSDateFormatterMediumStyle];
+        [dateFormatter setDoesRelativeDateFormatting:YES];
+    }
+    return dateFormatter;
 }
 
 - (UILabel *) messageDetails{
@@ -71,7 +87,7 @@ static CGFloat kMessageDetailsFontSize = 12;
 
 - (void) updateDetails {
     NSString *dateText = nil;
-    if (_dateFormatter && _messageDate) {
+    if (self.dateFormatter && _messageDate) {
         dateText = [self.dateFormatter stringFromDate:_messageDate];
     }
     self.messageDetails.text = [NSString stringWithFormat:@"%@ %@",
@@ -89,47 +105,6 @@ static CGFloat kMessageDetailsFontSize = 12;
 
 + (UIEdgeInsets) edgeInsets{
     return UIEdgeInsetsMake(5, 5, 16, 5);
-}
-
-+ (instancetype) cellWithBubbleView:(VKBubbleView *) bubbleView reuseIdentifier:(NSString *) reuseIdentifier {
-    
-    static NSDateFormatter *dateFormatter = nil;
-    if (!dateFormatter) {
-        dateFormatter = [[NSDateFormatter alloc] init];
-        [dateFormatter setTimeStyle:NSDateFormatterShortStyle];
-        [dateFormatter setDateStyle:NSDateFormatterMediumStyle];
-        [dateFormatter setDoesRelativeDateFormatting:YES];
-    }
-    
-    VKDefaultBubbleCell *cell = [[[self class] alloc] initWithBubbleView:bubbleView reuseIdentifier:reuseIdentifier];
-    if (cell) {
-        cell.backgroundColor = [UIColor clearColor];
-        cell.dateFormatter = dateFormatter;
-        
-        if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7")) {
-            cell.messageDetails.textColor = [UIColor darkGrayColor];
-        }
-        else {
-            cell.messageDetails.shadowOffset = CGSizeMake(0, -1);
-            cell.messageDetails.shadowColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5];
-            cell.messageDetails.textColor = [UIColor colorWithRed:1 green:1 blue:1 alpha:0.4];
-        }
-    }
-    return cell;
-}
-
-+ (instancetype) inboundCellWithBubbleView:(VKBubbleView *) bubbleView reuseIdentifier:(NSString *) reuseIdentifier {
-    VKDefaultBubbleCell *cell = [[self class] cellWithBubbleView:bubbleView reuseIdentifier:reuseIdentifier];
-    [cell setBubbleAlign:VKBubbleAlignLeft];
-    cell.messageDetails.textAlignment = NSTextAlignmentLeft;
-    return cell;
-}
-
-+ (instancetype) outboundCellWithBubbleView:(VKBubbleView *) bubbleView reuseIdentifier:(NSString *) reuseIdentifier {
-    VKDefaultBubbleCell *cell = [[self class] cellWithBubbleView:bubbleView reuseIdentifier:reuseIdentifier];
-    [cell setBubbleAlign:VKBubbleAlignRight];
-    cell.messageDetails.textAlignment = NSTextAlignmentRight;
-    return cell;
 }
 
 @end

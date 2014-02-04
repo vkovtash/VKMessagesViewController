@@ -11,11 +11,14 @@
 #import "TTTAttributedLabel.h"
 
 @interface VKBubbleView : UIView <TTTAttributedLabelDelegate>
-@property (nonatomic,strong) UIImage *backgroundImage;
-@property (nonatomic,strong) UILabel *messageBody;
-@property (nonatomic,strong) UILabel *messageLeftHeader;
-@property (nonatomic,strong) UILabel *messageRightHeader;
+@property (nonatomic, strong) UIImage *normalBackgroundImage;
+@property (nonatomic, strong) UIImage *selectedBackgroundImage;
+@property (readonly, nonatomic) UIView *messageBody;
 @property (nonatomic,strong) VKBubbleViewProperties *properties;
+@property (readonly, nonatomic) BOOL isSelected;
 
-- (id) initWithProperties:(VKBubbleViewProperties *) properties;
+- (void) setSelected:(BOOL) selected;
+- (CGFloat) widthConstrainedToWidth:(CGFloat) width;
+
+- (id) initWithBubbleProperties:(VKBubbleViewProperties *) properties;
 @end

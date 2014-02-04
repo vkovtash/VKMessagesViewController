@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "VKMessagesViewController.h"
+#import "VKMessagesViewController+VKEmojiPicker.h"
 
 @interface VKViewController : VKMessagesViewController
 

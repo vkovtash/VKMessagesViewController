@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = 'VKMessagesViewController'
-  s.version      = '1.0'
+  s.version      = '1.5'
   s.summary      = "Messages view controller"
   s.homepage     = 'https://github.com/vkovtash/VKMessagesViewController'
 
@@ -13,8 +13,6 @@ Pod::Spec.new do |s|
   s.source_files = 'VKMessagesViewController/**/*.{h,m}'
   s.resources = 'VKMessagesViewController/Resources/*.png'
   
-  s.dependency 'SIAlertView', '~> 1.1'
-  s.dependency 'TTTAttributedLabel', '1.7.1'
-  s.dependency 'VKInputToolbar', '0.2.1'
-  s.dependency 'VKDAKeyboardControl', '2.3.0'
+  s.dependency 'TTTAttributedLabel'
+  s.dependency 'VKInputToolbar', '~> 0.3.3'
 end

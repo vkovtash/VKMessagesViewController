@@ -9,29 +9,39 @@
 #import <UIKit/UIKit.h>
 #import "UIInputToolbar.h"
 #import "VKEmojiPicker+style.h"
-#import "VKMessageCell.h"
+#import "VKBubbleCell.h"
 #import "VKTableView.h"
+#import "VKTextBubbleViewProperties.h"
 
 @interface VKMessagesViewController : UIViewController <UITableViewDataSource, UITableViewDelegate,
                                                         UIInputToolbarDelegate, VKEmojiPickerDelegate>
 
 @property (strong, nonatomic) VKTableView *tableView;
 @property (strong, nonatomic) UIInputToolbar *messageToolbar;
+@property (strong, nonatomic) UIView *alternativeInputView; //view shown on plus button tap
 @property (readwrite, nonatomic) NSString *messagePlaceholder;
-@property (strong, nonatomic) VKBubbleViewProperties *inboundBubbleViewProperties;
-@property (strong, nonatomic) VKBubbleViewProperties *outboundBubbleViewProperties;
-@property (strong, nonatomic) UIImage *inboundCellBackgroudImage;
-@property (strong, nonatomic) UIImage *outboundCellBackgroudImage;
-@property (strong, nonatomic) UIImage *inboundSelectedCellBackgroudImage;
-@property (strong, nonatomic) UIImage *outboundSelectedCellBackgroudImage;
-@property (strong, nonatomic) NSDateFormatter *messageDateFormatter;
 
 - (void) scrollTableViewToBottomAnimated:(BOOL) animated;
 - (void) dismissKeyboard;
-- (void) inputButtonPressed;
-- (void) plusButtonPressed;
 
-#pragma mark - factory methods
-- (VKMessageCell *) getInboundMessageCell:(UITableView *) tableView;
-- (VKMessageCell *) getOutboundMessageCell:(UITableView *) tableView;
+#pragma mark - keyboard notifications
+- (void) keyboardWillShow:(NSNotification *) notification;
+- (void) keyboardWillHide:(NSNotification *) notification;
+- (void) keyboardDidShow:(NSNotification *) notification;
+- (void) keyboardDidHide:(NSNotification *) notification;
+
+#pragma mark - messageToolbal delegate
+- (void) inputButtonPressed:(UIInputToolbar *)toolbar;
+- (void) plusButtonPressed:(UIInputToolbar *)toolbar;
+- (void) inputToolbar:(UIInputToolbar *)inputToolbar DidChangeHeight:(CGFloat)height;
+- (void) inputToolbarDidBeginEditing:(UIInputToolbar *)inputToolbar;
+
+#pragma mark - cell menu
+- (BOOL) shouldShowMenuForRowAtIndexPath:(NSIndexPath *)indexPath;
+- (BOOL) canPerformAction:(SEL)action
+        forRowAtIndexPath:(NSIndexPath *)indexPath
+               withSender:(id)sender;
+- (void) performAction:(SEL)action
+     forRowAtIndexPath:(NSIndexPath *)indexPath
+            withSender:(id)sender;
 @end

@@ -101,7 +101,9 @@
         [self.menuDisplayingResponder performAction:action withSender:sender userInfo:self.userInfo];
     }
     else if ([self.menuDisplayingResponder respondsToSelector:action]) {
-        [self.menuDisplayingResponder performSelector:action withObject:sender];
+        IMP imp = [(NSObject *)self.menuDisplayingResponder methodForSelector:action];
+        void (*func)(id, SEL) = (void *)imp;
+        func(self.menuDisplayingResponder, action);
     }
 }
 

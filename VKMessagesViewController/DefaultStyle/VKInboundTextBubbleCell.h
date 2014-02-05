@@ -17,5 +17,5 @@ extern NSString *VKInboundTextBubbleCellReuseIdentifier;
 
 + (VKTextBubbleView *) newBubbleView;
 + (VKTextBubbleViewProperties *) newBubbleViewProperties;
-+ (CGFloat) heightForText:(NSString *) text Widht:(CGFloat) width;
++ (CGFloat) heightForText:(NSString *) text widht:(CGFloat) width;
 @end

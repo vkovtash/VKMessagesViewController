@@ -157,11 +157,11 @@
     if ([message[@"type"] isEqualToString:@"text"]) {
         if (indexPath.row%2) {
             return [VKInboundTextBubbleCell heightForText:message[@"text"]
-                                                    Widht:self.view.bounds.size.width];
+                                                    widht:self.view.bounds.size.width];
         }
         else {
             return [VKOutboundTextBubbleCell heightForText:message[@"text"]
-                                                     Widht:self.view.bounds.size.width];
+                                                     widht:self.view.bounds.size.width];
         }
     }
     else if ([message[@"type"] isEqualToString:@"image"]) {

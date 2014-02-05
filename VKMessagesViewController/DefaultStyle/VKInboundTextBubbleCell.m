@@ -37,7 +37,7 @@ NSString *VKInboundTextBubbleCellReuseIdentifier =  @"VKInboundTextBubbleCell";
     return [[VKTextBubbleView alloc] initWithBubbleProperties:[[self class] newBubbleViewProperties]];
 }
 
-+ (CGFloat) heightForText:(NSString *) text Widht:(CGFloat) width {
++ (CGFloat) heightForText:(NSString *) text widht:(CGFloat) width {
     UIEdgeInsets insets = [[self class] edgeInsets];
     return insets.top + insets.bottom + [VKTextBubbleView sizeWithText:text
                                                             Properties:[[self class] newBubbleViewProperties]

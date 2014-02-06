@@ -226,7 +226,7 @@ static CGFloat const kDefaultToolbarLandscapeMaximumHeight = 101;
 }
 
 - (void) longPressRecognized:(UIGestureRecognizer *) recognizer{
-    if (recognizer.state == UIGestureRecognizerStateBegan) {
+    if (recognizer.state == UIGestureRecognizerStateBegan && !self.menuPresenter.isPresentingMenu) {
         CGPoint point = [recognizer locationInView:self.tableView];
         NSIndexPath *cellIndex = [self.tableView indexPathForRowAtPoint:point];
         
@@ -299,7 +299,7 @@ static CGFloat const kDefaultToolbarLandscapeMaximumHeight = 101;
 }
 
 - (void) inputToolbarDidBeginEditing:(UIInputToolbar *)inputToolbar {
-    if (!self.menuPresenter.shouldDisplayKeyboard) { //Scroll down only when keyboard was hidden
+    if (!self.menuPresenter.isPresentingMenu) { //Scroll down only when keyboard was hidden
         [self scrollTableViewToBottomAnimated:YES];
     }
 }
@@ -326,7 +326,8 @@ static inline CGRect keyboardRectInView(UIView *view, NSDictionary *keyboardUser
     
     NSDictionary* info = [notification userInfo];
     CGRect kbRect = keyboardRectInView(self.view, info);
-    if (kbRect.size.height){
+    
+    if (kbRect.size.height && !self.menuPresenter.isPresentingMenu){
         self.keyboardAnimationCurve = [[info objectForKey:UIKeyboardAnimationCurveUserInfoKey] integerValue];
         self.keyboardAnimationDuration = [[info objectForKey:UIKeyboardAnimationDurationUserInfoKey] floatValue];
         [self alighKeyboardControlsToRect:kbRect animated:YES];
@@ -336,7 +337,7 @@ static inline CGRect keyboardRectInView(UIView *view, NSDictionary *keyboardUser
 
 - (void) keyboardWillHide:(NSNotification *) notification {
     CGRect kbRect = keyboardRectInView(self.view, [notification userInfo]);
-    if (kbRect.size.height){
+    if (kbRect.size.height && !self.menuPresenter.isPresentingMenu){
         [self alighKeyboardControlsToRect:kbRect animated:YES];
     }
 }

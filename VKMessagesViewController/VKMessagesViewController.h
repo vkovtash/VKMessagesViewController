@@ -8,18 +8,17 @@
 
 #import <UIKit/UIKit.h>
 #import "UIInputToolbar.h"
-#import "VKEmojiPicker+style.h"
-#import "VKBubbleCell.h"
 #import "VKTableView.h"
-#import "VKTextBubbleViewProperties.h"
+#import "VKMenuControllerPresenter.h"
 
 @interface VKMessagesViewController : UIViewController <UITableViewDataSource, UITableViewDelegate,
-                                                        UIInputToolbarDelegate, VKEmojiPickerDelegate>
+                                                        UIInputToolbarDelegate>
 
 @property (strong, nonatomic) VKTableView *tableView;
 @property (strong, nonatomic) UIInputToolbar *messageToolbar;
 @property (strong, nonatomic) UIView *alternativeInputView; //view shown on plus button tap
 @property (readwrite, nonatomic) NSString *messagePlaceholder;
+@property (strong, nonatomic) VKMenuControllerPresenter *menuPresenter;
 
 - (void) scrollTableViewToBottomAnimated:(BOOL) animated;
 - (void) dismissKeyboard;
@@ -29,6 +28,7 @@
 - (void) keyboardWillHide:(NSNotification *) notification;
 - (void) keyboardDidShow:(NSNotification *) notification;
 - (void) keyboardDidHide:(NSNotification *) notification;
+- (void) keyboardWillChangeFrame:(CGRect) frame animated:(BOOL) animated;
 
 #pragma mark - messageToolbal delegate
 - (void) inputButtonPressed:(UIInputToolbar *)toolbar;

@@ -8,7 +8,7 @@
 
 #import "VKMessagesViewController.h"
 #import "UIViewController+firstResponder.h"
-#import "VKMenuControllerPresenter.h"
+#import "VKBubbleCell.h"
 #import "VKiOSVersionCheck.h"
 
 static CGFloat const kDefaultToolbarHeight = 40;
@@ -16,7 +16,6 @@ static CGFloat const kDefaultToolbarPortraitMaximumHeight = 195;
 static CGFloat const kDefaultToolbarLandscapeMaximumHeight = 101;
 
 @interface VKMessagesViewController () <UIGestureRecognizerDelegate, VKMenuControllerPresenterDelegate>
-@property (strong, nonatomic) VKMenuControllerPresenter *menuPresenter;
 @property (weak, nonatomic) UIView *keyboard;
 @property (nonatomic) CGFloat originalKeyboardY;
 @property (nonatomic) CGFloat originalLocation;
@@ -358,6 +357,10 @@ static inline CGRect keyboardRectInView(UIView *view, NSDictionary *keyboardUser
     }
 }
 
+- (void) keyboardWillChangeFrame:(CGRect) frame animated:(BOOL) animated {
+    
+}
+
 #pragma mark - Keyboard control
 
 - (void) catchKeyboard {
@@ -400,6 +403,7 @@ static inline CGRect keyboardRectInView(UIView *view, NSDictionary *keyboardUser
         insets.bottom = weakSelf.view.bounds.size.height - toolBarFrame.origin.y;
         weakSelf.tableView.contentInset = insets;
         weakSelf.tableView.scrollIndicatorInsets = insets;
+        [weakSelf keyboardWillChangeFrame:keyboardFrame animated:animated];
     };
     
     if (animated) {

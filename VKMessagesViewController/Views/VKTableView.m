@@ -8,6 +8,9 @@
 
 #import "VKTableView.h"
 
+static CGFloat kInsetCorrectionTollerance = 150;
+static CGFloat kRotationRestorationTollerance = 10;
+
 @interface VKTableView(){
     CGFloat _newVeticalOffsetStorageFrame;
     NSIndexPath *_lastVisibleRow;
@@ -18,6 +21,9 @@
 @implementation VKTableView
 
 - (void) setContentInset:(UIEdgeInsets)contentInset{
+    CGFloat bottomOffset = (self.contentSize.height - self.bounds.size.height + self.contentInset.bottom) - self.contentOffset.y;
+    BOOL shouldCorrect = (bottomOffset > kInsetCorrectionTollerance) || (bottomOffset < kInsetCorrectionTollerance && self.contentInset.bottom < contentInset.bottom);
+    
     CGFloat offsetCorrection = 0;
     if (self.contentSize.height < self.bounds.size.height - self.contentInset.top - self.contentInset.bottom) {
         //content is smaller than current scrolling window
@@ -29,7 +35,7 @@
     
     [super setContentInset:contentInset];
     
-    if (offsetCorrection > 0) {
+    if (shouldCorrect) {
         CGPoint offset = self.contentOffset;
         offset.y += offsetCorrection;
         if (offset.y < -self.contentInset.top) {
@@ -43,10 +49,10 @@
     if (self.frame.size.width != frame.size.width) {
         _offsetRestorationRequired = YES;
         if (self.frame.size.height > self.contentSize.height + self.contentInset.bottom) {
-            _lastVisibleRow = [self indexPathForRowAtPoint:CGPointMake(0, self.contentSize.height + self.contentOffset.y - 10 - self.contentInset.top)];
+            _lastVisibleRow = [self indexPathForRowAtPoint:CGPointMake(0, self.contentSize.height + self.contentOffset.y - kRotationRestorationTollerance - self.contentInset.top)];
         }
         else{
-            _lastVisibleRow = [self indexPathForRowAtPoint:CGPointMake(0, self.frame.size.height + self.contentOffset.y - 10 - self.contentInset.top)];
+            _lastVisibleRow = [self indexPathForRowAtPoint:CGPointMake(0, self.frame.size.height + self.contentOffset.y - kRotationRestorationTollerance - self.contentInset.top)];
         }
     }
     else if (self.frame.size.height != frame.size.height) {

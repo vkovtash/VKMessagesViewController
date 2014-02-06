@@ -319,10 +319,6 @@ static inline CGRect keyboardRectInView(UIView *view, NSDictionary *keyboardUser
 }
 
 - (void) keyboardWillShow:(NSNotification *) notification {
-    // To remove the animation for the keyboard dropping showing
-    // we have to hide the keyboard, and on will show we set it back.
-    self.keyboard.hidden = NO;
-    
     NSDictionary* info = [notification userInfo];
     CGRect kbRect = keyboardRectInView(self.view, info);
     
@@ -331,7 +327,6 @@ static inline CGRect keyboardRectInView(UIView *view, NSDictionary *keyboardUser
         self.keyboardAnimationDuration = [[info objectForKey:UIKeyboardAnimationDurationUserInfoKey] floatValue];
         [self alighKeyboardControlsToRect:kbRect animated:YES];
     }
-
 }
 
 - (void) keyboardWillHide:(NSNotification *) notification {
@@ -344,7 +339,6 @@ static inline CGRect keyboardRectInView(UIView *view, NSDictionary *keyboardUser
 - (void) keyboardDidShow:(NSNotification *) notification {
     if (keyboardRectInView(self.view, [notification userInfo]).size.height) {
         [self catchKeyboard];
-        
         self.menuPresenter.shouldDisplayKeyboard = YES;
         self.keyboardPanRecognizer.enabled = YES;
     }
@@ -354,6 +348,7 @@ static inline CGRect keyboardRectInView(UIView *view, NSDictionary *keyboardUser
     if (keyboardRectInView(self.view, [notification userInfo]).size.height) {
         self.menuPresenter.shouldDisplayKeyboard = NO;
         self.keyboardPanRecognizer.enabled = NO;
+        self.keyboard.hidden = NO;
     }
 }
 
@@ -399,6 +394,7 @@ static inline CGRect keyboardRectInView(UIView *view, NSDictionary *keyboardUser
         
         weakSelf.tableView.scrollIndicatorInsets = newContentInsets;
         weakSelf.tableView.contentInset = newContentInsets;
+        [weakSelf keyboardWillChangeFrame:keyboardFrame animated:animated];
     };
     
     if (animated) {
@@ -420,42 +416,45 @@ static inline CGRect keyboardRectInView(UIView *view, NSDictionary *keyboardUser
 -(void) panGesture:(UIPanGestureRecognizer *)gestureRecognizer {
     CGPoint location = [gestureRecognizer locationInView:[self view]];
     CGPoint velocity = [gestureRecognizer velocityInView:self.view];
-    
     CGFloat spaceAboveKeyboard = self.view.bounds.size.height - (self.keyboard.frame.size.height + self.messageToolbar.frame.size.height);
     
-    if(gestureRecognizer.state == UIGestureRecognizerStateBegan){
-        self.originalKeyboardY = self.keyboard.frame.origin.y;
-        self.keyboard.userInteractionEnabled = NO;
+    switch (gestureRecognizer.state) {
+        case UIGestureRecognizerStateBegan:
+            self.originalKeyboardY = self.keyboard.frame.origin.y;
+            self.keyboard.userInteractionEnabled = NO;
+            break;
+            
+        case UIGestureRecognizerStateEnded:
+            if (velocity.y > 0 && location.y > spaceAboveKeyboard) {
+                [self animateKeyboardOffscreen];
+            }
+            else {
+                [self animateKeyboardReturnToOriginalPosition];
+            }
+            self.keyboard.userInteractionEnabled = YES;
+            self.tableView.panGestureRecognizer.enabled = YES;
+            break;
+            
+        case UIGestureRecognizerStateChanged:
+            if (location.y > spaceAboveKeyboard) {
+                self.tableView.panGestureRecognizer.enabled = NO;
+                CGRect newFrame = self.keyboard.frame;
+                CGFloat newY = self.originalKeyboardY + (location.y - spaceAboveKeyboard);
+                newY = MAX(newY, self.originalKeyboardY);
+                newFrame.origin.y = newY;
+                [self.keyboard setFrame: newFrame];
+                [self alighKeyboardControlsToRect:newFrame animated:NO];
+            }
+            break;
+            
+        default:
+            break;
     }
-    
-    if(gestureRecognizer.state == UIGestureRecognizerStateEnded){
-        if (velocity.y > 0 && location.y > spaceAboveKeyboard) {
-            [self animateKeyboardOffscreen];
-        }
-        else {
-            [self animateKeyboardReturnToOriginalPosition];
-        }
-        self.keyboard.userInteractionEnabled = YES;
-        self.tableView.panGestureRecognizer.enabled = YES;
-        return;
-    }
-    
-    if (location.y < spaceAboveKeyboard) {
-        return;
-    }
-    
-    self.tableView.panGestureRecognizer.enabled = NO;
-    CGRect newFrame = self.keyboard.frame;
-    CGFloat newY = self.originalKeyboardY + (location.y - spaceAboveKeyboard);
-    newY = MAX(newY, self.originalKeyboardY);
-    newFrame.origin.y = newY;
-    [self.keyboard setFrame: newFrame];
-    [self alighKeyboardControlsToRect:newFrame animated:NO];
 }
 
 - (void) animateKeyboardOffscreen {
     __block CGRect newFrame = self.keyboard.frame;
-    newFrame.origin.y = self.keyboard.window.frame.size.height;
+    newFrame.origin.y = self.keyboard.window.bounds.size.height;
     self.keyboardPanRecognizer.enabled = NO;
     
     [UIView animateWithDuration:self.keyboardAnimationDuration
@@ -466,6 +465,8 @@ static inline CGRect keyboardRectInView(UIView *view, NSDictionary *keyboardUser
                          [self alighKeyboardControlsToRect:newFrame animated:NO];
                      }
                      completion:^(BOOL finished){
+                         // To remove the animation for the keyboard dropping showing
+                         // we have to hide the keyboard, and on will show we set it back.
                          self.keyboard.hidden = YES;
                          [self.messageToolbar.textView resignFirstResponder];
                      }];
@@ -475,10 +476,12 @@ static inline CGRect keyboardRectInView(UIView *view, NSDictionary *keyboardUser
     CGRect newFrame = self.keyboard.frame;
     newFrame.origin.y = self.originalKeyboardY;
     
-    [UIView beginAnimations:nil context:NULL];
-    [self.keyboard setFrame: newFrame];
-    [self alighKeyboardControlsToRect:newFrame animated:NO];
-    [UIView commitAnimations];
+    if (!CGRectEqualToRect(newFrame, self.keyboard.frame)) {
+        [UIView beginAnimations:nil context:NULL];
+        [self.keyboard setFrame: newFrame];
+        [self alighKeyboardControlsToRect:newFrame animated:NO];
+        [UIView commitAnimations];
+    }
 }
 
 - (void) restoreKeyboard {

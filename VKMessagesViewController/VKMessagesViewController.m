@@ -336,7 +336,7 @@ static inline CGRect keyboardRectInView(UIView *view, NSDictionary *keyboardUser
 
 - (void) keyboardWillHide:(NSNotification *) notification {
     CGRect kbRect = keyboardRectInView(self.view, [notification userInfo]);
-    if (kbRect.size.height && !self.menuPresenter.isPresentingMenu){
+    if (kbRect.size.height && !self.menuPresenter.isPresentingMenu && !self.keyboard.hidden){
         [self alighKeyboardControlsToRect:kbRect animated:YES];
     }
 }
@@ -390,20 +390,15 @@ static inline CGRect keyboardRectInView(UIView *view, NSDictionary *keyboardUser
             return;
         }
         
-        weakSelf.tableView.scrollEnabled = NO;
-        weakSelf.tableView.scrollEnabled = YES;
         CGRect toolBarFrame = weakSelf.messageToolbar.frame;
         toolBarFrame.origin.y = keyboardFrame.origin.y - toolBarFrame.size.height;
         weakSelf.messageToolbar.frame = toolBarFrame;
         
-        CGRect tableViewFrame = weakSelf.tableView.frame;
-        tableViewFrame.size.height = toolBarFrame.origin.y;
+        UIEdgeInsets newContentInsets = weakSelf.tableView.contentInset;
+        newContentInsets.bottom = weakSelf.view.bounds.size.height - toolBarFrame.origin.y;
         
-        UIEdgeInsets insets = weakSelf.tableView.contentInset;
-        insets.bottom = weakSelf.view.bounds.size.height - toolBarFrame.origin.y;
-        weakSelf.tableView.contentInset = insets;
-        weakSelf.tableView.scrollIndicatorInsets = insets;
-        [weakSelf keyboardWillChangeFrame:keyboardFrame animated:animated];
+        weakSelf.tableView.scrollIndicatorInsets = newContentInsets;
+        weakSelf.tableView.contentInset = newContentInsets;
     };
     
     if (animated) {
@@ -441,6 +436,7 @@ static inline CGRect keyboardRectInView(UIView *view, NSDictionary *keyboardUser
             [self animateKeyboardReturnToOriginalPosition];
         }
         self.keyboard.userInteractionEnabled = YES;
+        self.tableView.panGestureRecognizer.enabled = YES;
         return;
     }
     
@@ -448,6 +444,7 @@ static inline CGRect keyboardRectInView(UIView *view, NSDictionary *keyboardUser
         return;
     }
     
+    self.tableView.panGestureRecognizer.enabled = NO;
     CGRect newFrame = self.keyboard.frame;
     CGFloat newY = self.originalKeyboardY + (location.y - spaceAboveKeyboard);
     newY = MAX(newY, self.originalKeyboardY);

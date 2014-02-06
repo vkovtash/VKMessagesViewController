@@ -18,14 +18,20 @@
 @implementation VKTableView
 
 - (void) setContentInset:(UIEdgeInsets)contentInset{
-    CGFloat insetBottomDelta = contentInset.bottom - self.contentInset.bottom;
-    BOOL shouldCorrectOffset = self.contentSize.height + self.contentInset.bottom > self.bounds.size.height - self.contentInset.top;
+    CGFloat offsetCorrection = 0;
+    if (self.contentSize.height < self.bounds.size.height - self.contentInset.top - self.contentInset.bottom) {
+        //content is smaller than current scrolling window
+        offsetCorrection = self.contentSize.height - (self.bounds.size.height - contentInset.top - contentInset.bottom);
+    }
+    else {
+        offsetCorrection = contentInset.bottom - self.contentInset.bottom;
+    }
     
     [super setContentInset:contentInset];
     
-    if (shouldCorrectOffset){
+    if (offsetCorrection > 0) {
         CGPoint offset = self.contentOffset;
-        offset.y += insetBottomDelta;
+        offset.y += offsetCorrection;
         if (offset.y < -self.contentInset.top) {
             offset.y = -self.contentInset.top;
         }

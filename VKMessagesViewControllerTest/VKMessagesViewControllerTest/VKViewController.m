@@ -77,6 +77,11 @@
     return _messageStorage;
 }
 
+
+- (IBAction)hideKeyboardPressed:(id)sender {
+    [self dismissKeyboard];
+}
+
 #pragma mark - UITableViewDatasource
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {

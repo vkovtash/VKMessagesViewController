@@ -16,6 +16,7 @@
 @end
 
 @implementation VKMenuControllerPresenter
+@synthesize isPresentingMenu = _isPresentingMenu;
 
 #pragma mark - Publick Properties
 
@@ -63,10 +64,11 @@
         }
     }
     
+    _isPresentingMenu = YES;
     [self becomeFirstResponder];
     
     __weak __typeof(&*self) weakSelf = self;
-    double delayInSeconds = 0.;
+    double delayInSeconds = 0.05;
     dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
     dispatch_after(popTime, dispatch_get_main_queue(), ^(void) {
         UIMenuController *menuController = [UIMenuController sharedMenuController];
@@ -77,6 +79,19 @@
         [menuController setTargetRect:targetView.frame inView:targetView.superview];
         [menuController setMenuVisible:YES animated:YES];
     });
+}
+
+- (void) dismissMenu {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [self resignFirstResponder];
+    if (self.previousFirsResponder) {
+        [self.previousFirsResponder becomeFirstResponder];
+        self.previousFirsResponder = nil;
+    }
+    self.completeonBlock ? self.completeonBlock() : nil;
+    self.completeonBlock = nil;
+    self.userInfo = nil;
+    _isPresentingMenu = NO;
 }
 
 #pragma mark - UIResponderStandardEditActions
@@ -122,17 +137,7 @@
 #pragma mark - NSNotificationCenter
 
 - (void) willHideEditMenu:(NSNotification *) notification{
-    [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:UIMenuControllerWillHideMenuNotification
-                                                  object:notification.object];
-    [self resignFirstResponder];
-    if (self.previousFirsResponder) {
-        [self.previousFirsResponder becomeFirstResponder];
-        self.previousFirsResponder = nil;
-    }
-    self.completeonBlock ? self.completeonBlock() : nil;
-    self.completeonBlock = nil;
-    self.userInfo = nil;
+    [self dismissMenu];
 }
 
 #pragma mark - Init methods

@@ -19,7 +19,10 @@ typedef void (^CompleteonBlock)(void);
 
 @interface VKMenuControllerPresenter : UITextView
 @property (nonatomic) BOOL shouldDisplayKeyboard;
-@property (weak,nonatomic) UIView *parentView;
+@property (weak, nonatomic) UIView *parentView;
+@property (nonatomic, readonly) BOOL isPresentingMenu;
+
+- (void) dismissMenu;
 
 - (void) showDefaultMenuForView:(UIView *) menuView
            returnFocusTo:(UIView *) firstResponder

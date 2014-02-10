@@ -103,12 +103,17 @@ static CGFloat kMessageDetailsFontSize = 12;
         
         if (_bubbleAccessoryView) {
             [self.contentView addSubview:_bubbleAccessoryView];
+            [self layoutBubbleAccessoryView];
         }
     }
 }
 
-- (void) layoutSubviews {
-    [super layoutSubviews];
+- (void) setBubbleAlign:(VKBubbleAlign)bubbleAlign {
+    [super setBubbleAlign:bubbleAlign];
+    [self layoutBubbleAccessoryView];
+}
+
+-(void) layoutBubbleAccessoryView {
     if (_bubbleAccessoryView) {
         if (self.bubbleAlign == VKBubbleAlignLeft) {
             _bubbleAccessoryView.center = CGPointMake(self.bubbleView.frame.origin.x + self.bubbleView.frame.size.width + [[self class] edgeInsets].right + _bubbleAccessoryView.bounds.size.width/2,
@@ -119,6 +124,11 @@ static CGFloat kMessageDetailsFontSize = 12;
                                                       (self.bubbleView.frame.origin.y + [[self class] edgeInsets].top + self.bubbleView.frame.size.height)/2);
         }
     }
+}
+
+- (void) layoutSubviews {
+    [super layoutSubviews];
+    [self layoutBubbleAccessoryView];
 }
 
 #pragma mark - Class methods

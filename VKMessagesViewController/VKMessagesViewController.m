@@ -60,23 +60,35 @@ static CGFloat const kDefaultToolbarLandscapeMaximumHeight = 101;
 
 - (void) viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
     [self restoreKeyboard];
 }
 
 - (void) viewDidAppear:(BOOL)animated{
-    [super viewDidAppear:YES];
-    static BOOL isFirstRun = NO;
-    if (!isFirstRun) {
-        isFirstRun = YES;
-        
-        CGRect toolbarFrame = self.messageToolbar.frame;
-        toolbarFrame.origin.y = self.view.frame.size.height - self.messageToolbar.frame.size.height;
-        self.messageToolbar.frame = toolbarFrame;
-    }
+    [super viewDidAppear:YES];    
+    // Register for keyboard notifications
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillShow:)
+                                                 name:UIKeyboardWillShowNotification
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardDidShow:)
+                                                 name:UIKeyboardDidShowNotification
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillHide:)
+                                                 name:UIKeyboardWillHideNotification
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardDidHide:)
+                                                 name:UIKeyboardDidHideNotification
+                                               object:nil];
 }
 
-- (void) viewDidLoad
-{
+- (void) viewDidLoad {
     [super viewDidLoad];
     
     if ([self respondsToSelector:@selector(setAutomaticallyAdjustsScrollViewInsets:)]){
@@ -109,27 +121,6 @@ static CGFloat const kDefaultToolbarLandscapeMaximumHeight = 101;
     // Scroll table to bottom cell
     [self scrollTableViewToBottomAnimated:NO];
     
-    // Register for keyboard notifications
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(keyboardWillShow:)
-                                                 name:UIKeyboardWillShowNotification
-                                               object:nil];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(keyboardDidShow:)
-                                                 name:UIKeyboardDidShowNotification
-                                               object:nil];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(keyboardWillHide:)
-                                                 name:UIKeyboardWillHideNotification
-                                               object:nil];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(keyboardDidHide:)
-                                                 name:UIKeyboardDidHideNotification
-                                               object:nil];
-    
     if (SYSTEM_VERSION_LESS_THAN(@"7")) {
         //Setting style
         self.tableView.backgroundColor = [UIColor colorWithRed:0.9 green:0.9 blue:0.9 alpha:1];
@@ -145,12 +136,11 @@ static CGFloat const kDefaultToolbarLandscapeMaximumHeight = 101;
     [self.view addGestureRecognizer:self.keyboardPanRecognizer];
 }
 
-- (void) dealloc{
+- (void) dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
-- (void)didReceiveMemoryWarning
-{
+- (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
@@ -162,7 +152,7 @@ static CGFloat const kDefaultToolbarLandscapeMaximumHeight = 101;
 
 #pragma mark - Publick methods
 
-- (void) scrollTableViewToBottomAnimated:(BOOL) animated{
+- (void) scrollTableViewToBottomAnimated:(BOOL) animated {
     [self.tableView scrollToBottomAnimated:animated];
 }
 
@@ -215,7 +205,7 @@ static CGFloat const kDefaultToolbarLandscapeMaximumHeight = 101;
     }
 }
 
-- (void) setAppropriateInputHeight{
+- (void) setAppropriateInputHeight {
     if (UIInterfaceOrientationIsPortrait(self.interfaceOrientation)) {
         self.messageToolbar.textView.maximumHeight = kDefaultToolbarPortraitMaximumHeight;
     }
@@ -250,8 +240,8 @@ static CGFloat const kDefaultToolbarLandscapeMaximumHeight = 101;
                withSender:(id)sender
                  userInfo:(NSDictionary *) userInfo {
     return [self canPerformAction:action
-         forRowAtIndexPath:userInfo[@"cellIndexPath"]
-                withSender:sender];
+                forRowAtIndexPath:userInfo[@"cellIndexPath"]
+                       withSender:sender];
 }
 
 #pragma mark - UITableViewDatasource
@@ -290,7 +280,7 @@ static CGFloat const kDefaultToolbarLandscapeMaximumHeight = 101;
     }
 }
 
-- (void) inputToolbar:(UIInputToolbar *)inputToolbar DidChangeHeight:(CGFloat)height{
+- (void) inputToolbar:(UIInputToolbar *)inputToolbar DidChangeHeight:(CGFloat)height {
     UIEdgeInsets insets = self.tableView.contentInset;
     insets.bottom = self.view.bounds.size.height - self.messageToolbar.frame.origin.y;
     self.tableView.contentInset = insets;

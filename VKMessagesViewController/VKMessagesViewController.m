@@ -225,7 +225,7 @@ static CGFloat const kDefaultToolbarLandscapeMaximumHeight = 101;
             return;
         }
         
-        VKBubbleCell *cell = (VKBubbleCell *)[self.tableView cellForRowAtIndexPath:cellIndex];
+        __block VKBubbleCell *cell = (VKBubbleCell *)[self.tableView cellForRowAtIndexPath:cellIndex];
         
         [cell setSelected:YES];
         [self.menuPresenter showDefaultMenuWithResponder:self

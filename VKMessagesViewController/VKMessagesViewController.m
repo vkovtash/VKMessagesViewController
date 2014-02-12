@@ -217,6 +217,10 @@ static CGFloat const kDefaultToolbarLandscapeMaximumHeight = 101;
         CGPoint point = [recognizer locationInView:self.tableView];
         NSIndexPath *cellIndex = [self.tableView indexPathForRowAtPoint:point];
         
+        if (!cellIndex) {
+            return;
+        }
+        
         if (![self shouldShowMenuForRowAtIndexPath:cellIndex]) {
             return;
         }

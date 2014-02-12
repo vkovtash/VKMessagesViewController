@@ -37,10 +37,8 @@ static CGFloat const kDefaultToolbarLandscapeMaximumHeight = 101;
 }
 
 - (void) setAlternativeInputView:(UIView *)alternativeInputView {
-    if (_alternativeInputView != alternativeInputView) {
-        _alternativeInputView = alternativeInputView;
-        self.messageToolbar.isPlusButtonVisible = (BOOL)_alternativeInputView;
-    }
+    _alternativeInputView = alternativeInputView;
+    self.messageToolbar.isPlusButtonVisible = (BOOL)_alternativeInputView;
 }
 
 - (VKMenuControllerPresenter *) menuPresenter {

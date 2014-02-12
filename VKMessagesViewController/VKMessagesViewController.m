@@ -58,8 +58,12 @@ static CGFloat const kDefaultToolbarLandscapeMaximumHeight = 101;
 
 - (void) viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
     [self restoreKeyboard];
+}
+
+- (void) viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void) viewDidAppear:(BOOL)animated{

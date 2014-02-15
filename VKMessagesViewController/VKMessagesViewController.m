@@ -327,6 +327,7 @@ static inline CGRect keyboardRectInView(UIView *view, NSDictionary *keyboardUser
 
 - (void) keyboardWillHide:(NSNotification *) notification {
     CGRect kbRect = keyboardRectInView(self.view, [notification userInfo]);
+    self.keyboardPanRecognizer.enabled = NO;
     if (kbRect.size.height && !self.menuPresenter.isPresentingMenu && !self.keyboard.hidden){
         [self alighKeyboardControlsToRect:kbRect animated:YES];
     }
@@ -343,7 +344,6 @@ static inline CGRect keyboardRectInView(UIView *view, NSDictionary *keyboardUser
 - (void) keyboardDidHide:(NSNotification *) notification {
     if (keyboardRectInView(self.view, [notification userInfo]).size.height) {
         self.menuPresenter.shouldDisplayKeyboard = NO;
-        self.keyboardPanRecognizer.enabled = NO;
         self.keyboard.hidden = NO;
     }
 }

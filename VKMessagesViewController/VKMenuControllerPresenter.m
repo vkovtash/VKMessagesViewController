@@ -112,13 +112,14 @@
 #pragma mark - UIResponderStandardEditActions
 
 - (void) performAction:(SEL)action withSender:(id)sender {
-    if ([self.menuDisplayingResponder respondsToSelector:@selector(performAction:withSender:userInfo:)]) {
-        [self.menuDisplayingResponder performAction:action withSender:sender userInfo:self.userInfo];
+    __strong id target = self.menuDisplayingResponder;
+    if ([target respondsToSelector:@selector(performAction:withSender:userInfo:)]) {
+        [target performAction:action withSender:sender userInfo:self.userInfo];
     }
     else if ([self.menuDisplayingResponder respondsToSelector:action]) {
-        IMP imp = [(NSObject *)self.menuDisplayingResponder methodForSelector:action];
-        void (*func)(id, SEL) = (void *)imp;
-        func(self.menuDisplayingResponder, action);
+        IMP imp = [target methodForSelector:action];
+        void (*func)(id, SEL, id) = (void *)imp;
+        func(target, action, sender);
     }
 }
 

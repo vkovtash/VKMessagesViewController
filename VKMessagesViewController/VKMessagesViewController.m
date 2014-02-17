@@ -393,16 +393,14 @@ static inline CGRect keyboardRectInView(UIView *view, NSDictionary *keyboardUser
         [weakSelf keyboardWillChangeFrame:keyboardFrame animated:animated];
     };
     
-    if (animated) {
-        if (self.keyboardAnimationDuration > 0) {
-            [UIView animateWithDuration:self.keyboardAnimationDuration
-                                  delay:0
-                                options:animationOptionsWithCurve(self.keyboardAnimationCurve)
-                             animations:^{
-                                 alignControlsToRect(rect);
-                             }
-                             completion:nil];
-        }
+    if (animated && self.keyboardAnimationDuration > 0) {
+        [UIView animateWithDuration:self.keyboardAnimationDuration
+                              delay:0
+                            options:animationOptionsWithCurve(self.keyboardAnimationCurve)
+                         animations:^{
+                             alignControlsToRect(rect);
+                         }
+                         completion:nil];
     }
     else {
         alignControlsToRect(rect);

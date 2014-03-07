@@ -63,7 +63,7 @@ static NSInteger const kTextPartsCount = 4;
     
     bodySize.width += (properties.edgeInsets.left + properties.edgeInsets.right);
     CGFloat partSize = width/kTextPartsCount;
-    bodySize.width = (bodySize.width/partSize + 1) * partSize;
+    bodySize.width = ceilf(bodySize.width/partSize) * partSize;
     if (bodySize.width > width) {
         bodySize.width = width;
     }

@@ -20,11 +20,13 @@
 - (void) setNormalBackgroundImage:(UIImage *)normalBackgroundImage {
     _normalBackgroundImage = normalBackgroundImage;
     [self applyProperties];
+    [self applyIsSelected];
 }
 
 - (void) setSelectedBackgroundImage:(UIImage *)selectedBackgroundImage {
     _selectedBackgroundImage = selectedBackgroundImage;
     [self applyProperties];
+    [self applyIsSelected];
 }
 
 - (void) setSelected:(BOOL)selected {

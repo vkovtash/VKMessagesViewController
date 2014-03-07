@@ -36,10 +36,10 @@ static const CGFloat kViewMaxHeight = 9999;
     self.messageBody.font = self.properties.bodyFont;
 }
 
-- (CGFloat) widthConstrainedToWidth:(CGFloat) width {
+- (CGSize) sizeConstrainedToWidth:(CGFloat) width {
     return [[self class] sizeWithAttributedString:self.messageBody.attributedText
                                        Properties:self.properties
-                               constrainedToWidth:width].width;
+                               constrainedToWidth:width];
  }
 
 #pragma mark - UIView methods

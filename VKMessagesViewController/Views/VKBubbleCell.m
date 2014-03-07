@@ -58,24 +58,24 @@ static CGFloat kDefaultBubbleViewWidth = 200;
 
 - (void) applyLayout{
     UIEdgeInsets insets = self.edgeInsets;
-    CGFloat estimatedWidth = [self.bubbleView widthConstrainedToWidth:self.bubbleViewMaxWidth - insets.right - insets.left];
+    CGSize estimatedSize = [self.bubbleView sizeConstrainedToWidth:self.bubbleViewMaxWidth - insets.right - insets.left];
     
     switch (self.bubbleAlign) {
         case VKBubbleAlignRight:
-            self.bubbleView.autoresizingMask = UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleLeftMargin;
-            self.bubbleView.frame = CGRectMake(self.contentView.bounds.size.width - estimatedWidth - insets.right,
+            self.bubbleView.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin|UIViewAutoresizingFlexibleLeftMargin;
+            self.bubbleView.frame = CGRectMake(self.contentView.bounds.size.width - estimatedSize.width - insets.right,
                                                insets.top,
-                                               estimatedWidth,
-                                               self.contentView.bounds.size.height - insets.top - insets.bottom);
+                                               estimatedSize.width,
+                                               estimatedSize.height);
             break;
             
         case VKBubbleAlignLeft:
         default:
-            self.bubbleView.autoresizingMask = UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleRightMargin;
+            self.bubbleView.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin|UIViewAutoresizingFlexibleRightMargin;
             self.bubbleView.frame = CGRectMake(insets.left,
                                                insets.top,
-                                               estimatedWidth,
-                                               self.contentView.bounds.size.height - insets.top - insets.bottom);
+                                               estimatedSize.width,
+                                               estimatedSize.height);
             break;
     }
 }

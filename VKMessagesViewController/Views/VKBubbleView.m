@@ -39,8 +39,8 @@
     }
 }
 
-- (CGFloat) widthConstrainedToWidth:(CGFloat) width {
-    return 50;
+- (CGSize) sizeConstrainedToWidth:(CGFloat) width {
+    return CGSizeMake(44, 44);
 }
 
 #pragma mark - Private properties

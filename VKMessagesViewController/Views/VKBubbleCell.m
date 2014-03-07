@@ -58,7 +58,7 @@ static CGFloat kDefaultBubbleViewWidth = 200;
 
 - (void) applyLayout{
     UIEdgeInsets insets = self.edgeInsets;
-    CGSize estimatedSize = [self.bubbleView sizeConstrainedToWidth:self.bubbleViewMaxWidth - insets.right - insets.left];
+    CGSize estimatedSize = [self.bubbleView sizeConstrainedToWidth:self.bubbleViewMaxWidth];
     
     switch (self.bubbleAlign) {
         case VKBubbleAlignRight:

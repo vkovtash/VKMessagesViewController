@@ -62,10 +62,16 @@ static const CGFloat kViewMaxHeight = 9999;
     }
     
     bodySize.width += (properties.edgeInsets.left + properties.edgeInsets.right);
-    bodySize.height += (properties.edgeInsets.top + properties.edgeInsets.bottom);
+    int partSize = width/4;
+    bodySize.width = (((int)bodySize.width+4)/partSize + 1) * partSize;
+    if (bodySize.width > width) {
+        bodySize.width = width;
+    }
     if (bodySize.width < properties.minimumWidth) {
         bodySize.width = properties.minimumWidth;
     }
+    bodySize.height += (properties.edgeInsets.top + properties.edgeInsets.bottom);
+    NSLog(@"WIDTH %f",bodySize.width);
     return bodySize;
 }
 

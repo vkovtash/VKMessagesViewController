@@ -8,8 +8,8 @@
 
 #import "VKTextBubbleView.h"
 
-static const CGFloat kViewMaxHeight = 9999;
-
+static CGFloat const kViewMaxHeight = 9999;
+static NSInteger const kTextPartsCount = 4;
 
 @implementation VKTextBubbleView
 @synthesize messageBody = _messageBody;
@@ -62,8 +62,8 @@ static const CGFloat kViewMaxHeight = 9999;
     }
     
     bodySize.width += (properties.edgeInsets.left + properties.edgeInsets.right);
-    int partSize = width/4;
-    bodySize.width = (((int)bodySize.width+4)/partSize + 1) * partSize;
+    CGFloat partSize = width/kTextPartsCount;
+    bodySize.width = (bodySize.width/partSize + 1) * partSize;
     if (bodySize.width > width) {
         bodySize.width = width;
     }
@@ -71,7 +71,6 @@ static const CGFloat kViewMaxHeight = 9999;
         bodySize.width = properties.minimumWidth;
     }
     bodySize.height += (properties.edgeInsets.top + properties.edgeInsets.bottom);
-    NSLog(@"WIDTH %f",bodySize.width);
     return bodySize;
 }
 

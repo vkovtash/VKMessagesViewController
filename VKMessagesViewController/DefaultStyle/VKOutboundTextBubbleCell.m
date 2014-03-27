@@ -21,11 +21,13 @@ NSString *VKOutboundTextBubbleCellReuseIdentifier =  @"VKOutboundTextBubbleCell"
     if (!bubbleViewProperties) {
         if (SYSTEM_VERSION_LESS_THAN(@"7")) {
             bubbleViewProperties = [[VKTextBubbleViewProperties alloc] initWithEdgeInsets:UIEdgeInsetsMake(4, 4, 4, 8)
-                                                                                             bodyFont:[UIFont systemFontOfSize:kBodyFontSyze]];
+                                                                                     font:[UIFont systemFontOfSize:kBodyFontSyze]
+                                                                                textColor:[UIColor whiteColor]];
         }
         else {
             bubbleViewProperties = [[VKTextBubbleViewProperties alloc] initWithEdgeInsets:UIEdgeInsetsMake(8, 10, 8, 14)
-                                                                                             bodyFont:[UIFont systemFontOfSize:kBodyFontSyze]];
+                                                                                     font:[UIFont systemFontOfSize:kBodyFontSyze]
+                                                                                textColor:[UIColor darkGrayColor]];
         }
         bubbleViewProperties.minimumWidth = kMinimumWidth;
     }

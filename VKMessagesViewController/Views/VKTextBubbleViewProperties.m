@@ -37,16 +37,29 @@ static CGFloat kDefaultBodyFont = 14;
     return self.privateTextAttributes;
 }
 
-- (UIFont *) bodyFont {
+- (UIFont *) font {
     return [self.privateTextAttributes objectForKey:NSFontAttributeName];
 }
 
-- (void) setBodyFont:(UIFont *)bodyFont {
-    if (bodyFont) {
-        [self.privateTextAttributes setObject:bodyFont forKey:NSFontAttributeName];
+- (void) setFont:(UIFont *)font {
+    if (font) {
+        [self.privateTextAttributes setObject:font forKey:NSFontAttributeName];
     }
     else {
         [self.privateTextAttributes removeObjectForKey:NSFontAttributeName];
+    }
+}
+
+-(UIColor *) textColor {
+    return [self.privateTextAttributes objectForKey:NSForegroundColorAttributeName];
+}
+
+- (void) setTextColor:(UIColor *)textColor {
+    if (textColor) {
+        [self.privateTextAttributes setObject:textColor forKey:NSForegroundColorAttributeName];
+    }
+    else {
+        [self.privateTextAttributes removeObjectForKey:NSForegroundColorAttributeName];
     }
 }
 
@@ -58,10 +71,11 @@ static CGFloat kDefaultBodyFont = 14;
     self.privateParagraphStyle.lineBreakMode = lineBreakMode;
 }
 
-- (instancetype) initWithEdgeInsets:(UIEdgeInsets)edgeInsets bodyFont:(UIFont *) bodyFont {
+- (instancetype) initWithEdgeInsets:(UIEdgeInsets)edgeInsets font:(UIFont *) font textColor:(UIColor *)textColor {
     self = [super init];
     if (self) {
-        self.bodyFont = bodyFont;
+        self.font = font;
+        self.textColor = textColor;
         self.edgeInsets = edgeInsets;
     }
     return self;
@@ -70,7 +84,7 @@ static CGFloat kDefaultBodyFont = 14;
 - (id)init {
     self = [super init];
     if (self) {
-        self.bodyFont = [UIFont systemFontOfSize:kDefaultBodyFont];
+        self.font = [UIFont systemFontOfSize:kDefaultBodyFont];
     }
     return self;
 }

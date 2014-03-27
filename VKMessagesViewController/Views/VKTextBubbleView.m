@@ -27,13 +27,23 @@ static NSInteger const kTextPartsCount = 4;
         _messageBody.backgroundColor = [UIColor clearColor];
         _messageBody.lineBreakMode = self.properties.lineBreakMode;
         _messageBody.numberOfLines = 0;
+        [self applyTextProperties];
     }
     return _messageBody;
 }
 
 - (void) setProperties:(VKBubbleViewProperties *)properties {
     [super setProperties:properties];
-    self.messageBody.font = self.properties.bodyFont;
+    [self applyTextProperties];
+}
+
+- (void) applyTextProperties {
+    if (self.properties.font) {
+        _messageBody.font = self.properties.font;
+    }
+    if (self.properties.textColor) {
+        _messageBody.textColor = self.properties.textColor;
+    }
 }
 
 - (CGSize) sizeConstrainedToWidth:(CGFloat) width {

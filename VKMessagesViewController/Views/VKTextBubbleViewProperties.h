@@ -9,9 +9,10 @@
 #import "VKBubbleViewProperties.h"
 
 @interface VKTextBubbleViewProperties : VKBubbleViewProperties
-@property (strong, nonatomic) UIFont *bodyFont;
+@property (readonly, nonatomic) UIFont *font;
+@property (readonly, nonatomic) UIColor *textColor;
 @property (nonatomic) NSLineBreakMode lineBreakMode;
 @property (nonatomic, readonly) NSDictionary *textAttributes;
 
-- (instancetype) initWithEdgeInsets:(UIEdgeInsets)edgeInsets bodyFont:(UIFont *) bodyFont;
+- (instancetype) initWithEdgeInsets:(UIEdgeInsets)edgeInsets font:(UIFont *) font textColor:(UIColor *) textColor;
 @end

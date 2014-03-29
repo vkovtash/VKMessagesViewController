@@ -91,12 +91,13 @@
     if ([message[@"type"] isEqualToString:@"text"]) {
         if (indexPath.row%2) {
             messageCell = [tableView dequeueReusableCellWithIdentifier:VKInboundTextBubbleCellReuseIdentifier];
+            [(VKInboundTextBubbleCell *)messageCell setMessageText:message[@"text"]];
         }
         else{
             messageCell = [tableView dequeueReusableCellWithIdentifier:VKOutboundTextBubbleCellReuseIdentifier];
+            [(VKOutboundTextBubbleCell *)messageCell setMessageText:message[@"text"]];
         }
         
-         [(VKTextBubbleView *)messageCell.bubbleView messageBody].text = message[@"text"];
     }
     else if ([message[@"type"] isEqualToString:@"image"]) {
         if (indexPath.row%2) {

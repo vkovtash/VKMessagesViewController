@@ -52,4 +52,13 @@ NSString *VKOutboundTextBubbleCellReuseIdentifier =  @"VKOutboundTextBubbleCell"
     }
     return self;
 }
+
+- (void) setMessageText:(NSString *)messageText {
+    self.bubbleView.messageBody.text = messageText;
+}
+
+- (NSString *) messageText {
+    return self.bubbleView.messageBody.text;
+}
+
 @end

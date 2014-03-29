@@ -8,6 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		172F75597BD34F38B3E45664 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F79047F4EC44DC99B18943E /* libPods.a */; };
+		6B8D66801822A6500024C694 /* vk_backspace_button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6B8D667E1822A6500024C694 /* vk_backspace_button@2x.png */; };
+		6B8D66811822A6500024C694 /* vk_backspace_button_pressed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6B8D667F1822A6500024C694 /* vk_backspace_button_pressed@2x.png */; };
+		F31F288A1861DA9800816330 /* UIActionSheet+VKBlocks.m in Sources */ = {isa = PBXBuildFile; fileRef = F31F28891861DA9800816330 /* UIActionSheet+VKBlocks.m */; };
+		F333A4A518881B21002D8491 /* VKImageBubbleViewProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = F333A4A418881B21002D8491 /* VKImageBubbleViewProperties.m */; };
 		F3574D6817BE2A1700471785 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F3574D6717BE2A1700471785 /* UIKit.framework */; };
 		F3574D6A17BE2A1700471785 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F3574D6917BE2A1700471785 /* Foundation.framework */; };
 		F3574D6C17BE2A1700471785 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F3574D6B17BE2A1700471785 /* CoreGraphics.framework */; };
@@ -20,7 +24,7 @@
 		F3574D8117BE2A1700471785 /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F3574D7F17BE2A1700471785 /* MainStoryboard.storyboard */; };
 		F3574D9A17BE402E00471785 /* VKBubbleView.m in Sources */ = {isa = PBXBuildFile; fileRef = F3574D9117BE402E00471785 /* VKBubbleView.m */; };
 		F3574D9B17BE402E00471785 /* VKBubbleViewProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = F3574D9317BE402E00471785 /* VKBubbleViewProperties.m */; };
-		F3574D9C17BE402E00471785 /* VKMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F3574D9517BE402E00471785 /* VKMessageCell.m */; };
+		F3574D9C17BE402E00471785 /* VKBubbleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F3574D9517BE402E00471785 /* VKBubbleCell.m */; };
 		F3574D9D17BE402E00471785 /* VKTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = F3574D9717BE402E00471785 /* VKTableView.m */; };
 		F3574D9E17BE402E00471785 /* VKMessagesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F3574D9917BE402E00471785 /* VKMessagesViewController.m */; };
 		F3574DA317BE417700471785 /* VKEmojiPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = F3574D9F17BE417600471785 /* VKEmojiPicker.m */; };
@@ -30,30 +34,35 @@
 		F3574DAE17BE430600471785 /* UIViewController+firstResponder.m in Sources */ = {isa = PBXBuildFile; fileRef = F3574DAD17BE430600471785 /* UIViewController+firstResponder.m */; };
 		F3574DB117BE439800471785 /* UIResponder+FirstResponder.m in Sources */ = {isa = PBXBuildFile; fileRef = F3574DB017BE439800471785 /* UIResponder+FirstResponder.m */; };
 		F3574DC917BE4C8200471785 /* VKViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F3574DC817BE4C8200471785 /* VKViewController.m */; };
-		F3574DD317BE4FF100471785 /* vk_backspace_button.png in Resources */ = {isa = PBXBuildFile; fileRef = F3574DCB17BE4FF100471785 /* vk_backspace_button.png */; };
-		F3574DD417BE4FF100471785 /* vk_backspace_button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F3574DCC17BE4FF100471785 /* vk_backspace_button@2x.png */; };
-		F3574DD517BE4FF100471785 /* vk_backspace_button_pressed.png in Resources */ = {isa = PBXBuildFile; fileRef = F3574DCD17BE4FF100471785 /* vk_backspace_button_pressed.png */; };
-		F3574DD617BE4FF100471785 /* vk_backspace_button_pressed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F3574DCE17BE4FF100471785 /* vk_backspace_button_pressed@2x.png */; };
-		F3574DD717BE4FF100471785 /* vk_keyboard_back.png in Resources */ = {isa = PBXBuildFile; fileRef = F3574DCF17BE4FF100471785 /* vk_keyboard_back.png */; };
-		F3574DD817BE4FF100471785 /* vk_keyboard_back@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F3574DD017BE4FF100471785 /* vk_keyboard_back@2x.png */; };
-		F3574DD917BE4FF100471785 /* vk_keyboard_overlay.png in Resources */ = {isa = PBXBuildFile; fileRef = F3574DD117BE4FF100471785 /* vk_keyboard_overlay.png */; };
-		F3574DDA17BE4FF100471785 /* vk_keyboard_overlay@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F3574DD217BE4FF100471785 /* vk_keyboard_overlay@2x.png */; };
-		F3574DE717BE508200471785 /* vk_message_bubble_outgouing_selected.png in Resources */ = {isa = PBXBuildFile; fileRef = F3574DDB17BE508200471785 /* vk_message_bubble_outgouing_selected.png */; };
-		F3574DE817BE508200471785 /* vk_message_bubble_incoming_selected.png in Resources */ = {isa = PBXBuildFile; fileRef = F3574DDC17BE508200471785 /* vk_message_bubble_incoming_selected.png */; };
-		F3574DE917BE508200471785 /* vk_message_bubble_incoming_selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F3574DDD17BE508200471785 /* vk_message_bubble_incoming_selected@2x.png */; };
-		F3574DEA17BE508200471785 /* vk_message_bubble_incoming.png in Resources */ = {isa = PBXBuildFile; fileRef = F3574DDE17BE508200471785 /* vk_message_bubble_incoming.png */; };
-		F3574DEB17BE508200471785 /* vk_message_bubble_incoming@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F3574DDF17BE508200471785 /* vk_message_bubble_incoming@2x.png */; };
-		F3574DEC17BE508200471785 /* vk_message_bubble_outgouing_selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F3574DE017BE508200471785 /* vk_message_bubble_outgouing_selected@2x.png */; };
-		F3574DED17BE508200471785 /* vk_message_bubble_outgouing.png in Resources */ = {isa = PBXBuildFile; fileRef = F3574DE117BE508200471785 /* vk_message_bubble_outgouing.png */; };
-		F3574DEE17BE508200471785 /* vk_message_bubble_outgouing@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F3574DE217BE508200471785 /* vk_message_bubble_outgouing@2x.png */; };
-		F3574DEF17BE508200471785 /* vk_pagecontrol_empty.png in Resources */ = {isa = PBXBuildFile; fileRef = F3574DE317BE508200471785 /* vk_pagecontrol_empty.png */; };
-		F3574DF017BE508200471785 /* vk_pagecontrol_empty@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F3574DE417BE508200471785 /* vk_pagecontrol_empty@2x.png */; };
-		F3574DF117BE508200471785 /* vk_pagecontrol_selected.png in Resources */ = {isa = PBXBuildFile; fileRef = F3574DE517BE508200471785 /* vk_pagecontrol_selected.png */; };
-		F3574DF217BE508200471785 /* vk_pagecontrol_selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F3574DE617BE508200471785 /* vk_pagecontrol_selected@2x.png */; };
+		F36DCC7E18E6EC6B00442804 /* vk_message_bubble_incoming@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F36DCC7618E6EC6B00442804 /* vk_message_bubble_incoming@2x.png */; };
+		F36DCC7F18E6EC6B00442804 /* vk_message_bubble_incoming_selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F36DCC7718E6EC6B00442804 /* vk_message_bubble_incoming_selected@2x.png */; };
+		F36DCC8018E6EC6B00442804 /* vk_message_bubble_outgouing@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F36DCC7818E6EC6B00442804 /* vk_message_bubble_outgouing@2x.png */; };
+		F36DCC8118E6EC6B00442804 /* vk_message_bubble_outgouing_selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F36DCC7918E6EC6B00442804 /* vk_message_bubble_outgouing_selected@2x.png */; };
+		F393747D186C8851004F0416 /* VKTextBubbleViewProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = F393747C186C8850004F0416 /* VKTextBubbleViewProperties.m */; };
+		F3A9B92F185F12C20095877C /* VKMessagesViewController+VKEmojiPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = F3A9B92E185F12C20095877C /* VKMessagesViewController+VKEmojiPicker.m */; };
+		F3C8B3B218A124FE00832D73 /* VKDefaultBubbleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F3C8B3A518A124FE00832D73 /* VKDefaultBubbleCell.m */; };
+		F3C8B3B318A124FE00832D73 /* VKInboundBaseBubbleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F3C8B3A718A124FE00832D73 /* VKInboundBaseBubbleCell.m */; };
+		F3C8B3B418A124FE00832D73 /* VKInboundImageBubbleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F3C8B3A918A124FE00832D73 /* VKInboundImageBubbleCell.m */; };
+		F3C8B3B518A124FE00832D73 /* VKInboundTextBubbleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F3C8B3AB18A124FE00832D73 /* VKInboundTextBubbleCell.m */; };
+		F3C8B3B618A124FE00832D73 /* VKOutboundBaseBubbleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F3C8B3AD18A124FE00832D73 /* VKOutboundBaseBubbleCell.m */; };
+		F3C8B3B718A124FE00832D73 /* VKOutboundImageBubbleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F3C8B3AF18A124FE00832D73 /* VKOutboundImageBubbleCell.m */; };
+		F3C8B3B818A124FE00832D73 /* VKOutboundTextBubbleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F3C8B3B118A124FE00832D73 /* VKOutboundTextBubbleCell.m */; };
+		F3C8B3BC18A1418300832D73 /* geo_point@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F3C8B3BB18A1418200832D73 /* geo_point@2x.png */; };
+		F3D10DDA1869DB72009C03D0 /* VKTextBubbleView.m in Sources */ = {isa = PBXBuildFile; fileRef = F3D10DD91869DB72009C03D0 /* VKTextBubbleView.m */; };
+		F3E56FE21886D64C00B6D7C0 /* VKImageBubbleView.m in Sources */ = {isa = PBXBuildFile; fileRef = F3E56FE11886D64C00B6D7C0 /* VKImageBubbleView.m */; };
+		F3E56FEB1886E14700B6D7C0 /* image01.jpg in Resources */ = {isa = PBXBuildFile; fileRef = F3E56FE81886E14700B6D7C0 /* image01.jpg */; };
+		F3E56FEC1886E14700B6D7C0 /* image02.png in Resources */ = {isa = PBXBuildFile; fileRef = F3E56FE91886E14700B6D7C0 /* image02.png */; };
+		F3E56FED1886E14700B6D7C0 /* image03.jpg in Resources */ = {isa = PBXBuildFile; fileRef = F3E56FEA1886E14700B6D7C0 /* image03.jpg */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		6B8D667E1822A6500024C694 /* vk_backspace_button@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "vk_backspace_button@2x.png"; sourceTree = "<group>"; };
+		6B8D667F1822A6500024C694 /* vk_backspace_button_pressed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "vk_backspace_button_pressed@2x.png"; sourceTree = "<group>"; };
 		7F79047F4EC44DC99B18943E /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		F31F28881861DA9800816330 /* UIActionSheet+VKBlocks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIActionSheet+VKBlocks.h"; sourceTree = "<group>"; };
+		F31F28891861DA9800816330 /* UIActionSheet+VKBlocks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIActionSheet+VKBlocks.m"; sourceTree = "<group>"; };
+		F333A4A318881B21002D8491 /* VKImageBubbleViewProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VKImageBubbleViewProperties.h; sourceTree = "<group>"; };
+		F333A4A418881B21002D8491 /* VKImageBubbleViewProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VKImageBubbleViewProperties.m; sourceTree = "<group>"; };
 		F3574D6417BE2A1700471785 /* VKMessagesViewControllerTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VKMessagesViewControllerTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F3574D6717BE2A1700471785 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		F3574D6917BE2A1700471785 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -72,8 +81,8 @@
 		F3574D9117BE402E00471785 /* VKBubbleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VKBubbleView.m; sourceTree = "<group>"; };
 		F3574D9217BE402E00471785 /* VKBubbleViewProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VKBubbleViewProperties.h; sourceTree = "<group>"; };
 		F3574D9317BE402E00471785 /* VKBubbleViewProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VKBubbleViewProperties.m; sourceTree = "<group>"; };
-		F3574D9417BE402E00471785 /* VKMessageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VKMessageCell.h; sourceTree = "<group>"; };
-		F3574D9517BE402E00471785 /* VKMessageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VKMessageCell.m; sourceTree = "<group>"; };
+		F3574D9417BE402E00471785 /* VKBubbleCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VKBubbleCell.h; sourceTree = "<group>"; };
+		F3574D9517BE402E00471785 /* VKBubbleCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VKBubbleCell.m; sourceTree = "<group>"; };
 		F3574D9617BE402E00471785 /* VKTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VKTableView.h; sourceTree = "<group>"; };
 		F3574D9717BE402E00471785 /* VKTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VKTableView.m; sourceTree = "<group>"; };
 		F3574D9817BE402E00471785 /* VKMessagesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VKMessagesViewController.h; sourceTree = "<group>"; };
@@ -92,26 +101,36 @@
 		F3574DB017BE439800471785 /* UIResponder+FirstResponder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIResponder+FirstResponder.m"; sourceTree = "<group>"; };
 		F3574DC717BE4C8200471785 /* VKViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VKViewController.h; sourceTree = "<group>"; };
 		F3574DC817BE4C8200471785 /* VKViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VKViewController.m; sourceTree = "<group>"; };
-		F3574DCB17BE4FF100471785 /* vk_backspace_button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = vk_backspace_button.png; sourceTree = "<group>"; };
-		F3574DCC17BE4FF100471785 /* vk_backspace_button@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "vk_backspace_button@2x.png"; sourceTree = "<group>"; };
-		F3574DCD17BE4FF100471785 /* vk_backspace_button_pressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = vk_backspace_button_pressed.png; sourceTree = "<group>"; };
-		F3574DCE17BE4FF100471785 /* vk_backspace_button_pressed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "vk_backspace_button_pressed@2x.png"; sourceTree = "<group>"; };
-		F3574DCF17BE4FF100471785 /* vk_keyboard_back.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = vk_keyboard_back.png; sourceTree = "<group>"; };
-		F3574DD017BE4FF100471785 /* vk_keyboard_back@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "vk_keyboard_back@2x.png"; sourceTree = "<group>"; };
-		F3574DD117BE4FF100471785 /* vk_keyboard_overlay.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = vk_keyboard_overlay.png; sourceTree = "<group>"; };
-		F3574DD217BE4FF100471785 /* vk_keyboard_overlay@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "vk_keyboard_overlay@2x.png"; sourceTree = "<group>"; };
-		F3574DDB17BE508200471785 /* vk_message_bubble_outgouing_selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = vk_message_bubble_outgouing_selected.png; sourceTree = "<group>"; };
-		F3574DDC17BE508200471785 /* vk_message_bubble_incoming_selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = vk_message_bubble_incoming_selected.png; sourceTree = "<group>"; };
-		F3574DDD17BE508200471785 /* vk_message_bubble_incoming_selected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "vk_message_bubble_incoming_selected@2x.png"; sourceTree = "<group>"; };
-		F3574DDE17BE508200471785 /* vk_message_bubble_incoming.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = vk_message_bubble_incoming.png; sourceTree = "<group>"; };
-		F3574DDF17BE508200471785 /* vk_message_bubble_incoming@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "vk_message_bubble_incoming@2x.png"; sourceTree = "<group>"; };
-		F3574DE017BE508200471785 /* vk_message_bubble_outgouing_selected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "vk_message_bubble_outgouing_selected@2x.png"; sourceTree = "<group>"; };
-		F3574DE117BE508200471785 /* vk_message_bubble_outgouing.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = vk_message_bubble_outgouing.png; sourceTree = "<group>"; };
-		F3574DE217BE508200471785 /* vk_message_bubble_outgouing@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "vk_message_bubble_outgouing@2x.png"; sourceTree = "<group>"; };
-		F3574DE317BE508200471785 /* vk_pagecontrol_empty.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = vk_pagecontrol_empty.png; sourceTree = "<group>"; };
-		F3574DE417BE508200471785 /* vk_pagecontrol_empty@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "vk_pagecontrol_empty@2x.png"; sourceTree = "<group>"; };
-		F3574DE517BE508200471785 /* vk_pagecontrol_selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = vk_pagecontrol_selected.png; sourceTree = "<group>"; };
-		F3574DE617BE508200471785 /* vk_pagecontrol_selected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "vk_pagecontrol_selected@2x.png"; sourceTree = "<group>"; };
+		F36DCC7618E6EC6B00442804 /* vk_message_bubble_incoming@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "vk_message_bubble_incoming@2x.png"; sourceTree = "<group>"; };
+		F36DCC7718E6EC6B00442804 /* vk_message_bubble_incoming_selected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "vk_message_bubble_incoming_selected@2x.png"; sourceTree = "<group>"; };
+		F36DCC7818E6EC6B00442804 /* vk_message_bubble_outgouing@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "vk_message_bubble_outgouing@2x.png"; sourceTree = "<group>"; };
+		F36DCC7918E6EC6B00442804 /* vk_message_bubble_outgouing_selected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "vk_message_bubble_outgouing_selected@2x.png"; sourceTree = "<group>"; };
+		F393747B186C8850004F0416 /* VKTextBubbleViewProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VKTextBubbleViewProperties.h; sourceTree = "<group>"; };
+		F393747C186C8850004F0416 /* VKTextBubbleViewProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VKTextBubbleViewProperties.m; sourceTree = "<group>"; };
+		F3A9B92D185F12C10095877C /* VKMessagesViewController+VKEmojiPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "VKMessagesViewController+VKEmojiPicker.h"; sourceTree = "<group>"; };
+		F3A9B92E185F12C20095877C /* VKMessagesViewController+VKEmojiPicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "VKMessagesViewController+VKEmojiPicker.m"; sourceTree = "<group>"; };
+		F3C8B3A418A124FE00832D73 /* VKDefaultBubbleCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VKDefaultBubbleCell.h; sourceTree = "<group>"; };
+		F3C8B3A518A124FE00832D73 /* VKDefaultBubbleCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VKDefaultBubbleCell.m; sourceTree = "<group>"; };
+		F3C8B3A618A124FE00832D73 /* VKInboundBaseBubbleCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VKInboundBaseBubbleCell.h; sourceTree = "<group>"; };
+		F3C8B3A718A124FE00832D73 /* VKInboundBaseBubbleCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VKInboundBaseBubbleCell.m; sourceTree = "<group>"; };
+		F3C8B3A818A124FE00832D73 /* VKInboundImageBubbleCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VKInboundImageBubbleCell.h; sourceTree = "<group>"; };
+		F3C8B3A918A124FE00832D73 /* VKInboundImageBubbleCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VKInboundImageBubbleCell.m; sourceTree = "<group>"; };
+		F3C8B3AA18A124FE00832D73 /* VKInboundTextBubbleCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VKInboundTextBubbleCell.h; sourceTree = "<group>"; };
+		F3C8B3AB18A124FE00832D73 /* VKInboundTextBubbleCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VKInboundTextBubbleCell.m; sourceTree = "<group>"; };
+		F3C8B3AC18A124FE00832D73 /* VKOutboundBaseBubbleCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VKOutboundBaseBubbleCell.h; sourceTree = "<group>"; };
+		F3C8B3AD18A124FE00832D73 /* VKOutboundBaseBubbleCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VKOutboundBaseBubbleCell.m; sourceTree = "<group>"; };
+		F3C8B3AE18A124FE00832D73 /* VKOutboundImageBubbleCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VKOutboundImageBubbleCell.h; sourceTree = "<group>"; };
+		F3C8B3AF18A124FE00832D73 /* VKOutboundImageBubbleCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VKOutboundImageBubbleCell.m; sourceTree = "<group>"; };
+		F3C8B3B018A124FE00832D73 /* VKOutboundTextBubbleCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VKOutboundTextBubbleCell.h; sourceTree = "<group>"; };
+		F3C8B3B118A124FE00832D73 /* VKOutboundTextBubbleCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VKOutboundTextBubbleCell.m; sourceTree = "<group>"; };
+		F3C8B3BB18A1418200832D73 /* geo_point@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "geo_point@2x.png"; sourceTree = "<group>"; };
+		F3D10DD81869DB72009C03D0 /* VKTextBubbleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VKTextBubbleView.h; sourceTree = "<group>"; };
+		F3D10DD91869DB72009C03D0 /* VKTextBubbleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VKTextBubbleView.m; sourceTree = "<group>"; };
+		F3E56FE01886D64C00B6D7C0 /* VKImageBubbleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VKImageBubbleView.h; sourceTree = "<group>"; };
+		F3E56FE11886D64C00B6D7C0 /* VKImageBubbleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VKImageBubbleView.m; sourceTree = "<group>"; };
+		F3E56FE81886E14700B6D7C0 /* image01.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = image01.jpg; sourceTree = "<group>"; };
+		F3E56FE91886E14700B6D7C0 /* image02.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = image02.png; sourceTree = "<group>"; };
+		F3E56FEA1886E14700B6D7C0 /* image03.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = image03.jpg; sourceTree = "<group>"; };
 		FCD27B2892614628A26C8BF2 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
@@ -163,6 +182,7 @@
 		F3574D6D17BE2A1700471785 /* VKMessagesViewControllerTest */ = {
 			isa = PBXGroup;
 			children = (
+				F3E56FE71886E14700B6D7C0 /* TestImages */,
 				F3574D7617BE2A1700471785 /* VKAppDelegate.h */,
 				F3574D7717BE2A1700471785 /* VKAppDelegate.m */,
 				F3574D7F17BE2A1700471785 /* MainStoryboard.storyboard */,
@@ -190,6 +210,7 @@
 		F3574D8E17BE402E00471785 /* VKMessagesViewController */ = {
 			isa = PBXGroup;
 			children = (
+				F3C8B3A318A124FE00832D73 /* DefaultStyle */,
 				F3574DCA17BE4FF000471785 /* Resources */,
 				F3574DA517BE422900471785 /* Tools */,
 				F3574D8F17BE402E00471785 /* Views */,
@@ -197,6 +218,8 @@
 				F3574DAA17BE42B700471785 /* VKMenuControllerPresenter.m */,
 				F3574D9817BE402E00471785 /* VKMessagesViewController.h */,
 				F3574D9917BE402E00471785 /* VKMessagesViewController.m */,
+				F3A9B92D185F12C10095877C /* VKMessagesViewController+VKEmojiPicker.h */,
+				F3A9B92E185F12C20095877C /* VKMessagesViewController+VKEmojiPicker.m */,
 			);
 			name = VKMessagesViewController;
 			path = ../VKMessagesViewController;
@@ -205,16 +228,10 @@
 		F3574D8F17BE402E00471785 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				F3574D9F17BE417600471785 /* VKEmojiPicker.m */,
-				F3574DA117BE417700471785 /* VKEmojiPicker.h */,
-				F3574DA017BE417600471785 /* VKEmojiPicker+style.m */,
-				F3574DA217BE417700471785 /* VKEmojiPicker+style.h */,
-				F3574D9017BE402E00471785 /* VKBubbleView.h */,
-				F3574D9117BE402E00471785 /* VKBubbleView.m */,
-				F3574D9217BE402E00471785 /* VKBubbleViewProperties.h */,
-				F3574D9317BE402E00471785 /* VKBubbleViewProperties.m */,
-				F3574D9417BE402E00471785 /* VKMessageCell.h */,
-				F3574D9517BE402E00471785 /* VKMessageCell.m */,
+				F393747F186C8B22004F0416 /* VKBubbleView */,
+				F393747E186C8B10004F0416 /* VKEmojiPicker */,
+				F3574D9417BE402E00471785 /* VKBubbleCell.h */,
+				F3574D9517BE402E00471785 /* VKBubbleCell.m */,
 				F3574D9617BE402E00471785 /* VKTableView.h */,
 				F3574D9717BE402E00471785 /* VKTableView.m */,
 			);
@@ -224,6 +241,8 @@
 		F3574DA517BE422900471785 /* Tools */ = {
 			isa = PBXGroup;
 			children = (
+				F31F28881861DA9800816330 /* UIActionSheet+VKBlocks.h */,
+				F31F28891861DA9800816330 /* UIActionSheet+VKBlocks.m */,
 				F3574DAF17BE439700471785 /* UIResponder+FirstResponder.h */,
 				F3574DB017BE439800471785 /* UIResponder+FirstResponder.m */,
 				F3574DAC17BE430600471785 /* UIViewController+firstResponder.h */,
@@ -237,28 +256,124 @@
 		F3574DCA17BE4FF000471785 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				F3574DDB17BE508200471785 /* vk_message_bubble_outgouing_selected.png */,
-				F3574DDC17BE508200471785 /* vk_message_bubble_incoming_selected.png */,
-				F3574DDD17BE508200471785 /* vk_message_bubble_incoming_selected@2x.png */,
-				F3574DDE17BE508200471785 /* vk_message_bubble_incoming.png */,
-				F3574DDF17BE508200471785 /* vk_message_bubble_incoming@2x.png */,
-				F3574DE017BE508200471785 /* vk_message_bubble_outgouing_selected@2x.png */,
-				F3574DE117BE508200471785 /* vk_message_bubble_outgouing.png */,
-				F3574DE217BE508200471785 /* vk_message_bubble_outgouing@2x.png */,
-				F3574DE317BE508200471785 /* vk_pagecontrol_empty.png */,
-				F3574DE417BE508200471785 /* vk_pagecontrol_empty@2x.png */,
-				F3574DE517BE508200471785 /* vk_pagecontrol_selected.png */,
-				F3574DE617BE508200471785 /* vk_pagecontrol_selected@2x.png */,
-				F3574DCB17BE4FF100471785 /* vk_backspace_button.png */,
-				F3574DCC17BE4FF100471785 /* vk_backspace_button@2x.png */,
-				F3574DCD17BE4FF100471785 /* vk_backspace_button_pressed.png */,
-				F3574DCE17BE4FF100471785 /* vk_backspace_button_pressed@2x.png */,
-				F3574DCF17BE4FF100471785 /* vk_keyboard_back.png */,
-				F3574DD017BE4FF100471785 /* vk_keyboard_back@2x.png */,
-				F3574DD117BE4FF100471785 /* vk_keyboard_overlay.png */,
-				F3574DD217BE4FF100471785 /* vk_keyboard_overlay@2x.png */,
+				6B8D667E1822A6500024C694 /* vk_backspace_button@2x.png */,
+				6B8D667F1822A6500024C694 /* vk_backspace_button_pressed@2x.png */,
 			);
 			path = Resources;
+			sourceTree = "<group>";
+		};
+		F36DCC7518E6EC6B00442804 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				F36DCC7618E6EC6B00442804 /* vk_message_bubble_incoming@2x.png */,
+				F36DCC7718E6EC6B00442804 /* vk_message_bubble_incoming_selected@2x.png */,
+				F36DCC7818E6EC6B00442804 /* vk_message_bubble_outgouing@2x.png */,
+				F36DCC7918E6EC6B00442804 /* vk_message_bubble_outgouing_selected@2x.png */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		F389BACE1885994000A74818 /* BaseBubbleView */ = {
+			isa = PBXGroup;
+			children = (
+				F3574D9017BE402E00471785 /* VKBubbleView.h */,
+				F3574D9117BE402E00471785 /* VKBubbleView.m */,
+				F3574D9217BE402E00471785 /* VKBubbleViewProperties.h */,
+				F3574D9317BE402E00471785 /* VKBubbleViewProperties.m */,
+			);
+			name = BaseBubbleView;
+			sourceTree = "<group>";
+		};
+		F389BACF1885994F00A74818 /* TextBubbleView */ = {
+			isa = PBXGroup;
+			children = (
+				F3D10DD81869DB72009C03D0 /* VKTextBubbleView.h */,
+				F3D10DD91869DB72009C03D0 /* VKTextBubbleView.m */,
+				F393747B186C8850004F0416 /* VKTextBubbleViewProperties.h */,
+				F393747C186C8850004F0416 /* VKTextBubbleViewProperties.m */,
+			);
+			name = TextBubbleView;
+			sourceTree = "<group>";
+		};
+		F393747E186C8B10004F0416 /* VKEmojiPicker */ = {
+			isa = PBXGroup;
+			children = (
+				F3574D9F17BE417600471785 /* VKEmojiPicker.m */,
+				F3574DA117BE417700471785 /* VKEmojiPicker.h */,
+				F3574DA017BE417600471785 /* VKEmojiPicker+style.m */,
+				F3574DA217BE417700471785 /* VKEmojiPicker+style.h */,
+			);
+			name = VKEmojiPicker;
+			sourceTree = "<group>";
+		};
+		F393747F186C8B22004F0416 /* VKBubbleView */ = {
+			isa = PBXGroup;
+			children = (
+				F3E56FDF1886D5F700B6D7C0 /* ImageBubbleView */,
+				F389BACF1885994F00A74818 /* TextBubbleView */,
+				F389BACE1885994000A74818 /* BaseBubbleView */,
+			);
+			name = VKBubbleView;
+			sourceTree = "<group>";
+		};
+		F3C8B3A318A124FE00832D73 /* DefaultStyle */ = {
+			isa = PBXGroup;
+			children = (
+				F36DCC7518E6EC6B00442804 /* Resources */,
+				F3C8B3A418A124FE00832D73 /* VKDefaultBubbleCell.h */,
+				F3C8B3A518A124FE00832D73 /* VKDefaultBubbleCell.m */,
+				F3C8B3BA18A1252200832D73 /* Outbound */,
+				F3C8B3B918A1250C00832D73 /* Inbound */,
+			);
+			path = DefaultStyle;
+			sourceTree = "<group>";
+		};
+		F3C8B3B918A1250C00832D73 /* Inbound */ = {
+			isa = PBXGroup;
+			children = (
+				F3C8B3A618A124FE00832D73 /* VKInboundBaseBubbleCell.h */,
+				F3C8B3A718A124FE00832D73 /* VKInboundBaseBubbleCell.m */,
+				F3C8B3AA18A124FE00832D73 /* VKInboundTextBubbleCell.h */,
+				F3C8B3AB18A124FE00832D73 /* VKInboundTextBubbleCell.m */,
+				F3C8B3A818A124FE00832D73 /* VKInboundImageBubbleCell.h */,
+				F3C8B3A918A124FE00832D73 /* VKInboundImageBubbleCell.m */,
+			);
+			name = Inbound;
+			sourceTree = "<group>";
+		};
+		F3C8B3BA18A1252200832D73 /* Outbound */ = {
+			isa = PBXGroup;
+			children = (
+				F3C8B3AC18A124FE00832D73 /* VKOutboundBaseBubbleCell.h */,
+				F3C8B3AD18A124FE00832D73 /* VKOutboundBaseBubbleCell.m */,
+				F3C8B3AE18A124FE00832D73 /* VKOutboundImageBubbleCell.h */,
+				F3C8B3AF18A124FE00832D73 /* VKOutboundImageBubbleCell.m */,
+				F3C8B3B018A124FE00832D73 /* VKOutboundTextBubbleCell.h */,
+				F3C8B3B118A124FE00832D73 /* VKOutboundTextBubbleCell.m */,
+			);
+			name = Outbound;
+			sourceTree = "<group>";
+		};
+		F3E56FDF1886D5F700B6D7C0 /* ImageBubbleView */ = {
+			isa = PBXGroup;
+			children = (
+				F3E56FE01886D64C00B6D7C0 /* VKImageBubbleView.h */,
+				F3E56FE11886D64C00B6D7C0 /* VKImageBubbleView.m */,
+				F333A4A318881B21002D8491 /* VKImageBubbleViewProperties.h */,
+				F333A4A418881B21002D8491 /* VKImageBubbleViewProperties.m */,
+			);
+			name = ImageBubbleView;
+			sourceTree = "<group>";
+		};
+		F3E56FE71886E14700B6D7C0 /* TestImages */ = {
+			isa = PBXGroup;
+			children = (
+				F3C8B3BB18A1418200832D73 /* geo_point@2x.png */,
+				F3E56FE81886E14700B6D7C0 /* image01.jpg */,
+				F3E56FE91886E14700B6D7C0 /* image02.png */,
+				F3E56FEA1886E14700B6D7C0 /* image03.jpg */,
+			);
+			path = TestImages;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -315,31 +430,21 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F36DCC7F18E6EC6B00442804 /* vk_message_bubble_incoming_selected@2x.png in Resources */,
+				F3E56FED1886E14700B6D7C0 /* image03.jpg in Resources */,
 				F3574D7217BE2A1700471785 /* InfoPlist.strings in Resources */,
 				F3574D7A17BE2A1700471785 /* Default.png in Resources */,
+				F36DCC7E18E6EC6B00442804 /* vk_message_bubble_incoming@2x.png in Resources */,
 				F3574D7C17BE2A1700471785 /* Default@2x.png in Resources */,
 				F3574D7E17BE2A1700471785 /* Default-568h@2x.png in Resources */,
 				F3574D8117BE2A1700471785 /* MainStoryboard.storyboard in Resources */,
-				F3574DD317BE4FF100471785 /* vk_backspace_button.png in Resources */,
-				F3574DD417BE4FF100471785 /* vk_backspace_button@2x.png in Resources */,
-				F3574DD517BE4FF100471785 /* vk_backspace_button_pressed.png in Resources */,
-				F3574DD617BE4FF100471785 /* vk_backspace_button_pressed@2x.png in Resources */,
-				F3574DD717BE4FF100471785 /* vk_keyboard_back.png in Resources */,
-				F3574DD817BE4FF100471785 /* vk_keyboard_back@2x.png in Resources */,
-				F3574DD917BE4FF100471785 /* vk_keyboard_overlay.png in Resources */,
-				F3574DDA17BE4FF100471785 /* vk_keyboard_overlay@2x.png in Resources */,
-				F3574DE717BE508200471785 /* vk_message_bubble_outgouing_selected.png in Resources */,
-				F3574DE817BE508200471785 /* vk_message_bubble_incoming_selected.png in Resources */,
-				F3574DE917BE508200471785 /* vk_message_bubble_incoming_selected@2x.png in Resources */,
-				F3574DEA17BE508200471785 /* vk_message_bubble_incoming.png in Resources */,
-				F3574DEB17BE508200471785 /* vk_message_bubble_incoming@2x.png in Resources */,
-				F3574DEC17BE508200471785 /* vk_message_bubble_outgouing_selected@2x.png in Resources */,
-				F3574DED17BE508200471785 /* vk_message_bubble_outgouing.png in Resources */,
-				F3574DEE17BE508200471785 /* vk_message_bubble_outgouing@2x.png in Resources */,
-				F3574DEF17BE508200471785 /* vk_pagecontrol_empty.png in Resources */,
-				F3574DF017BE508200471785 /* vk_pagecontrol_empty@2x.png in Resources */,
-				F3574DF117BE508200471785 /* vk_pagecontrol_selected.png in Resources */,
-				F3574DF217BE508200471785 /* vk_pagecontrol_selected@2x.png in Resources */,
+				F3C8B3BC18A1418300832D73 /* geo_point@2x.png in Resources */,
+				F3E56FEB1886E14700B6D7C0 /* image01.jpg in Resources */,
+				F3E56FEC1886E14700B6D7C0 /* image02.png in Resources */,
+				F36DCC8018E6EC6B00442804 /* vk_message_bubble_outgouing@2x.png in Resources */,
+				F36DCC8118E6EC6B00442804 /* vk_message_bubble_outgouing_selected@2x.png in Resources */,
+				6B8D66811822A6500024C694 /* vk_backspace_button_pressed@2x.png in Resources */,
+				6B8D66801822A6500024C694 /* vk_backspace_button@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -382,19 +487,32 @@
 			buildActionMask = 2147483647;
 			files = (
 				F3574D7417BE2A1700471785 /* main.m in Sources */,
+				F3C8B3B618A124FE00832D73 /* VKOutboundBaseBubbleCell.m in Sources */,
+				F3C8B3B718A124FE00832D73 /* VKOutboundImageBubbleCell.m in Sources */,
 				F3574D7817BE2A1700471785 /* VKAppDelegate.m in Sources */,
 				F3574D9A17BE402E00471785 /* VKBubbleView.m in Sources */,
 				F3574D9B17BE402E00471785 /* VKBubbleViewProperties.m in Sources */,
-				F3574D9C17BE402E00471785 /* VKMessageCell.m in Sources */,
+				F3574D9C17BE402E00471785 /* VKBubbleCell.m in Sources */,
 				F3574D9D17BE402E00471785 /* VKTableView.m in Sources */,
 				F3574D9E17BE402E00471785 /* VKMessagesViewController.m in Sources */,
+				F333A4A518881B21002D8491 /* VKImageBubbleViewProperties.m in Sources */,
 				F3574DA317BE417700471785 /* VKEmojiPicker.m in Sources */,
+				F3C8B3B818A124FE00832D73 /* VKOutboundTextBubbleCell.m in Sources */,
 				F3574DA417BE417700471785 /* VKEmojiPicker+style.m in Sources */,
+				F393747D186C8851004F0416 /* VKTextBubbleViewProperties.m in Sources */,
+				F3D10DDA1869DB72009C03D0 /* VKTextBubbleView.m in Sources */,
 				F3574DA817BE422900471785 /* NSString+deletingLastSymbol.m in Sources */,
+				F3C8B3B518A124FE00832D73 /* VKInboundTextBubbleCell.m in Sources */,
+				F31F288A1861DA9800816330 /* UIActionSheet+VKBlocks.m in Sources */,
 				F3574DAB17BE42B800471785 /* VKMenuControllerPresenter.m in Sources */,
+				F3C8B3B218A124FE00832D73 /* VKDefaultBubbleCell.m in Sources */,
 				F3574DAE17BE430600471785 /* UIViewController+firstResponder.m in Sources */,
+				F3C8B3B318A124FE00832D73 /* VKInboundBaseBubbleCell.m in Sources */,
+				F3A9B92F185F12C20095877C /* VKMessagesViewController+VKEmojiPicker.m in Sources */,
+				F3C8B3B418A124FE00832D73 /* VKInboundImageBubbleCell.m in Sources */,
 				F3574DB117BE439800471785 /* UIResponder+FirstResponder.m in Sources */,
 				F3574DC917BE4C8200471785 /* VKViewController.m in Sources */,
+				F3E56FE21886D64C00B6D7C0 /* VKImageBubbleView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -9,12 +9,14 @@
 #import "VKMenuControllerPresenter.h"
 
 @interface VKMenuControllerPresenter()
-@property (weak,nonatomic) UIView *menuDisplayingView;
+@property (weak,nonatomic) id<VKMenuControllerPresenterDelegate> menuDisplayingResponder;
 @property (weak,nonatomic) UIView *previousFirsResponder;
 @property (strong,nonatomic) CompleteonBlock completeonBlock;
+@property (copy, nonatomic) NSDictionary *userInfo;
 @end
 
 @implementation VKMenuControllerPresenter
+@synthesize isPresentingMenu = _isPresentingMenu;
 
 #pragma mark - Publick Properties
 
@@ -37,7 +39,20 @@
 - (void) showDefaultMenuForView:(UIView *) menuView
            returnFocusTo:(UIView *) firstResponder
               completeon:(void(^)(void)) completeon{
-    self.menuDisplayingView = menuView;
+    [self showDefaultMenuWithResponder:(id <VKMenuControllerPresenterDelegate>)menuView
+                              userInfo: nil inView:menuView
+                         returnFocusTo:firstResponder
+                            completeon:completeon];
+}
+
+- (void) showDefaultMenuWithResponder:(id) responder
+                             userInfo:(NSDictionary *) userInfo
+                               inView:(UIView *) targetView
+                        returnFocusTo:(UIView *) firstResponder
+                           completeon:(CompleteonBlock) completeon {
+    
+    self.userInfo = [userInfo copy];
+    self.menuDisplayingResponder = responder;
     self.completeonBlock = completeon;
     if (firstResponder != self) {
         self.previousFirsResponder = firstResponder;
@@ -49,29 +64,45 @@
         }
     }
     
+    _isPresentingMenu = YES;
     [self becomeFirstResponder];
     
     __weak __typeof(&*self) weakSelf = self;
-    double delayInSeconds = 0.1;
+    double delayInSeconds = 0.05;
     dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
-    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+    dispatch_after(popTime, dispatch_get_main_queue(), ^(void) {
         UIMenuController *menuController = [UIMenuController sharedMenuController];
         [[NSNotificationCenter defaultCenter] addObserver:weakSelf
                                                  selector:@selector(willHideEditMenu:)
                                                      name:UIMenuControllerWillHideMenuNotification
                                                    object:menuController];
-        [menuController setTargetRect:menuView.frame inView:menuView.superview];
+        [menuController setTargetRect:targetView.frame inView:targetView.superview];
         [menuController setMenuVisible:YES animated:YES];
     });
+}
+
+- (void) dismissMenu {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [self resignFirstResponder];
+    if (self.previousFirsResponder) {
+        [self.previousFirsResponder becomeFirstResponder];
+        self.previousFirsResponder = nil;
+    }
+    self.completeonBlock ? self.completeonBlock() : nil;
+    self.completeonBlock = nil;
+    self.userInfo = nil;
+    _isPresentingMenu = NO;
 }
 
 #pragma mark - UIResponderStandardEditActions
 
 - (BOOL) canPerformAction:(SEL)action
-               withSender:(id)sender
-{
-    if ([self.menuDisplayingView respondsToSelector:@selector(canPerformAction:withSender:)]) {
-        return ([self.menuDisplayingView canPerformAction:action withSender:sender]);
+               withSender:(id)sender {
+    if ([self.menuDisplayingResponder respondsToSelector:@selector(canPerformAction:withSender:userInfo:)]){
+        return ([self.menuDisplayingResponder canPerformAction:action withSender:sender userInfo:self.userInfo]);
+    }
+    else if ([self.menuDisplayingResponder respondsToSelector:@selector(canPerformAction:withSender:)]) {
+        return [self.menuDisplayingResponder canPerformAction:action withSender:sender];
     }
     else{
         return NO;
@@ -80,79 +111,34 @@
 
 #pragma mark - UIResponderStandardEditActions
 
-- (void) copy:(id)sender {
-    if ([self.menuDisplayingView respondsToSelector:@selector(copy:)]) {
-        [(id)self.menuDisplayingView copy:sender];
+- (void) performAction:(SEL)action withSender:(id)sender {
+    __strong id target = self.menuDisplayingResponder;
+    if ([target respondsToSelector:@selector(performAction:withSender:userInfo:)]) {
+        [target performAction:action withSender:sender userInfo:self.userInfo];
     }
+    else if ([self.menuDisplayingResponder respondsToSelector:action]) {
+        IMP imp = [target methodForSelector:action];
+        void (*func)(id, SEL, id) = (void *)imp;
+        func(target, action, sender);
+    }
+}
+
+- (void) copy:(id)sender {
+    [self performAction:@selector(copy:) withSender:sender];
 }
 
 - (void) cut:(id)sender {
-    if ([self.menuDisplayingView respondsToSelector:@selector(cut:)]) {
-        [(id)self.menuDisplayingView cut:sender];
-    }
+    [self performAction:@selector(cut:) withSender:sender];
 }
 
 - (void) delete:(id)sender {
-    if ([self.menuDisplayingView respondsToSelector:@selector(delete:)]) {
-        [(id)self.menuDisplayingView delete:sender];
-    }
-}
-
-- (void) select:(id)sender {
-    if ([self.menuDisplayingView respondsToSelector:@selector(select:)]) {
-        [(id)self.menuDisplayingView select:sender];
-    }
-}
-
-- (void) selectAll:(id)sender {
-    if ([self.menuDisplayingView respondsToSelector:@selector(selectAll:)]) {
-        [(id)self.menuDisplayingView selectAll:sender];
-    }
-}
-
-- (void) toggleBoldface:(id)sender {
-    if ([self.menuDisplayingView respondsToSelector:@selector(toggleBoldface:)]) {
-        [(id)self.menuDisplayingView toggleBoldface:sender];
-    }
-}
-
-- (void) toggleItalics:(id)sender {
-    if ([self.menuDisplayingView respondsToSelector:@selector(toggleItalics:)]) {
-        [(id)self.menuDisplayingView toggleItalics:sender];
-    }
-}
-
-- (void) toggleUnderline:(id)sender {
-    if ([self.menuDisplayingView respondsToSelector:@selector(toggleUnderline:)]) {
-        [(id)self.menuDisplayingView toggleUnderline:sender];
-    }
-}
-
-- (void) makeTextWritingDirectionLeftToRight:(id)sender {
-    if ([self.menuDisplayingView respondsToSelector:@selector(makeTextWritingDirectionLeftToRight:)]) {
-        [(id)self.menuDisplayingView makeTextWritingDirectionLeftToRight:sender];
-    }
-}
-
-- (void) makeTextWritingDirectionRightToLeft:(id)sender {
-    if ([self.menuDisplayingView respondsToSelector:@selector(makeTextWritingDirectionRightToLeft:)]) {
-        [(id)self.menuDisplayingView makeTextWritingDirectionRightToLeft:sender];
-    }
+    [self performAction:@selector(delete:) withSender:sender];
 }
 
 #pragma mark - NSNotificationCenter
 
 - (void) willHideEditMenu:(NSNotification *) notification{
-    [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:UIMenuControllerWillHideMenuNotification
-                                                  object:notification.object];
-    [self resignFirstResponder];
-    if (self.previousFirsResponder) {
-        [self.previousFirsResponder becomeFirstResponder];
-        self.previousFirsResponder = nil;
-    }
-    self.completeonBlock ? self.completeonBlock() : nil;
-    self.completeonBlock = nil;
+    [self dismissMenu];
 }
 
 #pragma mark - Init methods

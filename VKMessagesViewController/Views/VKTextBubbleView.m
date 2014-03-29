@@ -8,8 +8,8 @@
 
 #import "VKTextBubbleView.h"
 
-static const CGFloat kViewMaxHeight = 9999;
-
+static CGFloat const kViewMaxHeight = 9999;
+static NSInteger const kTextPartsCount = 4;
 
 @implementation VKTextBubbleView
 @synthesize messageBody = _messageBody;
@@ -27,19 +27,29 @@ static const CGFloat kViewMaxHeight = 9999;
         _messageBody.backgroundColor = [UIColor clearColor];
         _messageBody.lineBreakMode = self.properties.lineBreakMode;
         _messageBody.numberOfLines = 0;
+        [self applyTextProperties];
     }
     return _messageBody;
 }
 
 - (void) setProperties:(VKBubbleViewProperties *)properties {
     [super setProperties:properties];
-    self.messageBody.font = self.properties.bodyFont;
+    [self applyTextProperties];
 }
 
-- (CGFloat) widthConstrainedToWidth:(CGFloat) width {
+- (void) applyTextProperties {
+    if (self.properties.font) {
+        _messageBody.font = self.properties.font;
+    }
+    if (self.properties.textColor) {
+        _messageBody.textColor = self.properties.textColor;
+    }
+}
+
+- (CGSize) sizeConstrainedToWidth:(CGFloat) width {
     return [[self class] sizeWithAttributedString:self.messageBody.attributedText
                                        Properties:self.properties
-                               constrainedToWidth:width].width;
+                               constrainedToWidth:width];
  }
 
 #pragma mark - UIView methods
@@ -62,10 +72,15 @@ static const CGFloat kViewMaxHeight = 9999;
     }
     
     bodySize.width += (properties.edgeInsets.left + properties.edgeInsets.right);
-    bodySize.height += (properties.edgeInsets.top + properties.edgeInsets.bottom);
+    CGFloat partSize = ceilf((width+kTextPartsCount)/kTextPartsCount);
+    bodySize.width = ceilf(bodySize.width/partSize) * partSize;
+    if (bodySize.width > width) {
+        bodySize.width = width;
+    }
     if (bodySize.width < properties.minimumWidth) {
         bodySize.width = properties.minimumWidth;
     }
+    bodySize.height += (properties.edgeInsets.top + properties.edgeInsets.bottom);
     return bodySize;
 }
 

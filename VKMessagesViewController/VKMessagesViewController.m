@@ -9,7 +9,6 @@
 #import "VKMessagesViewController.h"
 #import "UIViewController+firstResponder.h"
 #import "VKBubbleCell.h"
-#import "VKiOSVersionCheck.h"
 
 static CGFloat const kDefaultToolbarHeight = 40;
 static CGFloat const kDefaultToolbarPortraitMaximumHeight = 195;
@@ -122,11 +121,6 @@ static CGFloat const kDefaultToolbarLandscapeMaximumHeight = 101;
     
     // Scroll table to bottom cell
     [self scrollTableViewToBottomAnimated:NO];
-    
-    if (SYSTEM_VERSION_LESS_THAN(@"7")) {
-        //Setting style
-        self.tableView.backgroundColor = [UIColor colorWithRed:0.9 green:0.9 blue:0.9 alpha:1];
-    }
     
     //Message copying
     UILongPressGestureRecognizer *longPressRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPressRecognized:)];

@@ -14,6 +14,7 @@ extern NSString *VKOutboundTextBubbleCellReuseIdentifier;
 
 @interface VKOutboundTextBubbleCell : VKOutboundBaseBubbleCell
 @property (nonatomic, readonly) VKTextBubbleView *bubbleView;
+@property (readwrite, nonatomic) NSString *messageText;
 
 + (VKTextBubbleView *) newBubbleView;
 + (VKTextBubbleViewProperties *) newBubbleViewProperties;

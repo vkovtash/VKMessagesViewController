@@ -8,10 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		172F75597BD34F38B3E45664 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F79047F4EC44DC99B18943E /* libPods.a */; };
-		6B8D66801822A6500024C694 /* vk_backspace_button_ios7@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6B8D667E1822A6500024C694 /* vk_backspace_button_ios7@2x.png */; };
-		6B8D66811822A6500024C694 /* vk_backspace_button_pressed_ios7@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6B8D667F1822A6500024C694 /* vk_backspace_button_pressed_ios7@2x.png */; };
-		6BD7F6DE1822697400B511A0 /* vk_message_bubble_incoming_ios7@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6BD7F6DC1822697400B511A0 /* vk_message_bubble_incoming_ios7@2x.png */; };
-		6BD7F6DF1822697400B511A0 /* vk_message_bubble_outgouing_ios7@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6BD7F6DD1822697400B511A0 /* vk_message_bubble_outgouing_ios7@2x.png */; };
+		6B8D66801822A6500024C694 /* vk_backspace_button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6B8D667E1822A6500024C694 /* vk_backspace_button@2x.png */; };
+		6B8D66811822A6500024C694 /* vk_backspace_button_pressed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6B8D667F1822A6500024C694 /* vk_backspace_button_pressed@2x.png */; };
 		F31F288A1861DA9800816330 /* UIActionSheet+VKBlocks.m in Sources */ = {isa = PBXBuildFile; fileRef = F31F28891861DA9800816330 /* UIActionSheet+VKBlocks.m */; };
 		F333A4A518881B21002D8491 /* VKImageBubbleViewProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = F333A4A418881B21002D8491 /* VKImageBubbleViewProperties.m */; };
 		F3574D6817BE2A1700471785 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F3574D6717BE2A1700471785 /* UIKit.framework */; };
@@ -36,30 +34,12 @@
 		F3574DAE17BE430600471785 /* UIViewController+firstResponder.m in Sources */ = {isa = PBXBuildFile; fileRef = F3574DAD17BE430600471785 /* UIViewController+firstResponder.m */; };
 		F3574DB117BE439800471785 /* UIResponder+FirstResponder.m in Sources */ = {isa = PBXBuildFile; fileRef = F3574DB017BE439800471785 /* UIResponder+FirstResponder.m */; };
 		F3574DC917BE4C8200471785 /* VKViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F3574DC817BE4C8200471785 /* VKViewController.m */; };
-		F3574DD317BE4FF100471785 /* vk_backspace_button.png in Resources */ = {isa = PBXBuildFile; fileRef = F3574DCB17BE4FF100471785 /* vk_backspace_button.png */; };
-		F3574DD417BE4FF100471785 /* vk_backspace_button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F3574DCC17BE4FF100471785 /* vk_backspace_button@2x.png */; };
-		F3574DD517BE4FF100471785 /* vk_backspace_button_pressed.png in Resources */ = {isa = PBXBuildFile; fileRef = F3574DCD17BE4FF100471785 /* vk_backspace_button_pressed.png */; };
-		F3574DD617BE4FF100471785 /* vk_backspace_button_pressed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F3574DCE17BE4FF100471785 /* vk_backspace_button_pressed@2x.png */; };
-		F3574DD717BE4FF100471785 /* vk_keyboard_back.png in Resources */ = {isa = PBXBuildFile; fileRef = F3574DCF17BE4FF100471785 /* vk_keyboard_back.png */; };
-		F3574DD817BE4FF100471785 /* vk_keyboard_back@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F3574DD017BE4FF100471785 /* vk_keyboard_back@2x.png */; };
-		F3574DD917BE4FF100471785 /* vk_keyboard_overlay.png in Resources */ = {isa = PBXBuildFile; fileRef = F3574DD117BE4FF100471785 /* vk_keyboard_overlay.png */; };
-		F3574DDA17BE4FF100471785 /* vk_keyboard_overlay@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F3574DD217BE4FF100471785 /* vk_keyboard_overlay@2x.png */; };
-		F3574DE717BE508200471785 /* vk_message_bubble_outgouing_selected.png in Resources */ = {isa = PBXBuildFile; fileRef = F3574DDB17BE508200471785 /* vk_message_bubble_outgouing_selected.png */; };
-		F3574DE817BE508200471785 /* vk_message_bubble_incoming_selected.png in Resources */ = {isa = PBXBuildFile; fileRef = F3574DDC17BE508200471785 /* vk_message_bubble_incoming_selected.png */; };
-		F3574DE917BE508200471785 /* vk_message_bubble_incoming_selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F3574DDD17BE508200471785 /* vk_message_bubble_incoming_selected@2x.png */; };
-		F3574DEA17BE508200471785 /* vk_message_bubble_incoming.png in Resources */ = {isa = PBXBuildFile; fileRef = F3574DDE17BE508200471785 /* vk_message_bubble_incoming.png */; };
-		F3574DEB17BE508200471785 /* vk_message_bubble_incoming@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F3574DDF17BE508200471785 /* vk_message_bubble_incoming@2x.png */; };
-		F3574DEC17BE508200471785 /* vk_message_bubble_outgouing_selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F3574DE017BE508200471785 /* vk_message_bubble_outgouing_selected@2x.png */; };
-		F3574DED17BE508200471785 /* vk_message_bubble_outgouing.png in Resources */ = {isa = PBXBuildFile; fileRef = F3574DE117BE508200471785 /* vk_message_bubble_outgouing.png */; };
-		F3574DEE17BE508200471785 /* vk_message_bubble_outgouing@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F3574DE217BE508200471785 /* vk_message_bubble_outgouing@2x.png */; };
-		F3574DEF17BE508200471785 /* vk_pagecontrol_empty.png in Resources */ = {isa = PBXBuildFile; fileRef = F3574DE317BE508200471785 /* vk_pagecontrol_empty.png */; };
-		F3574DF017BE508200471785 /* vk_pagecontrol_empty@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F3574DE417BE508200471785 /* vk_pagecontrol_empty@2x.png */; };
-		F3574DF117BE508200471785 /* vk_pagecontrol_selected.png in Resources */ = {isa = PBXBuildFile; fileRef = F3574DE517BE508200471785 /* vk_pagecontrol_selected.png */; };
-		F3574DF217BE508200471785 /* vk_pagecontrol_selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F3574DE617BE508200471785 /* vk_pagecontrol_selected@2x.png */; };
+		F36DCC7E18E6EC6B00442804 /* vk_message_bubble_incoming@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F36DCC7618E6EC6B00442804 /* vk_message_bubble_incoming@2x.png */; };
+		F36DCC7F18E6EC6B00442804 /* vk_message_bubble_incoming_selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F36DCC7718E6EC6B00442804 /* vk_message_bubble_incoming_selected@2x.png */; };
+		F36DCC8018E6EC6B00442804 /* vk_message_bubble_outgouing@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F36DCC7818E6EC6B00442804 /* vk_message_bubble_outgouing@2x.png */; };
+		F36DCC8118E6EC6B00442804 /* vk_message_bubble_outgouing_selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F36DCC7918E6EC6B00442804 /* vk_message_bubble_outgouing_selected@2x.png */; };
 		F393747D186C8851004F0416 /* VKTextBubbleViewProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = F393747C186C8850004F0416 /* VKTextBubbleViewProperties.m */; };
 		F3A9B92F185F12C20095877C /* VKMessagesViewController+VKEmojiPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = F3A9B92E185F12C20095877C /* VKMessagesViewController+VKEmojiPicker.m */; };
-		F3C8B38F18A0FF3900832D73 /* vk_message_bubble_outgouing_selected_ios7@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F3C8B38D18A0FF3900832D73 /* vk_message_bubble_outgouing_selected_ios7@2x.png */; };
-		F3C8B39018A0FF3900832D73 /* vk_message_bubble_incoming_selected_ios7@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F3C8B38E18A0FF3900832D73 /* vk_message_bubble_incoming_selected_ios7@2x.png */; };
 		F3C8B3B218A124FE00832D73 /* VKDefaultBubbleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F3C8B3A518A124FE00832D73 /* VKDefaultBubbleCell.m */; };
 		F3C8B3B318A124FE00832D73 /* VKInboundBaseBubbleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F3C8B3A718A124FE00832D73 /* VKInboundBaseBubbleCell.m */; };
 		F3C8B3B418A124FE00832D73 /* VKInboundImageBubbleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F3C8B3A918A124FE00832D73 /* VKInboundImageBubbleCell.m */; };
@@ -76,11 +56,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		6B8D667E1822A6500024C694 /* vk_backspace_button_ios7@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "vk_backspace_button_ios7@2x.png"; sourceTree = "<group>"; };
-		6B8D667F1822A6500024C694 /* vk_backspace_button_pressed_ios7@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "vk_backspace_button_pressed_ios7@2x.png"; sourceTree = "<group>"; };
-		6BD7F6DC1822697400B511A0 /* vk_message_bubble_incoming_ios7@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "vk_message_bubble_incoming_ios7@2x.png"; sourceTree = "<group>"; };
-		6BD7F6DD1822697400B511A0 /* vk_message_bubble_outgouing_ios7@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "vk_message_bubble_outgouing_ios7@2x.png"; sourceTree = "<group>"; };
-		6BD7F6E018226A0700B511A0 /* VKiOSVersionCheck.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VKiOSVersionCheck.h; sourceTree = "<group>"; };
+		6B8D667E1822A6500024C694 /* vk_backspace_button@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "vk_backspace_button@2x.png"; sourceTree = "<group>"; };
+		6B8D667F1822A6500024C694 /* vk_backspace_button_pressed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "vk_backspace_button_pressed@2x.png"; sourceTree = "<group>"; };
 		7F79047F4EC44DC99B18943E /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		F31F28881861DA9800816330 /* UIActionSheet+VKBlocks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIActionSheet+VKBlocks.h"; sourceTree = "<group>"; };
 		F31F28891861DA9800816330 /* UIActionSheet+VKBlocks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIActionSheet+VKBlocks.m"; sourceTree = "<group>"; };
@@ -124,32 +101,14 @@
 		F3574DB017BE439800471785 /* UIResponder+FirstResponder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIResponder+FirstResponder.m"; sourceTree = "<group>"; };
 		F3574DC717BE4C8200471785 /* VKViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VKViewController.h; sourceTree = "<group>"; };
 		F3574DC817BE4C8200471785 /* VKViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VKViewController.m; sourceTree = "<group>"; };
-		F3574DCB17BE4FF100471785 /* vk_backspace_button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = vk_backspace_button.png; sourceTree = "<group>"; };
-		F3574DCC17BE4FF100471785 /* vk_backspace_button@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "vk_backspace_button@2x.png"; sourceTree = "<group>"; };
-		F3574DCD17BE4FF100471785 /* vk_backspace_button_pressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = vk_backspace_button_pressed.png; sourceTree = "<group>"; };
-		F3574DCE17BE4FF100471785 /* vk_backspace_button_pressed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "vk_backspace_button_pressed@2x.png"; sourceTree = "<group>"; };
-		F3574DCF17BE4FF100471785 /* vk_keyboard_back.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = vk_keyboard_back.png; sourceTree = "<group>"; };
-		F3574DD017BE4FF100471785 /* vk_keyboard_back@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "vk_keyboard_back@2x.png"; sourceTree = "<group>"; };
-		F3574DD117BE4FF100471785 /* vk_keyboard_overlay.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = vk_keyboard_overlay.png; sourceTree = "<group>"; };
-		F3574DD217BE4FF100471785 /* vk_keyboard_overlay@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "vk_keyboard_overlay@2x.png"; sourceTree = "<group>"; };
-		F3574DDB17BE508200471785 /* vk_message_bubble_outgouing_selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = vk_message_bubble_outgouing_selected.png; sourceTree = "<group>"; };
-		F3574DDC17BE508200471785 /* vk_message_bubble_incoming_selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = vk_message_bubble_incoming_selected.png; sourceTree = "<group>"; };
-		F3574DDD17BE508200471785 /* vk_message_bubble_incoming_selected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "vk_message_bubble_incoming_selected@2x.png"; sourceTree = "<group>"; };
-		F3574DDE17BE508200471785 /* vk_message_bubble_incoming.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = vk_message_bubble_incoming.png; sourceTree = "<group>"; };
-		F3574DDF17BE508200471785 /* vk_message_bubble_incoming@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "vk_message_bubble_incoming@2x.png"; sourceTree = "<group>"; };
-		F3574DE017BE508200471785 /* vk_message_bubble_outgouing_selected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "vk_message_bubble_outgouing_selected@2x.png"; sourceTree = "<group>"; };
-		F3574DE117BE508200471785 /* vk_message_bubble_outgouing.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = vk_message_bubble_outgouing.png; sourceTree = "<group>"; };
-		F3574DE217BE508200471785 /* vk_message_bubble_outgouing@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "vk_message_bubble_outgouing@2x.png"; sourceTree = "<group>"; };
-		F3574DE317BE508200471785 /* vk_pagecontrol_empty.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = vk_pagecontrol_empty.png; sourceTree = "<group>"; };
-		F3574DE417BE508200471785 /* vk_pagecontrol_empty@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "vk_pagecontrol_empty@2x.png"; sourceTree = "<group>"; };
-		F3574DE517BE508200471785 /* vk_pagecontrol_selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = vk_pagecontrol_selected.png; sourceTree = "<group>"; };
-		F3574DE617BE508200471785 /* vk_pagecontrol_selected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "vk_pagecontrol_selected@2x.png"; sourceTree = "<group>"; };
+		F36DCC7618E6EC6B00442804 /* vk_message_bubble_incoming@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "vk_message_bubble_incoming@2x.png"; sourceTree = "<group>"; };
+		F36DCC7718E6EC6B00442804 /* vk_message_bubble_incoming_selected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "vk_message_bubble_incoming_selected@2x.png"; sourceTree = "<group>"; };
+		F36DCC7818E6EC6B00442804 /* vk_message_bubble_outgouing@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "vk_message_bubble_outgouing@2x.png"; sourceTree = "<group>"; };
+		F36DCC7918E6EC6B00442804 /* vk_message_bubble_outgouing_selected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "vk_message_bubble_outgouing_selected@2x.png"; sourceTree = "<group>"; };
 		F393747B186C8850004F0416 /* VKTextBubbleViewProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VKTextBubbleViewProperties.h; sourceTree = "<group>"; };
 		F393747C186C8850004F0416 /* VKTextBubbleViewProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VKTextBubbleViewProperties.m; sourceTree = "<group>"; };
 		F3A9B92D185F12C10095877C /* VKMessagesViewController+VKEmojiPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "VKMessagesViewController+VKEmojiPicker.h"; sourceTree = "<group>"; };
 		F3A9B92E185F12C20095877C /* VKMessagesViewController+VKEmojiPicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "VKMessagesViewController+VKEmojiPicker.m"; sourceTree = "<group>"; };
-		F3C8B38D18A0FF3900832D73 /* vk_message_bubble_outgouing_selected_ios7@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "vk_message_bubble_outgouing_selected_ios7@2x.png"; sourceTree = "<group>"; };
-		F3C8B38E18A0FF3900832D73 /* vk_message_bubble_incoming_selected_ios7@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "vk_message_bubble_incoming_selected_ios7@2x.png"; sourceTree = "<group>"; };
 		F3C8B3A418A124FE00832D73 /* VKDefaultBubbleCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VKDefaultBubbleCell.h; sourceTree = "<group>"; };
 		F3C8B3A518A124FE00832D73 /* VKDefaultBubbleCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VKDefaultBubbleCell.m; sourceTree = "<group>"; };
 		F3C8B3A618A124FE00832D73 /* VKInboundBaseBubbleCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VKInboundBaseBubbleCell.h; sourceTree = "<group>"; };
@@ -290,7 +249,6 @@
 				F3574DAD17BE430600471785 /* UIViewController+firstResponder.m */,
 				F3574DA617BE422900471785 /* NSString+deletingLastSymbol.h */,
 				F3574DA717BE422900471785 /* NSString+deletingLastSymbol.m */,
-				6BD7F6E018226A0700B511A0 /* VKiOSVersionCheck.h */,
 			);
 			path = Tools;
 			sourceTree = "<group>";
@@ -298,32 +256,19 @@
 		F3574DCA17BE4FF000471785 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				F3C8B38D18A0FF3900832D73 /* vk_message_bubble_outgouing_selected_ios7@2x.png */,
-				F3C8B38E18A0FF3900832D73 /* vk_message_bubble_incoming_selected_ios7@2x.png */,
-				6B8D667E1822A6500024C694 /* vk_backspace_button_ios7@2x.png */,
-				6B8D667F1822A6500024C694 /* vk_backspace_button_pressed_ios7@2x.png */,
-				6BD7F6DC1822697400B511A0 /* vk_message_bubble_incoming_ios7@2x.png */,
-				6BD7F6DD1822697400B511A0 /* vk_message_bubble_outgouing_ios7@2x.png */,
-				F3574DDB17BE508200471785 /* vk_message_bubble_outgouing_selected.png */,
-				F3574DDC17BE508200471785 /* vk_message_bubble_incoming_selected.png */,
-				F3574DDD17BE508200471785 /* vk_message_bubble_incoming_selected@2x.png */,
-				F3574DDE17BE508200471785 /* vk_message_bubble_incoming.png */,
-				F3574DDF17BE508200471785 /* vk_message_bubble_incoming@2x.png */,
-				F3574DE017BE508200471785 /* vk_message_bubble_outgouing_selected@2x.png */,
-				F3574DE117BE508200471785 /* vk_message_bubble_outgouing.png */,
-				F3574DE217BE508200471785 /* vk_message_bubble_outgouing@2x.png */,
-				F3574DE317BE508200471785 /* vk_pagecontrol_empty.png */,
-				F3574DE417BE508200471785 /* vk_pagecontrol_empty@2x.png */,
-				F3574DE517BE508200471785 /* vk_pagecontrol_selected.png */,
-				F3574DE617BE508200471785 /* vk_pagecontrol_selected@2x.png */,
-				F3574DCB17BE4FF100471785 /* vk_backspace_button.png */,
-				F3574DCC17BE4FF100471785 /* vk_backspace_button@2x.png */,
-				F3574DCD17BE4FF100471785 /* vk_backspace_button_pressed.png */,
-				F3574DCE17BE4FF100471785 /* vk_backspace_button_pressed@2x.png */,
-				F3574DCF17BE4FF100471785 /* vk_keyboard_back.png */,
-				F3574DD017BE4FF100471785 /* vk_keyboard_back@2x.png */,
-				F3574DD117BE4FF100471785 /* vk_keyboard_overlay.png */,
-				F3574DD217BE4FF100471785 /* vk_keyboard_overlay@2x.png */,
+				6B8D667E1822A6500024C694 /* vk_backspace_button@2x.png */,
+				6B8D667F1822A6500024C694 /* vk_backspace_button_pressed@2x.png */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		F36DCC7518E6EC6B00442804 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				F36DCC7618E6EC6B00442804 /* vk_message_bubble_incoming@2x.png */,
+				F36DCC7718E6EC6B00442804 /* vk_message_bubble_incoming_selected@2x.png */,
+				F36DCC7818E6EC6B00442804 /* vk_message_bubble_outgouing@2x.png */,
+				F36DCC7918E6EC6B00442804 /* vk_message_bubble_outgouing_selected@2x.png */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -374,6 +319,7 @@
 		F3C8B3A318A124FE00832D73 /* DefaultStyle */ = {
 			isa = PBXGroup;
 			children = (
+				F36DCC7518E6EC6B00442804 /* Resources */,
 				F3C8B3A418A124FE00832D73 /* VKDefaultBubbleCell.h */,
 				F3C8B3A518A124FE00832D73 /* VKDefaultBubbleCell.m */,
 				F3C8B3BA18A1252200832D73 /* Outbound */,
@@ -484,41 +430,21 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F36DCC7F18E6EC6B00442804 /* vk_message_bubble_incoming_selected@2x.png in Resources */,
 				F3E56FED1886E14700B6D7C0 /* image03.jpg in Resources */,
 				F3574D7217BE2A1700471785 /* InfoPlist.strings in Resources */,
 				F3574D7A17BE2A1700471785 /* Default.png in Resources */,
+				F36DCC7E18E6EC6B00442804 /* vk_message_bubble_incoming@2x.png in Resources */,
 				F3574D7C17BE2A1700471785 /* Default@2x.png in Resources */,
 				F3574D7E17BE2A1700471785 /* Default-568h@2x.png in Resources */,
-				F3C8B38F18A0FF3900832D73 /* vk_message_bubble_outgouing_selected_ios7@2x.png in Resources */,
 				F3574D8117BE2A1700471785 /* MainStoryboard.storyboard in Resources */,
-				F3574DD317BE4FF100471785 /* vk_backspace_button.png in Resources */,
 				F3C8B3BC18A1418300832D73 /* geo_point@2x.png in Resources */,
-				F3574DD417BE4FF100471785 /* vk_backspace_button@2x.png in Resources */,
-				F3574DD517BE4FF100471785 /* vk_backspace_button_pressed.png in Resources */,
-				F3574DD617BE4FF100471785 /* vk_backspace_button_pressed@2x.png in Resources */,
-				F3574DD717BE4FF100471785 /* vk_keyboard_back.png in Resources */,
-				6BD7F6DF1822697400B511A0 /* vk_message_bubble_outgouing_ios7@2x.png in Resources */,
-				F3574DD817BE4FF100471785 /* vk_keyboard_back@2x.png in Resources */,
-				6BD7F6DE1822697400B511A0 /* vk_message_bubble_incoming_ios7@2x.png in Resources */,
-				F3574DD917BE4FF100471785 /* vk_keyboard_overlay.png in Resources */,
 				F3E56FEB1886E14700B6D7C0 /* image01.jpg in Resources */,
-				F3574DDA17BE4FF100471785 /* vk_keyboard_overlay@2x.png in Resources */,
-				F3C8B39018A0FF3900832D73 /* vk_message_bubble_incoming_selected_ios7@2x.png in Resources */,
-				F3574DE717BE508200471785 /* vk_message_bubble_outgouing_selected.png in Resources */,
-				F3574DE817BE508200471785 /* vk_message_bubble_incoming_selected.png in Resources */,
-				F3574DE917BE508200471785 /* vk_message_bubble_incoming_selected@2x.png in Resources */,
-				F3574DEA17BE508200471785 /* vk_message_bubble_incoming.png in Resources */,
-				F3574DEB17BE508200471785 /* vk_message_bubble_incoming@2x.png in Resources */,
-				F3574DEC17BE508200471785 /* vk_message_bubble_outgouing_selected@2x.png in Resources */,
-				F3574DED17BE508200471785 /* vk_message_bubble_outgouing.png in Resources */,
-				F3574DEE17BE508200471785 /* vk_message_bubble_outgouing@2x.png in Resources */,
 				F3E56FEC1886E14700B6D7C0 /* image02.png in Resources */,
-				F3574DEF17BE508200471785 /* vk_pagecontrol_empty.png in Resources */,
-				6B8D66811822A6500024C694 /* vk_backspace_button_pressed_ios7@2x.png in Resources */,
-				F3574DF017BE508200471785 /* vk_pagecontrol_empty@2x.png in Resources */,
-				6B8D66801822A6500024C694 /* vk_backspace_button_ios7@2x.png in Resources */,
-				F3574DF117BE508200471785 /* vk_pagecontrol_selected.png in Resources */,
-				F3574DF217BE508200471785 /* vk_pagecontrol_selected@2x.png in Resources */,
+				F36DCC8018E6EC6B00442804 /* vk_message_bubble_outgouing@2x.png in Resources */,
+				F36DCC8118E6EC6B00442804 /* vk_message_bubble_outgouing_selected@2x.png in Resources */,
+				6B8D66811822A6500024C694 /* vk_backspace_button_pressed@2x.png in Resources */,
+				6B8D66801822A6500024C694 /* vk_backspace_button@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

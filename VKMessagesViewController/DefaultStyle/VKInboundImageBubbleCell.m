@@ -7,7 +7,6 @@
 //
 
 #import "VKInboundImageBubbleCell.h"
-#import "VKiOSVersionCheck.h"
 #import <QuartzCore/QuartzCore.h>
 
 NSString *VKInboundImageBubbleCellReuseIdentifier = @"VKInboundImageBubbleCell";
@@ -20,14 +19,8 @@ static CGFloat kMaximumSize = 230;
 + (VKImageBubbleViewProperties *) newBubbleViewProperties {
     static VKImageBubbleViewProperties *bubbleViewProperties = nil;
     if (!bubbleViewProperties) {
-        if (SYSTEM_VERSION_LESS_THAN(@"7")) {
-            bubbleViewProperties = [[VKImageBubbleViewProperties alloc] initWithEdgeInsets:UIEdgeInsetsMake(2, 7, 5, 3)
-                                                                                               maxSize:kMaximumSize];
-        }
-        else {
-            bubbleViewProperties = [[VKImageBubbleViewProperties alloc] initWithEdgeInsets:UIEdgeInsetsMake(2, 7, 2, 2)
-                                                                                               maxSize:kMaximumSize];
-        }
+        bubbleViewProperties = [[VKImageBubbleViewProperties alloc] initWithEdgeInsets:UIEdgeInsetsMake(2, 7, 2, 2)
+                                                                               maxSize:kMaximumSize];
         bubbleViewProperties.minimumWidth = kMinimumWidth;
     }
     return bubbleViewProperties;
@@ -56,12 +49,7 @@ static CGFloat kMaximumSize = 230;
 - (instancetype) initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
-        if (SYSTEM_VERSION_LESS_THAN(@"7")) {
-            self.bubbleView.messageBody.layer.cornerRadius = 5;
-        }
-        else {
-            self.bubbleView.messageBody.layer.cornerRadius = 16;
-        }
+        self.bubbleView.messageBody.layer.cornerRadius = 16;
         self.bubbleView.messageBody.clipsToBounds = YES;
     }
     return self;

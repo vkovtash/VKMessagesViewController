@@ -18,16 +18,16 @@
     return _messageBody;
 }
 
-- (CGFloat) widthConstrainedToWidth:(CGFloat) width {
+- (CGSize) sizeConstrainedToWidth:(CGFloat) width {
     if (self.messageBody.image) {
         return [[self class] sizeWithImage:self.messageBody.image
                                 Properties:self.properties
-                        constrainedToWidth:width].width;
+                        constrainedToWidth:width];
     }
     else {
         return [[self class] sizeWithImageSize:self.placeholderSize
                                 Properties:self.properties
-                        constrainedToWidth:width].width;
+                        constrainedToWidth:width];
     }
 }
 

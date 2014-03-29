@@ -38,9 +38,9 @@ static CGFloat kMessageDetailsFontSize = 12;
         
         UIEdgeInsets cellEdgeInsets = [[self class] edgeInsets];
         self.messageDetails.frame = CGRectMake(cellEdgeInsets.left + detailOffset,
-                                               self.contentView.bounds.size.height - 18,
+                                               self.contentView.bounds.size.height - 20,
                                                self.contentView.bounds.size.width - cellEdgeInsets.right - cellEdgeInsets.left - detailOffset*2,
-                                               18);
+                                               20);
     }
     return self;
 }
@@ -82,7 +82,7 @@ static CGFloat kMessageDetailsFontSize = 12;
 }
 
 - (CGFloat) bubbleViewMaxWidth {
-    return self.contentView.bounds.size.width * bubbleViewWidthMultiplier;
+    return [[self class] bubbleViewWidthConstraintForCellWidth:self.contentView.bounds.size.width];
 }
 
 - (void) updateDetails {

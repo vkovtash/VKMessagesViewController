@@ -9,7 +9,7 @@
 #import "VKDefaultBubbleCell.h"
 #import "VKiOSVersionCheck.h"
 
-static CGFloat bubbleViewWidthMultiplier = 0.9;
+static CGFloat bubbleViewWidthMultiplier = 0.8;
 static CGFloat kMessageDetailsFontSize = 12;
 
 @interface VKDefaultBubbleCell()

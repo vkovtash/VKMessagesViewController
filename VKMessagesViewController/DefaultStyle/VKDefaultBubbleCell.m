@@ -7,10 +7,11 @@
 //
 
 #import "VKDefaultBubbleCell.h"
-#import "VKiOSVersionCheck.h"
 
-static CGFloat bubbleViewWidthMultiplier = 0.8;
+static CGFloat bubbleViewInset = 50;
 static CGFloat kMessageDetailsFontSize = 12;
+static CGFloat kMessageDetailsFiledHeight = 20;
+static CGFloat kMessageDetailsHorizontalInset = 6;
 
 @interface VKDefaultBubbleCell()
 @end
@@ -24,23 +25,12 @@ static CGFloat kMessageDetailsFontSize = 12;
         [self.contentView addSubview:self.messageDetails];
         self.backgroundColor = [UIColor clearColor];
         
-        CGFloat detailOffset = 0;
-        if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7")) {
-            detailOffset = 6;
-            self.messageDetails.textColor = [UIColor darkGrayColor];
-        }
-        else {
-            detailOffset = 4;
-            self.messageDetails.shadowOffset = CGSizeMake(0, -1);
-            self.messageDetails.shadowColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5];
-            self.messageDetails.textColor = [UIColor colorWithRed:1 green:1 blue:1 alpha:0.4];
-        }
-        
+        self.messageDetails.textColor = [UIColor darkGrayColor];
         UIEdgeInsets cellEdgeInsets = [[self class] edgeInsets];
-        self.messageDetails.frame = CGRectMake(cellEdgeInsets.left + detailOffset,
-                                               self.contentView.bounds.size.height - 20,
-                                               self.contentView.bounds.size.width - cellEdgeInsets.right - cellEdgeInsets.left - detailOffset*2,
-                                               20);
+        self.messageDetails.frame = CGRectMake(cellEdgeInsets.left + kMessageDetailsHorizontalInset,
+                                               self.contentView.bounds.size.height - kMessageDetailsFiledHeight,
+                                               self.contentView.bounds.size.width - cellEdgeInsets.right - cellEdgeInsets.left - kMessageDetailsHorizontalInset*2,
+                                               kMessageDetailsFiledHeight);
     }
     return self;
 }
@@ -135,11 +125,11 @@ static CGFloat kMessageDetailsFontSize = 12;
 
 + (CGFloat) bubbleViewWidthConstraintForCellWidth:(CGFloat) cellWidth {
     UIEdgeInsets insets = [[self class] edgeInsets];
-    return cellWidth*bubbleViewWidthMultiplier - insets.right - insets.left;
+    return cellWidth - bubbleViewInset - insets.right - insets.left;
 }
 
 + (UIEdgeInsets) edgeInsets{
-    return UIEdgeInsetsMake(5, 5, 16, 5);
+    return UIEdgeInsetsMake(5, 5, kMessageDetailsFiledHeight, 5);
 }
 
 @end

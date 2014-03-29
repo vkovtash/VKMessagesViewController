@@ -8,7 +8,6 @@
 
 #import "VKInboundTextBubbleCell.h"
 #import "VKTextBubbleViewProperties.h"
-#import "VKiOSVersionCheck.h"
 
 static CGFloat const kBodyFontSyze = 14;
 static CGFloat const kMinimumWidth = 40;
@@ -20,16 +19,9 @@ NSString *VKInboundTextBubbleCellReuseIdentifier =  @"VKInboundTextBubbleCell";
 + (VKTextBubbleViewProperties *) newBubbleViewProperties {
     static VKTextBubbleViewProperties *bubbleViewProperties = nil;
     if (!bubbleViewProperties) {
-        if (SYSTEM_VERSION_LESS_THAN(@"7")) {
-            bubbleViewProperties = [[VKTextBubbleViewProperties alloc] initWithEdgeInsets:UIEdgeInsetsMake(4, 8, 4, 4)
-                                                                                     font:[UIFont systemFontOfSize:kBodyFontSyze]
-                                                                                textColor:[UIColor darkGrayColor]];
-        }
-        else {
-            bubbleViewProperties = [[VKTextBubbleViewProperties alloc] initWithEdgeInsets:UIEdgeInsetsMake(8, 14, 8, 10)
-                                                                                     font:[UIFont systemFontOfSize:kBodyFontSyze]
-                                                                                textColor:[UIColor darkGrayColor]];
-        }
+        bubbleViewProperties = [[VKTextBubbleViewProperties alloc] initWithEdgeInsets:UIEdgeInsetsMake(10, 14, 10, 10)
+                                                                                 font:[UIFont systemFontOfSize:kBodyFontSyze]
+                                                                            textColor:[UIColor darkGrayColor]];
         bubbleViewProperties.minimumWidth = kMinimumWidth;
     }
     return bubbleViewProperties;
@@ -46,16 +38,9 @@ NSString *VKInboundTextBubbleCellReuseIdentifier =  @"VKInboundTextBubbleCell";
                                                     constrainedToWidth:[[self class] bubbleViewWidthConstraintForCellWidth:width]].height;
 }
 
-- (instancetype) initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
-    self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
-    if (self) {
-        self.bubbleView.messageBody.textColor = [UIColor darkGrayColor];
-    }
-    return self;
-}
-
 - (void) setMessageText:(NSString *)messageText {
-    self.bubbleView.messageBody.text = messageText;
+    self.bubbleView.messageBody.text = [[NSAttributedString alloc] initWithString:messageText
+                                                                       attributes:self.bubbleView.properties.textAttributes];
 }
 
 - (NSString *) messageText {

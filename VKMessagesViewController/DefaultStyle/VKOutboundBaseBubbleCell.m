@@ -7,29 +7,20 @@
 //
 
 #import "VKOutboundBaseBubbleCell.h"
-#import "VKiOSVersionCheck.h"
+
+static NSString *const kBackgoundImageName = @"vk_message_bubble_outgouing";
+static NSString *const kBackgoundSelectedImageName = @"vk_message_bubble_outgouing_selected";
 
 @implementation VKOutboundBaseBubbleCell
 
 + (UIImage *) backgroudImage{
     static UIImage *backgroudImage = nil;
     if (!backgroudImage) {
-        UIImage *image = nil;
-        if (SYSTEM_VERSION_LESS_THAN(@"7")) {
-            image = [UIImage imageNamed:@"vk_message_bubble_outgouing"];
-            image = [image resizableImageWithCapInsets:UIEdgeInsetsMake(floorf(image.size.height * (2.0/3.0)),
-                                                                        floorf(image.size.width * (1.0/3.0)),
-                                                                        floorf(image.size.height * (1.0/3.0)),
-                                                                        floorf(image.size.width * (2.0/3.0)))];
-        }
-        else {
-            image = [UIImage imageNamed:@"vk_message_bubble_outgouing_ios7"];
-            image = [image resizableImageWithCapInsets:UIEdgeInsetsMake(floorf(image.size.height / 2),
-                                                                        floorf(image.size.width * 0.44),
-                                                                        floorf(image.size.height / 2),
-                                                                        floorf(image.size.width * 0.56))];
-        }
-        backgroudImage = image;
+        backgroudImage = [UIImage imageNamed:kBackgoundImageName];
+        backgroudImage = [backgroudImage resizableImageWithCapInsets:UIEdgeInsetsMake(floorf(backgroudImage.size.height / 2),
+                                                                                      floorf(backgroudImage.size.width * 0.44),
+                                                                                      floorf(backgroudImage.size.height / 2),
+                                                                                      floorf(backgroudImage.size.width * 0.56))];
     }
     return backgroudImage;
 }
@@ -37,22 +28,11 @@
 + (UIImage *) selectedBackgroudImage{
     static UIImage *selectedBackgroudImage = nil;
     if (!selectedBackgroudImage) {
-        UIImage *image = nil;
-        if (SYSTEM_VERSION_LESS_THAN(@"7")) {
-            image = [UIImage imageNamed:@"vk_message_bubble_outgouing_selected"];
-            image = [image resizableImageWithCapInsets:UIEdgeInsetsMake(floorf(image.size.height * (2.0/3.0)),
-                                                                        floorf(image.size.width * (1.0/3.0)),
-                                                                        floorf(image.size.height * (1.0/3.0)),
-                                                                        floorf(image.size.width * (2.0/3.0)))];
-        }
-        else {
-            image = [UIImage imageNamed:@"vk_message_bubble_outgouing_selected_ios7"];
-            image = [image resizableImageWithCapInsets:UIEdgeInsetsMake(floorf(image.size.height / 2),
-                                                                        floorf(image.size.width * 0.44),
-                                                                        floorf(image.size.height / 2),
-                                                                        floorf(image.size.width * 0.56))];
-        }
-        selectedBackgroudImage = image;
+        selectedBackgroudImage = [UIImage imageNamed:kBackgoundSelectedImageName];
+        selectedBackgroudImage = [selectedBackgroudImage resizableImageWithCapInsets:UIEdgeInsetsMake(floorf(selectedBackgroudImage.size.height / 2),
+                                                                                                      floorf(selectedBackgroudImage.size.width * 0.44),
+                                                                                                      floorf(selectedBackgroudImage.size.height / 2),
+                                                                                                      floorf(selectedBackgroudImage.size.width * 0.56))];
     }
     return selectedBackgroudImage;
 }

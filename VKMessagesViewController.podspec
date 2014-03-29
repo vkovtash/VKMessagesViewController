@@ -11,8 +11,7 @@ Pod::Spec.new do |s|
   s.platform     = :ios, '5.1'
   s.requires_arc = true
   s.source_files = 'VKMessagesViewController/**/*.{h,m}'
-  s.resources = 'VKMessagesViewController/Resources/*.png'
-  s.resources = 'VKMessagesViewController/DefaultStyle/Resources/*.png'
+  s.resources = 'VKMessagesViewController/Resources/*.png', 'VKMessagesViewController/DefaultStyle/Resources/*.png'
   
   s.dependency 'TTTAttributedLabel'
   s.dependency 'VKInputToolbar', '~> 0.3.3'

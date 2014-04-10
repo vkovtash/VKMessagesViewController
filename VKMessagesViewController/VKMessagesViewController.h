@@ -19,6 +19,7 @@
 @property (strong, nonatomic) UIView *alternativeInputView; //view shown on plus button tap
 @property (readwrite, nonatomic) NSString *messagePlaceholder;
 @property (strong, nonatomic) VKMenuControllerPresenter *menuPresenter;
+@property (strong, nonatomic) NSArray *cellMenuItems;
 
 - (void) scrollTableViewToBottomAnimated:(BOOL) animated;
 - (void) dismissKeyboard;

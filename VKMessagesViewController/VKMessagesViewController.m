@@ -230,6 +230,7 @@ static CGFloat const kDefaultToolbarLandscapeMaximumHeight = 101;
                                                 userInfo:@{@"cellIndexPath":cellIndex}
                                                   inView:cell.bubbleView
                                            returnFocusTo:self.firstResponder
+                                               menuItems:self.cellMenuItems
                                               completeon:^{
                                                   [cell setSelected:NO];
                                               }];

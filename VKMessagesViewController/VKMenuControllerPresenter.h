@@ -22,6 +22,10 @@ typedef void (^CompleteonBlock)(void);
 @property (weak, nonatomic) UIView *parentView;
 @property (nonatomic, readonly) BOOL isPresentingMenu;
 
+- (BOOL) canPerformAction:(SEL)action
+               withSender:(id)sender;
+- (void) performAction:(SEL)action withSender:(id)sender;
+
 - (void) dismissMenu;
 
 - (void) showDefaultMenuForView:(UIView *) menuView
@@ -32,5 +36,18 @@ typedef void (^CompleteonBlock)(void);
                                inView:(UIView *) targetView
                   returnFocusTo:(UIView *) firstResponder
                      completeon:(CompleteonBlock) completeon;
+
+//Action names of UIMenuItem-s should start with menuAction.
+- (void) showDefaultMenuForView:(UIView *) menuView
+                  returnFocusTo:(UIView *) firstResponder
+                      menuItems:(NSArray *) menuItems
+                     completeon:(CompleteonBlock) completeon;
+- (void) showDefaultMenuWithResponder:(id <VKMenuControllerPresenterDelegate>) responder
+                             userInfo:(NSDictionary *) userInfo
+                               inView:(UIView *) targetView
+                        returnFocusTo:(UIView *) firstResponder
+                            menuItems:(NSArray *) menuItems
+                           completeon:(CompleteonBlock) completeon;
+
 - (id) initWithParentView:(UIView *) parentView;
 @end

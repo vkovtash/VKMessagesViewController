@@ -7,6 +7,13 @@
 //
 
 #import "VKMenuControllerPresenter.h"
+#import <objc/runtime.h>
+
+
+void performAction(id self, SEL _cmd, id sender) {
+    VKMenuControllerPresenter *typedSelf = (VKMenuControllerPresenter *)self;
+    [typedSelf performAction:_cmd withSender:sender];
+};
 
 @interface VKMenuControllerPresenter()
 @property (weak,nonatomic) id<VKMenuControllerPresenterDelegate> menuDisplayingResponder;
@@ -40,17 +47,45 @@
            returnFocusTo:(UIView *) firstResponder
               completeon:(void(^)(void)) completeon{
     [self showDefaultMenuWithResponder:(id <VKMenuControllerPresenterDelegate>)menuView
-                              userInfo: nil inView:menuView
+                              userInfo: nil
+                                inView:menuView
                          returnFocusTo:firstResponder
+                            menuItems:nil
                             completeon:completeon];
 }
 
-- (void) showDefaultMenuWithResponder:(id) responder
+- (void) showDefaultMenuWithResponder:(id <VKMenuControllerPresenterDelegate>) responder
                              userInfo:(NSDictionary *) userInfo
                                inView:(UIView *) targetView
                         returnFocusTo:(UIView *) firstResponder
                            completeon:(CompleteonBlock) completeon {
     
+    [self showDefaultMenuWithResponder:responder
+                              userInfo:userInfo
+                                inView:targetView
+                         returnFocusTo:firstResponder
+                             menuItems:nil
+                            completeon:completeon];
+}
+
+- (void) showDefaultMenuForView:(UIView *) menuView
+                  returnFocusTo:(UIView *) firstResponder
+                      menuItems:(NSArray *) menuItems
+                     completeon:(CompleteonBlock) completeon {
+    [self showDefaultMenuWithResponder:(id <VKMenuControllerPresenterDelegate>)menuView
+                              userInfo:nil
+                                inView:menuView
+                         returnFocusTo:firstResponder
+                             menuItems:nil
+                            completeon:completeon];
+}
+
+- (void) showDefaultMenuWithResponder:(id <VKMenuControllerPresenterDelegate>) responder
+                             userInfo:(NSDictionary *) userInfo
+                               inView:(UIView *) targetView
+                        returnFocusTo:(UIView *) firstResponder
+                            menuItems:(NSArray *) menuItems
+                           completeon:(CompleteonBlock) completeon {
     self.userInfo = [userInfo copy];
     self.menuDisplayingResponder = responder;
     self.completeonBlock = completeon;
@@ -72,6 +107,7 @@
     dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
     dispatch_after(popTime, dispatch_get_main_queue(), ^(void) {
         UIMenuController *menuController = [UIMenuController sharedMenuController];
+        menuController.menuItems = menuItems;
         [[NSNotificationCenter defaultCenter] addObserver:weakSelf
                                                  selector:@selector(willHideEditMenu:)
                                                      name:UIMenuControllerWillHideMenuNotification
@@ -135,6 +171,23 @@
     [self performAction:@selector(delete:) withSender:sender];
 }
 
++ (BOOL)resolveInstanceMethod:(SEL)selector {
+    if ([super resolveInstanceMethod:selector]) {
+        return YES;
+    }
+    else {
+        NSString *selectorString = NSStringFromSelector(selector);
+        if ([selectorString hasPrefix:@"menuAction"]) {
+            NSLog(@"%@",NSStringFromSelector(selector));
+            class_addMethod(self, selector, (IMP)performAction, "v@:@");
+            return YES;
+        }
+        else {
+            return NO;
+        }
+    }
+}
+
 #pragma mark - NSNotificationCenter
 
 - (void) willHideEditMenu:(NSNotification *) notification{
@@ -182,7 +235,6 @@
 }
 
 @end
-
 
 
 

@@ -432,7 +432,8 @@ static inline CGRect keyboardRectInView(UIView *view, NSDictionary *keyboardUser
                 newY = MAX(newY, self.originalKeyboardY);
                 newFrame.origin.y = newY;
                 [self.keyboard setFrame: newFrame];
-                [self alighKeyboardControlsToRect:newFrame animated:NO];
+                [self alighKeyboardControlsToRect:[self.view convertRect:newFrame fromView:self.view.window]
+                                         animated:NO];
             }
             break;
             
@@ -450,8 +451,9 @@ static inline CGRect keyboardRectInView(UIView *view, NSDictionary *keyboardUser
                           delay:0
                         options:animationOptionsWithCurve(self.keyboardAnimationCurve)
                      animations:^{
-                         [self.keyboard setFrame: newFrame];
-                         [self alighKeyboardControlsToRect:newFrame animated:NO];
+                         [self.keyboard setFrame:newFrame];
+                         [self alighKeyboardControlsToRect:[self.view convertRect:newFrame fromView:self.view.window]
+                                                  animated:NO];
                      }
                      completion:^(BOOL finished){
                          // To remove the animation for the keyboard dropping showing
@@ -468,7 +470,8 @@ static inline CGRect keyboardRectInView(UIView *view, NSDictionary *keyboardUser
     if (!CGRectEqualToRect(newFrame, self.keyboard.frame)) {
         [UIView beginAnimations:nil context:NULL];
         [self.keyboard setFrame: newFrame];
-        [self alighKeyboardControlsToRect:newFrame animated:NO];
+        [self alighKeyboardControlsToRect:[self.view convertRect:newFrame fromView:self.view.window]
+                                 animated:NO];
         [UIView commitAnimations];
     }
 }

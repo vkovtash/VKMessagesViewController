@@ -238,7 +238,7 @@ static CGFloat kDefaultPicketSizePad = 150;
     scrollFrame.size.width -= _horizontalEgdeInsets.right + _horizontalEgdeInsets.left;
     scrollFrame.size.height -= self.delButton.bounds.size.height + _horizontalEgdeInsets.bottom + _horizontalEgdeInsets.top;
     self.scrollView.frame = scrollFrame;
-    self.pageControl.transform = CGAffineTransformMakeRotation(0);
+    self.pageControl.transform = CGAffineTransformIdentity;
     self.delButton.center = CGPointMake(self.bounds.size.width - self.delButton.bounds.size.width/2 - _horizontalEgdeInsets.right,
                                         self.bounds.size.height - self.delButton.bounds.size.height/2 - _horizontalEgdeInsets.bottom);
     self.delButton.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin|UIViewAutoresizingFlexibleLeftMargin;
@@ -247,9 +247,9 @@ static CGFloat kDefaultPicketSizePad = 150;
     self.pageControl.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin|UIViewAutoresizingFlexibleRightMargin|UIViewAutoresizingFlexibleLeftMargin;
 }
 
-- (void) buttonsLayoutHorizontal{
+- (void) buttonsLayoutVertical {
     if (!_scrollView) {
-        [self controlsLayoutHorizontal];
+        [self controlsLayoutVertical];
     }
     int xCount = (int) self.scrollView.frame.size.width/_buttonCellSize;
     int yCount = (int) self.scrollView.frame.size.height/_buttonCellSize;
@@ -296,9 +296,9 @@ static CGFloat kDefaultPicketSizePad = 150;
     self.pageControl.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin|UIViewAutoresizingFlexibleTopMargin|UIViewAutoresizingFlexibleLeftMargin;
 }
 
-- (void) buttonsLayoutVertical{
+- (void) buttonsLayoutHorizontal {
     if (!_scrollView) {
-        [self controlsLayoutVertical];
+        [self controlsLayoutHorizontal];
     }
     
     int xCount = (int) self.scrollView.frame.size.width/_buttonCellSize;

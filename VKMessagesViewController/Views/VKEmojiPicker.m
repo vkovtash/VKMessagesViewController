@@ -20,7 +20,16 @@ static CGFloat kEmojiButtonSize = 44;
 static CGFloat kEmojiButtonFontSize = 35;
 static CGFloat kDefaultPicketSize = 100;
 
+static CGFloat kEmojButtonCellSizePad = 66;
+static CGFloat kEmojiButtonSizePad = 66;
+static CGFloat kEmojiButtonFontSizePad = 52;
+static CGFloat kDefaultPicketSizePad = 150;
+
 @interface VKEmojiPicker()
+@property (assign, nonatomic) CGFloat buttonCellSize;
+@property (assign, nonatomic) CGFloat buttonSize;
+@property (assign, nonatomic) CGFloat fontSize;
+@property (assign, nonatomic) CGFloat picketSize;
 @property (strong,nonatomic) NSArray *emojiButtons;
 @property (readwrite,nonatomic) UIButton *delButton;
 @property (readwrite,nonatomic) UIScrollView *scrollView;
@@ -184,8 +193,8 @@ static CGFloat kDefaultPicketSize = 100;
 
 - (UIButton *) buttonWithEmoji:(NSString *) emoji{
     UIButton *emojiButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    emojiButton.frame = CGRectMake(0, 0, kEmojiButtonSize, kEmojiButtonSize);
-    [emojiButton.titleLabel setFont:[UIFont fontWithName:@"AppleColorEmoji" size:kEmojiButtonFontSize]];
+    emojiButton.frame = CGRectMake(0, 0, _buttonSize, _buttonSize);
+    [emojiButton.titleLabel setFont:[UIFont fontWithName:@"AppleColorEmoji" size:_fontSize]];
     [emojiButton setTitle:emoji forState:UIControlStateNormal];
     [emojiButton addTarget:self action:@selector(emojiButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
     return emojiButton;
@@ -242,8 +251,8 @@ static CGFloat kDefaultPicketSize = 100;
     if (!_scrollView) {
         [self controlsLayoutHorizontal];
     }
-    int xCount = (int) self.scrollView.frame.size.width/kEmojButtonCellSize;
-    int yCount = (int) self.scrollView.frame.size.height/kEmojButtonCellSize;
+    int xCount = (int) self.scrollView.frame.size.width/_buttonCellSize;
+    int yCount = (int) self.scrollView.frame.size.height/_buttonCellSize;
     CGFloat x;
     CGFloat y;
     NSUInteger row = 0;
@@ -275,14 +284,14 @@ static CGFloat kDefaultPicketSize = 100;
     CGRect scrollFrame = self.bounds;
     scrollFrame.origin.x += _verticalEgdeInsets.left;
     scrollFrame.origin.y += _verticalEgdeInsets.top;
-    scrollFrame.size.width -= kEmojiButtonSize + _verticalEgdeInsets.right - _verticalEgdeInsets.left;
+    scrollFrame.size.width -= _buttonSize + _verticalEgdeInsets.right - _verticalEgdeInsets.left;
     scrollFrame.size.height -= _verticalEgdeInsets.bottom + _verticalEgdeInsets.top;
     self.scrollView.frame = scrollFrame;
     self.pageControl.transform = CGAffineTransformMakeRotation(M_PI/2);
-    self.delButton.center = CGPointMake(self.frame.size.width - kEmojiButtonSize/2,
+    self.delButton.center = CGPointMake(self.frame.size.width - _buttonSize/2,
                                         self.delButton.frame.size.height/2);
     self.delButton.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin|UIViewAutoresizingFlexibleLeftMargin;
-    self.pageControl.center = CGPointMake(self.frame.size.width - kEmojiButtonSize/2,
+    self.pageControl.center = CGPointMake(self.frame.size.width - _buttonSize/2,
                                           self.frame.size.height/2);
     self.pageControl.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin|UIViewAutoresizingFlexibleTopMargin|UIViewAutoresizingFlexibleLeftMargin;
 }
@@ -292,8 +301,8 @@ static CGFloat kDefaultPicketSize = 100;
         [self controlsLayoutVertical];
     }
     
-    int xCount = (int) self.scrollView.frame.size.width/kEmojButtonCellSize;
-    int yCount = (int) self.scrollView.frame.size.height/kEmojButtonCellSize;
+    int xCount = (int) self.scrollView.frame.size.width/_buttonCellSize;
+    int yCount = (int) self.scrollView.frame.size.height/_buttonCellSize;
     CGFloat x;
     CGFloat y;
     NSUInteger row = 0;
@@ -342,7 +351,20 @@ static CGFloat kDefaultPicketSize = 100;
 - (id) init{
     self = [super init];
     if (self) {
-        self.frame = CGRectMake(0, 0, kDefaultPicketSize, kDefaultPicketSize);
+		if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+			_buttonCellSize = kEmojButtonCellSizePad;
+			_buttonSize = kEmojiButtonSizePad;
+			_fontSize = kEmojiButtonFontSizePad;
+			_picketSize = kDefaultPicketSizePad;
+		}
+		else {
+			_buttonCellSize = kEmojButtonCellSize;
+			_buttonSize = kEmojiButtonSize;
+			_fontSize = kEmojiButtonFontSize;
+			_picketSize = kDefaultPicketSize;
+		}
+
+        self.frame = CGRectMake(0, 0, _picketSize, _picketSize);
         self.autoresizingMask = UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth;
         [self background];
         [self applyPickerStyle];
@@ -351,17 +373,3 @@ static CGFloat kDefaultPicketSize = 100;
 }
 
 @end
-
-
-
-
-
-
-
-
-
-
-
-
-
-

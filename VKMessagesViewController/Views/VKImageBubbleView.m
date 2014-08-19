@@ -67,7 +67,9 @@
         return [[self class] sizeWithImageSize:CGSizeZero Properties:properties constrainedToWidth:width];
     }
     else {
-        return [[self class] sizeWithImageSize:image.size Properties:properties constrainedToWidth:width];
+        return [[self class] sizeWithImageSize:CGSizeMake(image.size.width * image.scale, image.size.height * image.scale)
+                                    Properties:properties
+                            constrainedToWidth:width];
     }
 }
 

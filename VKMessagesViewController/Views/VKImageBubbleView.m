@@ -19,36 +19,41 @@
 }
 
 - (CGSize) sizeConstrainedToWidth:(CGFloat) width {
-    if (self.messageBody.image) {
+    if (!CGSizeEqualToSize(self.placeholderSize, CGSizeZero)) {
+        return [[self class] sizeWithImageSize:CGSizeMake(self.placeholderSize.width,
+                                                          self.placeholderSize.height)
+                                    Properties:self.properties
+                            constrainedToWidth:width];
+    }
+    else if (self.messageBody.image) {
         return [[self class] sizeWithImage:self.messageBody.image
                                 Properties:self.properties
                         constrainedToWidth:width];
     }
     else {
-        return [[self class] sizeWithImageSize:self.placeholderSize
-                                Properties:self.properties
-                        constrainedToWidth:width];
+        return CGSizeZero;
     }
 }
 
 + (CGSize) sizeWithImageSize:(CGSize) imageSize
               Properties:(VKImageBubbleViewProperties *) properties
       constrainedToWidth:(CGFloat) width {
-    CGFloat maxWidth = width > properties.maxSize ? properties.maxSize : width;
     CGFloat horizontalInsets = properties.edgeInsets.left + properties.edgeInsets.right;
     CGFloat verticalInsets = properties.edgeInsets.top + properties.edgeInsets.bottom;
+    CGFloat screenScale = [UIScreen mainScreen].scale;
     
     if (imageSize.height == 0 || imageSize.width == 0) {
         return CGSizeMake(horizontalInsets, verticalInsets);
     }
     
-    CGSize resultSize = imageSize;
+    CGSize resultSize = CGSizeMake(imageSize.width / screenScale,
+                                   imageSize.height / screenScale);
     CGFloat ratio = imageSize.height / imageSize.width;
     resultSize.width += horizontalInsets;
     resultSize.height += verticalInsets;
     
-    if (resultSize.width > maxWidth) {
-        resultSize.width = maxWidth;
+    if (resultSize.width > properties.maxSize) {
+        resultSize.width = properties.maxSize;
         resultSize.height = (resultSize.width - horizontalInsets)*ratio + verticalInsets;
     }
     
@@ -67,7 +72,8 @@
         return [[self class] sizeWithImageSize:CGSizeZero Properties:properties constrainedToWidth:width];
     }
     else {
-        return [[self class] sizeWithImageSize:CGSizeMake(image.size.width * image.scale, image.size.height * image.scale)
+        return [[self class] sizeWithImageSize:CGSizeMake(image.size.width * image.scale,
+                                                          image.size.height * image.scale)
                                     Properties:properties
                             constrainedToWidth:width];
     }

@@ -358,10 +358,12 @@ static inline CGRect keyboardRectInView(UIView *view, NSDictionary *keyboardUser
     //see discussion http://www.iphonedevsdk.com/forum/iphone-sdk-development/6573-howto-customize-uikeyboard.html
     
     UIWindow* tempWindow = [[[UIApplication sharedApplication] windows] objectAtIndex:1];
-    UIView *possibleKeyboard = nil;
-    for(int i = 0; i < [tempWindow.subviews count]; i++) {
-        possibleKeyboard = [tempWindow.subviews objectAtIndex:i];
-        if([NSStringFromClass([possibleKeyboard class]) isEqualToString:@"UIPeripheralHostView"]) {
+    for(UIView *possibleKeyboard in [tempWindow.subviews copy]) {
+        if ([NSStringFromClass([possibleKeyboard class]) isEqualToString:@"UIInputSetContainerView"]){ // iOS 8
+            self.keyboard = [possibleKeyboard.subviews firstObject];
+            return;
+        }
+        else if([NSStringFromClass([possibleKeyboard class]) isEqualToString:@"UIPeripheralHostView"]) { // pre iOS 8
             self.keyboard = possibleKeyboard;
             return;
         }

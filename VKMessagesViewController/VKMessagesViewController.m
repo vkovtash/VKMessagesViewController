@@ -373,13 +373,13 @@ static inline CGRect keyboardRectInView(UIView *view, NSDictionary *keyboardUser
 - (void) alighKeyboardControlsToRect:(CGRect) rect animated:(BOOL) animated {
     
     __weak __typeof(&*self) weakSelf = self;
-    void (^alignControlsToRect)(CGRect keyboardFrame)  = ^(CGRect keyboardFrame) {
+    void (^alignControlsToRect)()  = ^() {
         if (!weakSelf) {
             return;
         }
         
         CGRect toolBarFrame = weakSelf.messageToolbar.frame;
-        toolBarFrame.origin.y = keyboardFrame.origin.y - toolBarFrame.size.height;
+        toolBarFrame.origin.y = rect.origin.y - toolBarFrame.size.height;
         weakSelf.messageToolbar.frame = toolBarFrame;
         
         UIEdgeInsets newContentInsets = weakSelf.tableView.contentInset;
@@ -387,20 +387,18 @@ static inline CGRect keyboardRectInView(UIView *view, NSDictionary *keyboardUser
         
         weakSelf.tableView.scrollIndicatorInsets = newContentInsets;
         weakSelf.tableView.contentInset = newContentInsets;
-        [weakSelf keyboardWillChangeFrame:keyboardFrame animated:animated];
     };
     
+    [self keyboardWillChangeFrame:rect animated:animated];
     if (animated && self.keyboardAnimationDuration > 0) {
         [UIView animateWithDuration:self.keyboardAnimationDuration
                               delay:0
                             options:animationOptionsWithCurve(self.keyboardAnimationCurve)
-                         animations:^{
-                             alignControlsToRect(rect);
-                         }
+                         animations:alignControlsToRect
                          completion:nil];
     }
     else {
-        alignControlsToRect(rect);
+        alignControlsToRect();
     }
 }
 

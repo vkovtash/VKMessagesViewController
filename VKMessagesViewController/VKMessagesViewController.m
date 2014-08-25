@@ -434,7 +434,7 @@ static inline CGRect keyboardRectInView(UIView *view, NSDictionary *keyboardUser
                 newY = MAX(newY, self.originalKeyboardY);
                 newFrame.origin.y = newY;
                 [self.keyboard setFrame: newFrame];
-                [self alighKeyboardControlsToRect:[self.view convertRect:newFrame fromView:self.view.window]
+                [self alighKeyboardControlsToRect:[self.view convertRect:newFrame fromView:self.keyboard.superview]
                                          animated:NO];
             }
             break;
@@ -446,7 +446,7 @@ static inline CGRect keyboardRectInView(UIView *view, NSDictionary *keyboardUser
 
 - (void) animateKeyboardOffscreen {
     __block CGRect newFrame = self.keyboard.frame;
-    newFrame.origin.y = self.keyboard.window.bounds.size.height;
+    newFrame.origin.y = self.keyboard.superview.bounds.size.height;
     self.keyboardPanRecognizer.enabled = NO;
     
     [UIView animateWithDuration:self.keyboardAnimationDuration
@@ -454,7 +454,7 @@ static inline CGRect keyboardRectInView(UIView *view, NSDictionary *keyboardUser
                         options:animationOptionsWithCurve(self.keyboardAnimationCurve)
                      animations:^{
                          [self.keyboard setFrame:newFrame];
-                         [self alighKeyboardControlsToRect:[self.view convertRect:newFrame fromView:self.view.window]
+                         [self alighKeyboardControlsToRect:[self.view convertRect:newFrame fromView:self.keyboard.superview]
                                                   animated:NO];
                      }
                      completion:^(BOOL finished){
@@ -472,7 +472,7 @@ static inline CGRect keyboardRectInView(UIView *view, NSDictionary *keyboardUser
     if (!CGRectEqualToRect(newFrame, self.keyboard.frame)) {
         [UIView beginAnimations:nil context:NULL];
         [self.keyboard setFrame: newFrame];
-        [self alighKeyboardControlsToRect:[self.view convertRect:newFrame fromView:self.view.window]
+        [self alighKeyboardControlsToRect:[self.view convertRect:newFrame fromView:self.keyboard.superview]
                                  animated:NO];
         [UIView commitAnimations];
     }

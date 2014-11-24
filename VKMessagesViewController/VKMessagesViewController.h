@@ -21,7 +21,8 @@
 @property (strong, nonatomic) VKMenuControllerPresenter *menuPresenter;
 @property (strong, nonatomic) NSArray *cellMenuItems;
 
-- (void) scrollTableViewToBottomAnimated:(BOOL) animated;
+- (void) scrollTableViewToBottomAnimated:(BOOL)animated;
+- (void) alighKeyboardControlsToRect:(CGRect)rect animated:(BOOL)animated;
 - (void) dismissKeyboard;
 
 #pragma mark - keyboard notifications

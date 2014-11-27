@@ -7,15 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "UIInputToolbar.h"
+#import "ZIMInputToolbar.h"
 #import "VKTableView.h"
 #import "VKMenuControllerPresenter.h"
 
 @interface VKMessagesViewController : UIViewController <UITableViewDataSource, UITableViewDelegate,
-                                                        UIInputToolbarDelegate>
+                                                        ZIMInputToolbarDelegate>
 
 @property (strong, nonatomic) VKTableView *tableView;
-@property (strong, nonatomic) UIInputToolbar *messageToolbar;
+@property (strong, nonatomic) ZIMInputToolbar *messageToolbar;
 @property (strong, nonatomic) UIView *alternativeInputView; //view shown on plus button tap
 @property (readwrite, nonatomic) NSString *messagePlaceholder;
 @property (strong, nonatomic) VKMenuControllerPresenter *menuPresenter;
@@ -33,10 +33,10 @@
 - (void) keyboardWillChangeFrame:(CGRect) frame animated:(BOOL) animated;
 
 #pragma mark - messageToolbal delegate
-- (void) inputButtonPressed:(UIInputToolbar *)toolbar;
-- (void) plusButtonPressed:(UIInputToolbar *)toolbar;
-- (void) inputToolbar:(UIInputToolbar *)inputToolbar DidChangeHeight:(CGFloat)height;
-- (void) inputToolbarDidBeginEditing:(UIInputToolbar *)inputToolbar;
+- (void) inputButtonPressed:(ZIMInputToolbar *)toolbar;
+- (void) plusButtonPressed:(ZIMInputToolbar *)toolbar;
+- (void) inputToolbar:(ZIMInputToolbar *)inputToolbar didChangeHeight:(CGFloat)height;
+- (void) inputToolbarDidBeginEditing:(ZIMInputToolbar *)inputToolbar;
 
 #pragma mark - cell menu
 - (BOOL) shouldShowMenuForRowAtIndexPath:(NSIndexPath *)indexPath;

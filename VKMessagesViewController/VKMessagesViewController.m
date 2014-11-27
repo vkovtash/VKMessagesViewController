@@ -96,10 +96,10 @@ static CGFloat const kDefaultToolbarLandscapeMaximumHeight = 101;
         self.automaticallyAdjustsScrollViewInsets = NO;
     }
     /* Create toolbar */
-    self.messageToolbar = [[UIInputToolbar alloc] initWithFrame:CGRectMake(0,
-                                                                           self.view.frame.size.height - kDefaultToolbarHeight,
-                                                                           self.view.frame.size.width,
-                                                                           kDefaultToolbarHeight)];
+    self.messageToolbar = [[ZIMInputToolbar alloc] initWithFrame:CGRectMake(0,
+                                                                            self.view.frame.size.height - kDefaultToolbarHeight,
+                                                                            self.view.frame.size.width,
+                                                                            kDefaultToolbarHeight)];
     self.messageToolbar.inputDelegate = self;
     self.messageToolbar.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleTopMargin;
     self.messageToolbar.isPlusButtonVisible = NO;
@@ -117,7 +117,7 @@ static CGFloat const kDefaultToolbarLandscapeMaximumHeight = 101;
     
     [self.view addSubview:self.tableView];
     [self.view addSubview:self.messageToolbar];
-    [self inputToolbar:self.messageToolbar DidChangeHeight:self.messageToolbar.frame.size.height];
+    [self inputToolbar:self.messageToolbar didChangeHeight:self.messageToolbar.frame.size.height];
     
     // Scroll table to bottom cell
     [self scrollTableViewToBottomAnimated:NO];
@@ -257,13 +257,13 @@ static CGFloat const kDefaultToolbarLandscapeMaximumHeight = 101;
 
 #pragma mark - UIInputToolbarDelegate
 
--(void)inputButtonPressed:(UIInputToolbar *)toolbar {
+-(void) inputButtonPressed:(ZIMInputToolbar *)toolbar {
     if ([toolbar.textView.text length] > 0) {
         toolbar.textView.text = @"";
     }
 }
 
-- (void) plusButtonPressed:(UIInputToolbar *)toolbar{
+- (void) plusButtonPressed:(ZIMInputToolbar *)toolbar{
     if (self.alternativeInputView) {
         if (toolbar.textView.internalTextView != self.firstResponder) {
             toolbar.textView.inputView = self.alternativeInputView;
@@ -281,14 +281,14 @@ static CGFloat const kDefaultToolbarLandscapeMaximumHeight = 101;
     }
 }
 
-- (void) inputToolbar:(UIInputToolbar *)inputToolbar DidChangeHeight:(CGFloat)height {
+- (void) inputToolbar:(ZIMInputToolbar *)inputToolbar didChangeHeight:(CGFloat)height {
     UIEdgeInsets insets = self.tableView.contentInset;
     insets.bottom = self.view.bounds.size.height - self.messageToolbar.frame.origin.y;
     self.tableView.contentInset = insets;
     self.tableView.scrollIndicatorInsets = insets;
 }
 
-- (void) inputToolbarDidBeginEditing:(UIInputToolbar *)inputToolbar {
+- (void) inputToolbarDidBeginEditing:(ZIMInputToolbar *)inputToolbar {
     if (!self.menuPresenter.isPresentingMenu) { //Scroll down only when keyboard was hidden
         [self scrollTableViewToBottomAnimated:YES];
     }

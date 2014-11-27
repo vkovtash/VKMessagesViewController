@@ -224,7 +224,7 @@
 
 #pragma mark - UIInputToolbarDelegate
 
-- (void) inputButtonPressed:(UIInputToolbar *)toolbar {
+- (void) inputButtonPressed:(ZIMInputToolbar *)toolbar {
     [self.messageStorage addObject:@{@"text":self.messageToolbar.textView.text,
                                      @"date":[NSDate date],
                                      @"type":@"text"}];

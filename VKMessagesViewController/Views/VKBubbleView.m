@@ -19,13 +19,13 @@
 
 - (void) setNormalBackgroundImage:(UIImage *)normalBackgroundImage {
     _normalBackgroundImage = normalBackgroundImage;
-    [self applyProperties];
+    [self setNeedsLayout];
     [self applyIsSelected];
 }
 
 - (void) setSelectedBackgroundImage:(UIImage *)selectedBackgroundImage {
     _selectedBackgroundImage = selectedBackgroundImage;
-    [self applyProperties];
+    [self setNeedsLayout];
     [self applyIsSelected];
 }
 
@@ -37,7 +37,7 @@
 - (void) setProperties:(VKBubbleViewProperties *)properties{
     if (_properties != properties) {
         _properties = properties;
-        [self applyProperties];
+        [self setNeedsLayout];
     }
 }
 
@@ -65,7 +65,9 @@
     }
 }
 
-- (void) applyProperties {
+- (void) layoutSubviews {
+    [super layoutSubviews];
+    
     self.background.frame = self.bounds;
     CGRect rect = self.messageBody.frame;
     rect.origin.x = self.properties.edgeInsets.left;
@@ -86,12 +88,7 @@
 - (void) postInit{
     [self addSubview:self.background];
     [self addSubview:self.messageBody];
-    
-    self.autoresizesSubviews = YES;
-    self.messageBody.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
-    self.background.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
-    
-    [self applyProperties];
+    self.autoresizesSubviews = NO;
 }
 
 - (id)initWithFrame:(CGRect)frame

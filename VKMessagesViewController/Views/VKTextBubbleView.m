@@ -13,6 +13,7 @@ static NSInteger const kTextPartsCount = 4;
 
 @implementation VKTextBubbleView
 @synthesize messageBody = _messageBody;
+@dynamic properties;
 
 - (instancetype) initWithBubbleProperties:(VKTextBubbleViewProperties *)properties {
     self = [super initWithBubbleProperties:properties];
@@ -21,7 +22,7 @@ static NSInteger const kTextPartsCount = 4;
 
 - (TTTAttributedLabel *) messageBody {
     if (!_messageBody) {
-        _messageBody = [[TTTAttributedLabel alloc] init];
+        _messageBody = [[TTTAttributedLabel alloc] initWithFrame:self.bounds];
         _messageBody.enabledTextCheckingTypes = NSTextCheckingTypeLink|NSTextCheckingTypePhoneNumber;
         _messageBody.delegate = self;
         _messageBody.backgroundColor = [UIColor clearColor];

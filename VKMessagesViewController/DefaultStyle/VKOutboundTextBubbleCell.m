@@ -14,6 +14,7 @@ static CGFloat kMinimumWidth = 40;
 NSString *VKOutboundTextBubbleCellReuseIdentifier =  @"VKOutboundTextBubbleCell";
 
 @implementation VKOutboundTextBubbleCell
+@dynamic bubbleView;
 
 + (VKTextBubbleViewProperties *) newBubbleViewProperties {
     static VKTextBubbleViewProperties *bubbleViewProperties = nil;

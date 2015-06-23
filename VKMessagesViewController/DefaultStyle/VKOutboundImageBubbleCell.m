@@ -15,6 +15,7 @@ static CGFloat kMinimumWidth = 40;
 static CGFloat kMaximumSize = 230;
 
 @implementation VKOutboundImageBubbleCell
+@dynamic bubbleView;
 
 + (VKImageBubbleViewProperties *) newBubbleViewProperties {
     static VKImageBubbleViewProperties *bubbleViewProperties = nil;

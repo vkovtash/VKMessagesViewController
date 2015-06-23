@@ -10,6 +10,7 @@
 
 @implementation VKImageBubbleView
 @synthesize messageBody = _messageBody;
+@dynamic properties;
 
 - (UIImageView *) messageBody {
     if (!_messageBody) {

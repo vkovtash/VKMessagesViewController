@@ -113,7 +113,6 @@ static CGFloat const kDefaultToolbarLandscapeMaximumHeight = 101;
     self.tableView.allowsSelection = NO;
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
-    [self applyTopInset];
     
     [self.view addSubview:self.tableView];
     [self.view addSubview:self.messageToolbar];
@@ -141,9 +140,12 @@ static CGFloat const kDefaultToolbarLandscapeMaximumHeight = 101;
     // Dispose of any resources that can be recreated.
 }
 
-- (void) willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration{
-    [self applyTopInset];
+- (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
     [self setAppropriateInputHeight];
+}
+
+- (void)viewDidLayoutSubviews {
+    [self applyTopInset];
 }
 
 #pragma mark - Publick methods
@@ -178,27 +180,14 @@ static CGFloat const kDefaultToolbarLandscapeMaximumHeight = 101;
 
 #pragma mark - Private methods
 
-- (void) applyTopInset { //apply table view offsets for iOS7
-    if ([self respondsToSelector:@selector(setAutomaticallyAdjustsScrollViewInsets:)] && self.edgesForExtendedLayout | UIRectEdgeTop){
-        CGFloat topInset = 0;
-        UIEdgeInsets insets;
-        
-        if (![self prefersStatusBarHidden]) {
-            topInset += 20; //statusbar height
-        }
-        
-        if (self.navigationController){
-            topInset += self.navigationController.navigationBar.frame.size.height;
-        }
-        
-        insets = self.tableView.contentInset;
-        insets.top = topInset;
-        self.tableView.contentInset = insets;
-        
-        insets = self.tableView.scrollIndicatorInsets;
-        insets.top = topInset;
-        self.tableView.scrollIndicatorInsets = insets;
-    }
+- (void)applyTopInset {
+    UIEdgeInsets contentInset = self.tableView.contentInset;
+    contentInset.top = self.topLayoutGuide.length;
+    self.tableView.contentInset = contentInset;
+    
+    UIEdgeInsets scrollIndicatorInset = self.tableView.scrollIndicatorInsets;
+    scrollIndicatorInset.top = self.topLayoutGuide.length;
+    self.tableView.scrollIndicatorInsets = scrollIndicatorInset;
 }
 
 - (void) setAppropriateInputHeight {

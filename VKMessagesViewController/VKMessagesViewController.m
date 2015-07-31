@@ -376,6 +376,7 @@ static inline CGRect keyboardRectInView(UIView *view, NSDictionary *keyboardUser
         
         weakSelf.tableView.scrollIndicatorInsets = newContentInsets;
         weakSelf.tableView.contentInset = newContentInsets;
+        [weakSelf.view layoutIfNeeded];
     };
     
     [self keyboardWillChangeFrame:rect animated:animated];

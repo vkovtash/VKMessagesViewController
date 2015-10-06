@@ -169,6 +169,7 @@ UIView* getKeyboardView() { //Should be called when keyboard is on the screen
     _messageToolbar.inputDelegate = self;
     _messageToolbar.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleTopMargin;
     _messageToolbar.isPlusButtonVisible = NO;
+    return _messageToolbar;
 }
 
 - (CGFloat)topInset {

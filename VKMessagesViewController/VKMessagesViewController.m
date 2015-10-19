@@ -323,7 +323,7 @@ static inline UIViewAnimationOptions animationOptionsWithCurve(UIViewAnimationCu
     return curve << 16;
 }
 
-static inline CGRect keyboardRectInView(UIView *view, NSDictionary *keyboardUserInfo) {
+static inline CGRect keyboardRectInViewFromKeyboardInfo(UIView *view, NSDictionary *keyboardUserInfo) {
     if (keyboardUserInfo) {
         return [view convertRect:[keyboardUserInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue] fromView:view.window];
     }
@@ -348,7 +348,7 @@ static inline CGRect keyboardRectInView(UIView *view, NSDictionary *keyboardUser
 
 - (void)keyboardWillShow:(NSNotification *)notification {
     NSDictionary *info = notification.userInfo;
-    CGRect kbRect = keyboardRectInView(self.view, info);
+    CGRect kbRect = keyboardRectInViewFromKeyboardInfo(self.view, info);
     
     if (kbRect.size.height && !self.menuPresenter.isPresentingMenu){
         self.keyboardAnimationCurve = [info[UIKeyboardAnimationCurveUserInfoKey] integerValue];
@@ -358,7 +358,7 @@ static inline CGRect keyboardRectInView(UIView *view, NSDictionary *keyboardUser
 }
 
 - (void)keyboardWillHide:(NSNotification *)notification {
-    CGRect kbRect = keyboardRectInView(self.view, notification.userInfo);
+    CGRect kbRect = keyboardRectInViewFromKeyboardInfo(self.view, notification.userInfo);
     self.keyboardPanRecognizer.enabled = NO;
     if (kbRect.size.height && !self.menuPresenter.isPresentingMenu && !self.keyboard.hidden) {
         kbRect.origin.y = CGRectGetHeight(self.view.bounds);
@@ -367,7 +367,7 @@ static inline CGRect keyboardRectInView(UIView *view, NSDictionary *keyboardUser
 }
 
 - (void)keyboardDidShow:(NSNotification *)notification {
-    if (CGRectGetHeight(keyboardRectInView(self.view, notification.userInfo)) == 0) {
+    if (CGRectGetHeight(keyboardRectInViewFromKeyboardInfo(self.view, notification.userInfo)) == 0) {
         return;
     }
     
@@ -377,7 +377,7 @@ static inline CGRect keyboardRectInView(UIView *view, NSDictionary *keyboardUser
 }
 
 - (void)keyboardDidHide:(NSNotification *)notification {
-    if (CGRectGetHeight(keyboardRectInView(self.view, notification.userInfo)) == 0) {
+    if (CGRectGetHeight(keyboardRectInViewFromKeyboardInfo(self.view, notification.userInfo)) == 0) {
         return;
     }
 
@@ -390,6 +390,13 @@ static inline CGRect keyboardRectInView(UIView *view, NSDictionary *keyboardUser
 }
 
 #pragma mark - Keyboard control
+
+static inline CGRect keyboardRectInView(UIView *keyboard, UIView *view) {
+    if (keyboard && view) {
+        return [view convertRect:keyboard.frame fromView:view.window];
+    }
+    return CGRectZero;
+}
 
 - (void)catchKeyboard {
     if (!self.keyboard) {
@@ -455,9 +462,8 @@ static inline CGRect keyboardRectInView(UIView *view, NSDictionary *keyboardUser
                 CGFloat newY = self.originalKeyboardY + (location.y - spaceAboveKeyboard);
                 newY = MAX(newY, self.originalKeyboardY);
                 newFrame.origin.y = newY;
-                [self.keyboard setFrame: newFrame];
-                [self alighKeyboardControlsToRect:[self.view convertRect:newFrame fromView:self.keyboard.superview]
-                                         animated:NO];
+                [self.keyboard setFrame:newFrame];
+                [self alighKeyboardControlsToRect:keyboardRectInView(self.keyboard, self.view) animated:NO];
             }
             break;
             
@@ -477,8 +483,7 @@ static inline CGRect keyboardRectInView(UIView *view, NSDictionary *keyboardUser
                      animations:^
     {
         [self.keyboard setFrame:newFrame];
-        CGRect keyboardFrame = [self.view convertRect:newFrame fromView:self.keyboard.superview];
-        [self alighKeyboardControlsToRect:keyboardFrame animated:NO];
+        [self alighKeyboardControlsToRect:keyboardRectInView(self.keyboard, self.view) animated:NO];
     } completion:^(BOOL finished) {
         // To remove the animation for the keyboard dropping showing
         // we have to hide the keyboard, and on will show we set it back.
@@ -497,8 +502,7 @@ static inline CGRect keyboardRectInView(UIView *view, NSDictionary *keyboardUser
     
     [UIView beginAnimations:nil context:NULL];
     self.keyboard.frame = newFrame;
-    CGRect keyboardFrame = [self.view convertRect:newFrame fromView:self.keyboard.superview];
-    [self alighKeyboardControlsToRect:keyboardFrame animated:NO];
+    [self alighKeyboardControlsToRect:keyboardRectInView(self.keyboard, self.view) animated:NO];
     [UIView commitAnimations];
 }
 

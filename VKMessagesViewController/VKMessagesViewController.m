@@ -49,6 +49,14 @@ UIView* getKeyboardView() { //Should be called when keyboard is on the screen
 };
 
 
+static inline CGRect keyboardRectInView(UIView *keyboard, UIView *view) {
+    if (keyboard && view) {
+        return [view convertRect:keyboard.frame fromView:view.window];
+    }
+    return CGRectZero;
+}
+
+
 @interface VKMessagesViewController () <UIGestureRecognizerDelegate, VKMenuControllerPresenterDelegate>
 @property (weak, nonatomic) UIView *keyboard;
 @property (nonatomic) CGFloat originalKeyboardY;
@@ -65,6 +73,10 @@ UIView* getKeyboardView() { //Should be called when keyboard is on the screen
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    UIView *keyboard = getKeyboardView();
+    if (keyboard) {
+        [self alighKeyboardControlsToRect:keyboardRectInView(keyboard, self.view) animated:animated];
+    }
     [self registerForKeyboardNotifications];
     [self applyBottomInset];
     [self onAppear];
@@ -390,13 +402,6 @@ static inline CGRect keyboardRectInViewFromKeyboardInfo(UIView *view, NSDictiona
 }
 
 #pragma mark - Keyboard control
-
-static inline CGRect keyboardRectInView(UIView *keyboard, UIView *view) {
-    if (keyboard && view) {
-        return [view convertRect:keyboard.frame fromView:view.window];
-    }
-    return CGRectZero;
-}
 
 - (void)catchKeyboard {
     if (!self.keyboard) {

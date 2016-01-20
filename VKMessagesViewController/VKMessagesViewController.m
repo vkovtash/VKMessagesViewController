@@ -73,12 +73,15 @@ static inline CGRect keyboardRectInView(UIView *keyboard, UIView *view) {
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    [self applyTopInset];
+    [self applyBottomInset];
+    [self registerForKeyboardNotifications];
+    
     UIView *keyboard = getKeyboardView();
     if (keyboard) {
         [self alighKeyboardControlsToRect:keyboardRectInView(keyboard, self.view) animated:animated];
     }
-    [self registerForKeyboardNotifications];
-    [self applyBottomInset];
+    
     [self onAppear];
 }
 
@@ -185,7 +188,9 @@ static inline CGRect keyboardRectInView(UIView *keyboard, UIView *view) {
 }
 
 - (CGFloat)topInset {
-    return self.topLayoutGuide.length;
+    UINavigationBar *navigationBar = self.navigationController.navigationBar;
+    CGRect navigationBarRect = [self.view convertRect:navigationBar.bounds fromView:navigationBar];
+    return CGRectGetMaxY(navigationBarRect);
 }
 
 - (CGFloat)bottomInset {
@@ -193,7 +198,7 @@ static inline CGRect keyboardRectInView(UIView *keyboard, UIView *view) {
 }
 
 - (CGFloat)keyboardPullDownThresholdOffset {
-    return CGRectGetHeight(self.messageToolbar.frame);
+    return CGRectGetHeight(self.messageToolbar.bounds);
 }
 
 #pragma mark - Public methods

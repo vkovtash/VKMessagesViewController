@@ -78,7 +78,7 @@ static inline CGRect keyboardRectInView(UIView *keyboard, UIView *view) {
     [self registerForKeyboardNotifications];
     
     UIView *keyboard = getKeyboardView();
-    if (keyboard) {
+    if (keyboard && UI_USER_INTERFACE_IDIOM() != UIUserInterfaceIdiomPad) {
         [self alighKeyboardControlsToRect:keyboardRectInView(keyboard, self.view) animated:animated];
     }
     

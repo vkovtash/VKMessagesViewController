@@ -159,11 +159,6 @@ static inline CGRect keyboardRectInView(UIView *keyboard, UIView *view) {
     self.messageToolbar.textView.placeholder = messagePlaceholder;
 }
 
-- (void)setAlternativeInputView:(UIView *)alternativeInputView {
-    _alternativeInputView = alternativeInputView;
-    self.messageToolbar.isPlusButtonVisible = (BOOL)_alternativeInputView;
-}
-
 - (VKMenuControllerPresenter *)menuPresenter {
     if (!_menuPresenter) {
         _menuPresenter = [[VKMenuControllerPresenter alloc] initWithParentView:self.view];
@@ -183,7 +178,6 @@ static inline CGRect keyboardRectInView(UIView *keyboard, UIView *view) {
     _messageToolbar = [[ZIMInputToolbar alloc] initWithFrame:toolbarFrame];
     _messageToolbar.inputDelegate = self;
     _messageToolbar.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleTopMargin;
-    _messageToolbar.isPlusButtonVisible = NO;
     return _messageToolbar;
 }
 
@@ -305,21 +299,6 @@ static inline CGRect keyboardRectInView(UIView *keyboard, UIView *view) {
 -(void)inputButtonPressed:(ZIMInputToolbar *)toolbar {
     if (toolbar.textView.text.length > 0) {
         toolbar.textView.text = @"";
-    }
-}
-
-- (void)plusButtonPressed:(ZIMInputToolbar *)toolbar {
-    if (!self.alternativeInputView) {
-        return;
-    }
-    
-    if (toolbar.textView.internalTextView != self.firstResponder) {
-        toolbar.textView.inputView = self.alternativeInputView;
-        [toolbar.textView becomeFirstResponder];
-    }
-    else {
-        toolbar.textView.inputView = toolbar.textView.inputView ? nil : self.alternativeInputView;
-        [toolbar.textView reloadInputViews];
     }
 }
 

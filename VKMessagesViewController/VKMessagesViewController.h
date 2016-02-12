@@ -16,7 +16,6 @@
                                                         ZIMInputToolbarDelegate>
 @property (strong, nonatomic) VKTableView *tableView;
 @property (strong, nonatomic) ZIMInputToolbar *messageToolbar;
-@property (strong, nonatomic) UIView *alternativeInputView; //view shown on plus button tap
 @property (readwrite, nonatomic) NSString *messagePlaceholder;
 @property (strong, nonatomic) VKMenuControllerPresenter *menuPresenter;
 @property (strong, nonatomic) NSArray *cellMenuItems;
@@ -45,7 +44,6 @@
 #pragma mark - MessageToolbal delegate
 
 - (void)inputButtonPressed:(ZIMInputToolbar *)toolbar;
-- (void)plusButtonPressed:(ZIMInputToolbar *)toolbar;
 - (void)inputToolbar:(ZIMInputToolbar *)inputToolbar didChangeHeight:(CGFloat)height;
 - (void)inputToolbarDidBeginEditing:(ZIMInputToolbar *)inputToolbar;
 

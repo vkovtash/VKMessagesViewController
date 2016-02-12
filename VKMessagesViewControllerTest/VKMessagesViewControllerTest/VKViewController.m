@@ -20,7 +20,6 @@
 
 - (void) viewDidLoad{
     [super viewDidLoad];
-    self.alternativeInputView = [self newEmojiPicker];
     
     [self.messageStorage addObjectsFromArray:@[
                                                @{@"type":@"text",

@@ -10,6 +10,8 @@
 
 @interface VKBubbleViewProperties : NSObject
 @property (nonatomic) UIEdgeInsets edgeInsets;
-@property (nonatomic) NSUInteger minimumWidth;
-- (id) initWithEdgeInsets:(UIEdgeInsets) edgeInsets;
+@property (nonatomic) CGFloat minimumWidth;
+@property (nonatomic) CGFloat minimumHeight;
+
+- (instancetype)initWithEdgeInsets:(UIEdgeInsets) edgeInsets;
 @end

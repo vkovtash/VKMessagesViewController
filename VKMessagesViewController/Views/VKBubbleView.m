@@ -17,37 +17,42 @@
 
 #pragma mark - Publick Properties
 
-- (void) setNormalBackgroundImage:(UIImage *)normalBackgroundImage {
+- (void)setNormalBackgroundImage:(UIImage *)normalBackgroundImage {
     _normalBackgroundImage = normalBackgroundImage;
     [self setNeedsLayout];
     [self applyIsSelected];
 }
 
-- (void) setSelectedBackgroundImage:(UIImage *)selectedBackgroundImage {
+- (void)setSelectedBackgroundImage:(UIImage *)selectedBackgroundImage {
     _selectedBackgroundImage = selectedBackgroundImage;
     [self setNeedsLayout];
     [self applyIsSelected];
 }
 
-- (void) setSelected:(BOOL)selected {
+- (void)setSelected:(BOOL)selected {
     _isSelected = selected;
     [self applyIsSelected];
 }
 
-- (void) setProperties:(VKBubbleViewProperties *)properties{
+- (void)setProperties:(VKBubbleViewProperties *)properties{
     if (_properties != properties) {
         _properties = properties;
         [self setNeedsLayout];
     }
 }
 
-- (CGSize) sizeConstrainedToWidth:(CGFloat) width {
+- (CGSize)sizeConstrainedToWidth:(CGFloat) width {
     return CGSizeMake(44, 44);
+}
+
+- (void)setBackgroundColor:(UIColor *)backgroundColor {
+    [super setBackgroundColor:backgroundColor];
+    self.background.backgroundColor = backgroundColor;
 }
 
 #pragma mark - Private properties
 
-- (UIImageView *) background{
+- (UIImageView *)background {
     if (!_background) {
         _background = [[UIImageView alloc] init];
     }
@@ -56,7 +61,7 @@
 
 #pragma mark - Private methods
 
-- (void) applyIsSelected {
+- (void)applyIsSelected {
     if (_isSelected && _selectedBackgroundImage) {
         self.background.image = self.selectedBackgroundImage;
     }
@@ -65,34 +70,34 @@
     }
 }
 
-- (void) layoutSubviews {
+- (void)layoutSubviews {
     [super layoutSubviews];
     
-    self.background.frame = self.bounds;
-    CGRect rect = self.messageBody.frame;
-    rect.origin.x = self.properties.edgeInsets.left;
-    rect.origin.y = self.properties.edgeInsets.top;
-    rect.size.width = self.bounds.size.width - self.properties.edgeInsets.left - self.properties.edgeInsets.right;
-    rect.size.height = self.bounds.size.height - self.properties.edgeInsets.top - self.properties.edgeInsets.bottom;
+    UIEdgeInsets insets = self.properties.edgeInsets;
+    CGRect rect = self.bounds;
+    rect.origin.x = insets.left;
+    rect.origin.y = insets.top;
+    rect.size.width -= insets.left + insets.right;
+    rect.size.height -= insets.top + insets.bottom;
     self.messageBody.frame = rect;
+    self.background.frame = self.bounds;
 }
 
 #pragma mark - UIView methods
 
-- (BOOL) canBecomeFirstResponder {
+- (BOOL)canBecomeFirstResponder {
     return YES;
 }
 
 #pragma - mark Init
 
-- (void) postInit{
+- (void)postInit {
     [self addSubview:self.background];
     [self addSubview:self.messageBody];
     self.autoresizesSubviews = NO;
 }
 
-- (id)initWithFrame:(CGRect)frame
-{
+- (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
         [self postInit];
@@ -100,7 +105,7 @@
     return self;
 }
 
-- (id)initWithCoder:(NSCoder *)aDecoder{
+- (instancetype)initWithCoder:(NSCoder *)aDecoder {
     self = [super initWithCoder:aDecoder];
     if (self) {
         [self postInit];
@@ -108,7 +113,7 @@
     return self;
 }
 
-- (id)init{
+- (instancetype)init {
     self = [super init];
     if (self) {
         [self postInit];
@@ -116,7 +121,7 @@
     return self;
 }
 
-- (id) initWithBubbleProperties:(VKBubbleViewProperties *) properties{
+- (instancetype)initWithBubbleProperties:(VKBubbleViewProperties *)properties {
     self = [super initWithFrame:CGRectMake(0, 0, 400, 400)];
     if (self) {
         self.properties = properties;
@@ -146,20 +151,3 @@ didSelectLinkWithPhoneNumber:(NSString *)phoneNumber{
 }
 
 @end
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

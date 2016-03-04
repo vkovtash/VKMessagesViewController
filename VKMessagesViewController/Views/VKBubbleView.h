@@ -17,8 +17,8 @@
 @property (nonatomic,strong) VKBubbleViewProperties *properties;
 @property (readonly, nonatomic) BOOL isSelected;
 
-- (void) setSelected:(BOOL) selected;
-- (CGSize) sizeConstrainedToWidth:(CGFloat) width;
+- (void)setSelected:(BOOL) selected;
+- (CGSize)sizeConstrainedToWidth:(CGFloat) width;
 
-- (id) initWithBubbleProperties:(VKBubbleViewProperties *) properties;
+- (instancetype)initWithBubbleProperties:(VKBubbleViewProperties *)properties;
 @end

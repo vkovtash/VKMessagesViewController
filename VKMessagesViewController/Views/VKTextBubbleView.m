@@ -47,7 +47,7 @@ static NSInteger const kTextPartsCount = 4;
     }
 }
 
-- (CGSize) sizeConstrainedToWidth:(CGFloat) width {
+- (CGSize)sizeConstrainedToWidth:(CGFloat)width {
     return [[self class] sizeWithAttributedString:self.messageBody.attributedText
                                        Properties:self.properties
                                constrainedToWidth:width];
@@ -61,9 +61,9 @@ static NSInteger const kTextPartsCount = 4;
 
 #pragma mark - class methods
 
-+ (CGSize) sizeWithAttributedString:(NSAttributedString *) attributedString
-                         Properties:(VKTextBubbleViewProperties *) properties
-                 constrainedToWidth:(CGFloat) width {
++ (CGSize)sizeWithAttributedString:(NSAttributedString *)attributedString
+                        Properties:(VKTextBubbleViewProperties *)properties
+                constrainedToWidth:(CGFloat) width {
     CGSize bodySize = CGSizeZero;
     
     if (attributedString) {
@@ -82,6 +82,10 @@ static NSInteger const kTextPartsCount = 4;
         bodySize.width = properties.minimumWidth;
     }
     bodySize.height += (properties.edgeInsets.top + properties.edgeInsets.bottom);
+    
+    if (bodySize.height < properties.minimumHeight) {
+        bodySize.height = properties.minimumHeight;
+    }
     return bodySize;
 }
 

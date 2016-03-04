@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = 'ZIMMessagesViewController'
-  s.version      = '2.0'
+  s.version      = '2.0.1'
   s.summary      = "Messages view controller"
   s.homepage     = 'https://github.com/vkovtash/VKMessagesViewController'
 

@@ -9,13 +9,9 @@
 #import "VKBubbleView.h"
 #import "UIActionSheet+VKBlocks.h"
 
-@interface VKBubbleView()
-@property (strong,nonatomic) UIImageView *background;
-@end
 
-@implementation VKBubbleView
-
-#pragma mark - Publick Properties
+@implementation VKBubbleImageBackground
+@synthesize isSelected = _isSelected;
 
 - (void)setNormalBackgroundImage:(UIImage *)normalBackgroundImage {
     _normalBackgroundImage = normalBackgroundImage;
@@ -28,6 +24,121 @@
     [self setNeedsLayout];
     [self applyIsSelected];
 }
+
+- (void)setSelected:(BOOL)selected {
+    _isSelected = selected;
+    [self applyIsSelected];
+}
+
+- (void)applyIsSelected {
+    if (_isSelected && _selectedBackgroundImage) {
+        self.image = self.selectedBackgroundImage;
+    }
+    else {
+        self.image = self.normalBackgroundImage;
+    }
+}
+
+@end
+
+
+@interface VKBubblePathBackground()
+@property (strong, nonatomic) CAShapeLayer *shape;
+@end
+
+@implementation VKBubblePathBackground
+@synthesize isSelected = _isSelected;
+
+- (instancetype)initWithFrame:(CGRect)frame {
+    self = [super initWithFrame:frame];
+    if (self) {
+        [self setupShape];
+    }
+    return self;
+}
+
+- (instancetype)initWithCoder:(NSCoder *)aDecoder {
+    self = [super initWithCoder:aDecoder];
+    if (self) {
+        [self setupShape];
+    }
+    return self;
+}
+
+- (void)setupShape {
+    _shape = [CAShapeLayer layer];
+    [self.layer addSublayer:_shape];
+    [self setIsSelected:NO];
+}
+
+- (void)layoutSubviews {
+    [super layoutSubviews];
+    self.shape.path =  self.pathBlock ? self.pathBlock(self.bounds) : nil;
+}
+
+- (void)setPathBlock:(CGPathRef (^)(CGRect))pathBlock {
+    if (_pathBlock != pathBlock) {
+        _pathBlock = pathBlock;
+        self.shape.path = _pathBlock ? _pathBlock(self.bounds) : nil;
+    }
+}
+
+- (void)setIsSelected:(BOOL)isSelected {
+    _isSelected = isSelected;
+    if (_isSelected) {
+        self.shape.fillColor =  self.selectedFillColor ? self.selectedFillColor.CGColor : self.fillColor.CGColor;
+        self.shape.borderColor = self.selectedBorderColor ? self.selectedBorderColor.CGColor : self.borderColor.CGColor;
+    }
+    else {
+        self.shape.fillColor = self.fillColor.CGColor;
+        self.shape.borderColor = self.borderColor.CGColor;
+    }
+}
+
+- (void)setFillColor:(UIColor *)fillColor {
+    _fillColor = fillColor;
+    if (self.isSelected) {
+        self.shape.fillColor =  self.selectedFillColor ? self.selectedFillColor.CGColor : self.fillColor.CGColor;
+    }
+    else {
+        self.shape.fillColor = self.fillColor.CGColor;
+    }
+}
+
+- (void)setBorderColor:(UIColor *)borderColor {
+    _borderColor = borderColor;
+    if (self.isSelected) {
+        self.shape.borderColor = self.selectedBorderColor ? self.selectedBorderColor.CGColor : self.borderColor.CGColor;
+    }
+    else {
+        self.shape.borderColor = self.borderColor.CGColor;
+    }
+}
+
+- (void)setSelectedFillColor:(UIColor *)selectedFillColor {
+    _selectedFillColor = selectedFillColor;
+    if (self.isSelected) {
+        self.shape.fillColor =  self.selectedFillColor ? self.selectedFillColor.CGColor : self.fillColor.CGColor;
+    }
+}
+
+- (void)setSelectedBorderColor:(UIColor *)selectedBorderColor {
+    _selectedBorderColor = selectedBorderColor;
+    if (self.isSelected) {
+        self.shape.borderColor = self.selectedBorderColor ? self.selectedBorderColor.CGColor : self.borderColor.CGColor;
+    }
+}
+
+- (void)setBorderWidth:(CGFloat)borderWidth {
+    self.shape.borderWidth = borderWidth;
+}
+
+@end
+
+
+@implementation VKBubbleView
+
+#pragma mark - Public Properties
 
 - (void)setSelected:(BOOL)selected {
     _isSelected = selected;
@@ -50,24 +161,32 @@
     self.background.backgroundColor = backgroundColor;
 }
 
-#pragma mark - Private properties
-
-- (UIImageView *)background {
-    if (!_background) {
-        _background = [[UIImageView alloc] init];
+- (void)setBackground:(UIView<VKBubbleViewBackgroudProtocol> *)background {
+    if (_background == background) {
+        return;
     }
-    return _background;
+    
+    [_background removeFromSuperview];
+    _background = background;
+    [self addSubview:_background];
+    [self sendSubviewToBack:_background];
+    _background.backgroundColor = self.backgroundColor;
+    _background.frame = self.bounds;
+    _background.isSelected = self.isSelected;
+}
+
+- (void)setClippingPathBlock:(VKPathBlock)clippingPathBlock {
+    _clippingPathBlock = clippingPathBlock;
+    CAShapeLayer *mask = self.layer.mask;
+    if (mask && _clippingPathBlock) {
+        mask.path = _clippingPathBlock(self.bounds);
+    }
 }
 
 #pragma mark - Private methods
 
 - (void)applyIsSelected {
-    if (_isSelected && _selectedBackgroundImage) {
-        self.background.image = self.selectedBackgroundImage;
-    }
-    else {
-        self.background.image = self.normalBackgroundImage;
-    }
+    self.background.isSelected = self.isSelected;
 }
 
 - (void)layoutSubviews {
@@ -81,6 +200,18 @@
     rect.size.height -= insets.top + insets.bottom;
     self.messageBody.frame = rect;
     self.background.frame = self.bounds;
+    
+    if (self.clippingPathBlock) {
+        CAShapeLayer *mask = self.layer.mask;
+        if (!mask) {
+            mask = [CAShapeLayer new];
+            self.layer.mask = mask;
+        }
+        mask.path = self.clippingPathBlock(self.bounds);
+    }
+    else {
+        self.layer.mask = nil;
+    }
 }
 
 #pragma mark - UIView methods

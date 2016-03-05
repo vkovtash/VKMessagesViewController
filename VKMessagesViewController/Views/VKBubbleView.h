@@ -10,14 +10,38 @@
 #import "VKBubbleViewProperties.h"
 #import "TTTAttributedLabel.h"
 
-@interface VKBubbleView : UIView <TTTAttributedLabelDelegate>
-@property (nonatomic, strong) UIImage *normalBackgroundImage;
-@property (nonatomic, strong) UIImage *selectedBackgroundImage;
-@property (readonly, nonatomic) UIView *messageBody;
-@property (nonatomic,strong) VKBubbleViewProperties *properties;
-@property (readonly, nonatomic) BOOL isSelected;
 
-- (void)setSelected:(BOOL) selected;
+typedef CGPathRef(^VKPathBlock)(CGRect rect);
+
+@protocol  VKBubbleViewBackgroudProtocol <NSObject>
+@property (assign, nonatomic) BOOL isSelected;
+@end
+
+
+@interface VKBubbleImageBackground : UIImageView <VKBubbleViewBackgroudProtocol>
+@property (strong, nonatomic) UIImage *normalBackgroundImage;
+@property (strong, nonatomic) UIImage *selectedBackgroundImage;
+@end
+
+
+@interface VKBubblePathBackground : UIView <VKBubbleViewBackgroudProtocol>
+@property (strong, nonatomic) UIColor *fillColor;
+@property (strong, nonatomic) UIColor *borderColor;
+@property (strong, nonatomic) UIColor *selectedFillColor;
+@property (strong, nonatomic) UIColor *selectedBorderColor;
+@property (assign, nonatomic) CGFloat borderWidth;
+@property (strong, nonatomic) VKPathBlock pathBlock;
+@end
+
+
+@interface VKBubbleView : UIView <TTTAttributedLabelDelegate>
+@property (strong, nonatomic) UIView<VKBubbleViewBackgroudProtocol> *background;
+@property (readonly, nonatomic) UIView *messageBody;
+@property (strong, nonatomic) VKBubbleViewProperties *properties;
+@property (readonly, nonatomic) BOOL isSelected;
+@property (strong, nonatomic) VKPathBlock clippingPathBlock;
+
+- (void)setSelected:(BOOL)selected;
 - (CGSize)sizeConstrainedToWidth:(CGFloat) width;
 
 - (instancetype)initWithBubbleProperties:(VKBubbleViewProperties *)properties;

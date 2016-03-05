@@ -13,7 +13,7 @@ static NSString *const kBackgoundSelectedImageName = @"vk_message_bubble_incomin
 
 @implementation VKInboundBaseBubbleCell
 
-+ (UIImage *) backgroudImage{
++ (UIImage *)backgroudImage {
     static UIImage *backgroudImage = nil;
     if (!backgroudImage) {
         backgroudImage = [UIImage imageNamed:kBackgoundImageName];
@@ -25,7 +25,7 @@ static NSString *const kBackgoundSelectedImageName = @"vk_message_bubble_incomin
     return backgroudImage;
 }
 
-+ (UIImage *) selectedBackgroudImage{
++ (UIImage *)selectedBackgroudImage {
     static UIImage *selectedBackgroudImage = nil;
     if (!selectedBackgroudImage) {
         selectedBackgroudImage = [UIImage imageNamed:kBackgoundSelectedImageName];
@@ -37,22 +37,20 @@ static NSString *const kBackgoundSelectedImageName = @"vk_message_bubble_incomin
     return selectedBackgroudImage;
 }
 
-+ (VKBubbleView *) newBubbleView {
++ (VKBubbleView *)newBubbleView {
     return [[VKBubbleView alloc] initWithBubbleProperties:[[self class] newBubbleViewProperties]];
 }
 
-+ (VKBubbleViewProperties *) newBubbleViewProperties {
++ (VKBubbleViewProperties *)newBubbleViewProperties {
     return [[VKBubbleViewProperties alloc] init];
 }
 
-- (instancetype) initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
+- (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     self = [super initWithBubbleView:[[self class] newBubbleView]
                      reuseIdentifier:reuseIdentifier];
     if (self) {
         [self setBubbleAlign:VKBubbleAlignLeft];
         self.messageDetails.textAlignment = NSTextAlignmentLeft;
-        self.bubbleView.normalBackgroundImage = [[self class] backgroudImage];
-        self.bubbleView.selectedBackgroundImage = [[self class] selectedBackgroudImage];
     }
     return self;
 }

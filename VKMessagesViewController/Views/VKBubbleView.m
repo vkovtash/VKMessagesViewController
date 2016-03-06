@@ -177,16 +177,27 @@
 
 - (void)setClippingPathBlock:(VKPathBlock)clippingPathBlock {
     _clippingPathBlock = clippingPathBlock;
-    CAShapeLayer *mask = self.layer.mask;
-    if (mask && _clippingPathBlock) {
-        mask.path = _clippingPathBlock(self.bounds);
-    }
+    [self applyClippingMask];
 }
 
 #pragma mark - Private methods
 
 - (void)applyIsSelected {
     self.background.isSelected = self.isSelected;
+}
+
+- (void)applyClippingMask {
+    if (self.clippingPathBlock) {
+        CAShapeLayer *mask = self.layer.mask;
+        if (!mask) {
+            mask = [CAShapeLayer new];
+        }
+        mask.path = self.clippingPathBlock(self.bounds);
+        self.layer.mask = mask;
+    }
+    else {
+        self.layer.mask = nil;
+    }
 }
 
 - (void)layoutSubviews {
@@ -201,17 +212,7 @@
     self.messageBody.frame = rect;
     self.background.frame = self.bounds;
     
-    if (self.clippingPathBlock) {
-        CAShapeLayer *mask = self.layer.mask;
-        if (!mask) {
-            mask = [CAShapeLayer new];
-            self.layer.mask = mask;
-        }
-        mask.path = self.clippingPathBlock(self.bounds);
-    }
-    else {
-        self.layer.mask = nil;
-    }
+    [self applyClippingMask];
 }
 
 #pragma mark - UIView methods

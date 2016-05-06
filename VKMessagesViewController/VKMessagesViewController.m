@@ -401,7 +401,7 @@ static inline CGRect keyboardRectInViewFromKeyboardInfo(UIView *view, NSDictiona
         }
         
         CGRect toolBarFrame = weakSelf.messageToolbar.frame;
-        toolBarFrame.origin.y = CGRectGetMinY(rect) - CGRectGetHeight(toolBarFrame);
+        toolBarFrame.origin.y = MIN(CGRectGetMinY(rect), CGRectGetMaxY(weakSelf.view.bounds)) - CGRectGetHeight(toolBarFrame);
         weakSelf.messageToolbar.frame = toolBarFrame;
         
         [weakSelf applyBottomInset];

@@ -9,6 +9,7 @@
 #import "VKMessagesViewController.h"
 #import "UIViewController+firstResponder.h"
 #import "VKBubbleCell.h"
+#import "ZIMKeyboardTracker.h"
 
 
 static CGFloat const kDefaultToolbarHeight = 40;
@@ -57,13 +58,12 @@ static inline CGRect keyboardRectInView(UIView *keyboard, UIView *view) {
 }
 
 
-@interface VKMessagesViewController () <UIGestureRecognizerDelegate, VKMenuControllerPresenterDelegate>
+@interface VKMessagesViewController () <UIGestureRecognizerDelegate, VKMenuControllerPresenterDelegate, ZIMKeyboardTrackerDelegate>
 @property (weak, nonatomic) UIView *keyboard;
 @property (nonatomic) CGFloat originalKeyboardY;
 @property (nonatomic) CGFloat originalLocation;
-@property (nonatomic) NSTimeInterval keyboardAnimationDuration;
-@property (nonatomic) UIViewAnimationCurve keyboardAnimationCurve;
 @property (strong, nonatomic) UIGestureRecognizer *keyboardPanRecognizer;
+@property (strong, nonatomic) ZIMKeyboardTracker *keyboardTracker;
 @end
 
 @implementation VKMessagesViewController
@@ -75,13 +75,11 @@ static inline CGRect keyboardRectInView(UIView *keyboard, UIView *view) {
     [super viewWillAppear:animated];
     [self applyTopInset];
     [self applyBottomInset];
-    [self registerForKeyboardNotifications];
-    
-    UIView *keyboard = getKeyboardView();
-    if (keyboard && UI_USER_INTERFACE_IDIOM() != UIUserInterfaceIdiomPad) {
-        [self alighKeyboardControlsToRect:keyboardRectInView(keyboard, self.view) animated:animated];
+
+    if (!self.keyboardTracker.isKeyboardHidden) {
+        [self alighKeyboardControlsToRect:[self.keyboardTracker keyboardRectInView:self.view] animated:animated];
     }
-    
+
     [self onAppear];
 }
 
@@ -94,7 +92,6 @@ static inline CGRect keyboardRectInView(UIView *keyboard, UIView *view) {
 - (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
     [self dismissKeyboard];
-    [self unregisterFromKeyboardNotifications];
 }
 
 - (void)viewDidLoad {
@@ -103,6 +100,8 @@ static inline CGRect keyboardRectInView(UIView *keyboard, UIView *view) {
     if ([self respondsToSelector:@selector(setAutomaticallyAdjustsScrollViewInsets:)]) {
         self.automaticallyAdjustsScrollViewInsets = NO;
     }
+
+    self.keyboardTracker = [ZIMKeyboardTracker new];
     
     /* Set Table View properties */
     self.tableView = [[VKTableView alloc] initWithFrame:self.view.bounds];
@@ -130,6 +129,8 @@ static inline CGRect keyboardRectInView(UIView *keyboard, UIView *view) {
     self.keyboardPanRecognizer.delegate = self;
     self.keyboardPanRecognizer.enabled = NO;
     [self.view addGestureRecognizer:self.keyboardPanRecognizer];
+
+    self.keyboardTracker.delegate = self;
 }
 
 - (void)dealloc {
@@ -319,51 +320,29 @@ static inline UIViewAnimationOptions animationOptionsWithCurve(UIViewAnimationCu
     return curve << 16;
 }
 
-static inline CGRect keyboardRectInViewFromKeyboardInfo(UIView *view, NSDictionary *keyboardUserInfo) {
-    if (keyboardUserInfo) {
-        return [view convertRect:[keyboardUserInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue] fromView:view.window];
-    }
-    return CGRectZero;
+static inline CGRect keyboardRectInViewFromKeyboardFrame(UIView *view, CGRect keyboardFrame) {
+    return [view convertRect:keyboardFrame fromView:view.window];
 }
 
-- (void)registerForKeyboardNotifications {
-    NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
-    [defaultCenter addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
-    [defaultCenter addObserver:self selector:@selector(keyboardDidShow:) name:UIKeyboardDidShowNotification object:nil];
-    [defaultCenter addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
-    [defaultCenter addObserver:self selector:@selector(keyboardDidHide:) name:UIKeyboardDidHideNotification object:nil];
-}
-
-- (void)unregisterFromKeyboardNotifications {
-    NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
-    [defaultCenter removeObserver:self name:UIKeyboardWillShowNotification object:nil];
-    [defaultCenter removeObserver:self name:UIKeyboardDidShowNotification object:nil];
-    [defaultCenter removeObserver:self name:UIKeyboardWillHideNotification object:nil];
-    [defaultCenter removeObserver:self name:UIKeyboardDidHideNotification object:nil];
-}
-
-- (void)keyboardWillShow:(NSNotification *)notification {
-    NSDictionary *info = notification.userInfo;
-    CGRect kbRect = keyboardRectInViewFromKeyboardInfo(self.view, info);
-    
+- (void)trackerDetectedKeyboardWillShow:(ZIMKeyboardTracker *)tracker {
+    CGRect kbRect = keyboardRectInViewFromKeyboardFrame(self.view, tracker.keyboardFrame);
     if (kbRect.size.height && !self.menuPresenter.isPresentingMenu){
-        self.keyboardAnimationCurve = [info[UIKeyboardAnimationCurveUserInfoKey] integerValue];
-        self.keyboardAnimationDuration = [info[UIKeyboardAnimationDurationUserInfoKey] floatValue];
         [self alighKeyboardControlsToRect:kbRect animated:YES];
     }
 }
 
-- (void)keyboardWillHide:(NSNotification *)notification {
-    CGRect kbRect = keyboardRectInViewFromKeyboardInfo(self.view, notification.userInfo);
+- (void)trackerDetectedKeyboardWillHide:(ZIMKeyboardTracker *)tracker {
     self.keyboardPanRecognizer.enabled = NO;
-    if (kbRect.size.height && !self.menuPresenter.isPresentingMenu && !self.keyboard.hidden) {
-        kbRect.origin.y = CGRectGetHeight(self.view.bounds);
+
+    CGRect kbRect = keyboardRectInViewFromKeyboardFrame(self.view, tracker.keyboardFrame);
+    if (kbRect.size.height && !self.menuPresenter.isPresentingMenu){
         [self alighKeyboardControlsToRect:kbRect animated:YES];
     }
 }
 
-- (void)keyboardDidShow:(NSNotification *)notification {
-    if (CGRectGetHeight(keyboardRectInViewFromKeyboardInfo(self.view, notification.userInfo)) == 0) {
+- (void)trackerDetectedKeyboardDidShow:(ZIMKeyboardTracker *)tracker {
+    CGRect kbRect = keyboardRectInViewFromKeyboardFrame(self.view, tracker.keyboardFrame);
+    if (CGRectGetHeight(kbRect) == 0) {
         return;
     }
     
@@ -372,8 +351,10 @@ static inline CGRect keyboardRectInViewFromKeyboardInfo(UIView *view, NSDictiona
     self.keyboardPanRecognizer.enabled = YES;
 }
 
-- (void)keyboardDidHide:(NSNotification *)notification {
-    if (CGRectGetHeight(keyboardRectInViewFromKeyboardInfo(self.view, notification.userInfo)) == 0) {
+- (void)trackerDetectedKeyboardDidHide:(ZIMKeyboardTracker *)tracker {
+    CGRect kbRect = keyboardRectInViewFromKeyboardFrame(self.view, tracker.keyboardFrame);
+
+    if (CGRectGetHeight(kbRect) == 0) {
         return;
     }
 
@@ -401,7 +382,12 @@ static inline CGRect keyboardRectInViewFromKeyboardInfo(UIView *view, NSDictiona
         }
         
         CGRect toolBarFrame = weakSelf.messageToolbar.frame;
-        toolBarFrame.origin.y = MIN(CGRectGetMinY(rect), CGRectGetMaxY(weakSelf.view.bounds)) - CGRectGetHeight(toolBarFrame);
+        if (weakSelf.keyboardTracker.isKeyboardHidden) {
+            toolBarFrame.origin.y = CGRectGetMaxY(weakSelf.view.bounds) - CGRectGetHeight(toolBarFrame);
+        }
+        else {
+            toolBarFrame.origin.y = MIN(CGRectGetMinY(rect), CGRectGetMaxY(weakSelf.view.bounds)) - CGRectGetHeight(toolBarFrame);
+        }
         weakSelf.messageToolbar.frame = toolBarFrame;
         
         [weakSelf applyBottomInset];
@@ -409,10 +395,10 @@ static inline CGRect keyboardRectInViewFromKeyboardInfo(UIView *view, NSDictiona
     };
     
     [self keyboardWillChangeFrame:rect animated:animated];
-    if (animated && self.keyboardAnimationDuration > 0) {
-        [UIView animateWithDuration:self.keyboardAnimationDuration
+    if (animated && self.keyboardTracker.lastAnimationDuration > 0) {
+        [UIView animateWithDuration:self.keyboardTracker.lastAnimationDuration
                               delay:0
-                            options:animationOptionsWithCurve(self.keyboardAnimationCurve)
+                            options:animationOptionsWithCurve(self.keyboardTracker.lastAnimationCurve)
                          animations:alignControlsToRect
                          completion:nil];
     }
@@ -466,9 +452,9 @@ static inline CGRect keyboardRectInViewFromKeyboardInfo(UIView *view, NSDictiona
     newFrame.origin.y = CGRectGetHeight(self.keyboard.superview.bounds);
     self.keyboardPanRecognizer.enabled = NO;
     
-    [UIView animateWithDuration:self.keyboardAnimationDuration
+    [UIView animateWithDuration:self.keyboardTracker.lastAnimationDuration
                           delay:0
-                        options:animationOptionsWithCurve(self.keyboardAnimationCurve)
+                        options:animationOptionsWithCurve(self.keyboardTracker.lastAnimationCurve)
                      animations:^
     {
         [self.keyboard setFrame:newFrame];

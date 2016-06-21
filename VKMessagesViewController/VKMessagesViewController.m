@@ -76,9 +76,7 @@ static inline CGRect keyboardRectInView(UIView *keyboard, UIView *view) {
     [self applyTopInset];
     [self applyBottomInset];
 
-    if (!self.keyboardTracker.isKeyboardHidden) {
-        [self alighKeyboardControlsToRect:[self.keyboardTracker keyboardRectInView:self.view] animated:animated];
-    }
+    [self alighKeyboardControlsToRect:[self.keyboardTracker keyboardRectInView:self.view] animated:animated];
 
     [self onAppear];
 }

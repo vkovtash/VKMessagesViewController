@@ -103,7 +103,7 @@
 }
 
 - (CGRect)keyboardRectInView:(UIView *)view {
-    if (view) {
+    if (view && !self.isKeyboardHidden) {
         return [view convertRect:self.keyboardFrame fromView:view.window];
     }
     return CGRectZero;

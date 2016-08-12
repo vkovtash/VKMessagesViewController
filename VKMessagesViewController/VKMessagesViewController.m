@@ -59,6 +59,7 @@ static inline CGRect keyboardRectInView(UIView *keyboard, UIView *view) {
 
 
 @interface VKMessagesViewController () <UIGestureRecognizerDelegate, VKMenuControllerPresenterDelegate, ZIMKeyboardTrackerDelegate>
+@property (strong, nonatomic) NSPointerArray  *keyboardAttachedViews;
 @property (weak, nonatomic) UIView *keyboard;
 @property (nonatomic) CGFloat originalKeyboardY;
 @property (nonatomic) CGFloat originalLocation;
@@ -184,16 +185,19 @@ static inline CGRect keyboardRectInView(UIView *keyboard, UIView *view) {
     _messageToolbar = [[ZIMInputToolbar alloc] initWithFrame:toolbarFrame];
     _messageToolbar.inputDelegate = self;
     _messageToolbar.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleTopMargin;
-    _keyboardAttachedView = _messageToolbar;
     [self.view addSubview:_messageToolbar];
+    [self attachViewToKeyboard:_messageToolbar];
+    self.activeKeyboardAttachedView = _messageToolbar;
     return _messageToolbar;
 }
 
-- (void)setKeyboardAttachedView:(UIView *)keyboardAttachedView {
-    if (_keyboardAttachedView != keyboardAttachedView) {
-        _keyboardAttachedView = keyboardAttachedView;
-        [self alighKeyboardControlsToRect:[self.keyboardTracker keyboardRectInView:self.view] animated:NO];
+- (void)setActiveKeyboardAttachedView:(UIView *)keyboardAttachedView {
+    _activeKeyboardAttachedView = keyboardAttachedView;
+    for (UIView *view in self.keyboardAttachedViews) {
+        view.hidden = view != _activeKeyboardAttachedView;
     }
+    _activeKeyboardAttachedView.hidden = NO;
+    [self alighKeyboardControlsToRect:[self.keyboardTracker keyboardRectInView:self.view] animated:NO];
 }
 
 - (CGFloat)topInset {
@@ -203,11 +207,11 @@ static inline CGRect keyboardRectInView(UIView *keyboard, UIView *view) {
 }
 
 - (CGFloat)bottomInset {
-    return CGRectGetHeight(self.view.bounds) - CGRectGetMinY(self.keyboardAttachedView.frame);
+    return CGRectGetHeight(self.view.bounds) - CGRectGetMinY(self.activeKeyboardAttachedView.frame);
 }
 
 - (CGFloat)keyboardPullDownThresholdOffset {
-    return CGRectGetHeight(self.keyboardAttachedView.bounds);
+    return CGRectGetHeight(self.activeKeyboardAttachedView.bounds);
 }
 
 #pragma mark - Public methods
@@ -259,6 +263,13 @@ static inline CGRect keyboardRectInView(UIView *keyboard, UIView *view) {
 }
 
 #pragma mark - Private methods
+
+- (NSPointerArray *)keyboardAttachedViews {
+    if (!_keyboardAttachedViews) {
+        _keyboardAttachedViews = [NSPointerArray weakObjectsPointerArray];
+    }
+    return _keyboardAttachedViews;
+}
 
 - (void)setAppropriateInputHeight {
     CGFloat height = UIInterfaceOrientationIsPortrait(self.interfaceOrientation) ? kDefaultToolbarPortraitMaximumHeight:
@@ -380,6 +391,32 @@ static inline CGRect keyboardRectInViewFromKeyboardFrame(UIView *view, CGRect ke
     
 }
 
+#pragma mark - KeyboardAttachedViews
+
+- (void)attachViewToKeyboard:(UIView *)view {
+    for (UIView *existingView in self.keyboardAttachedViews) {
+        if (existingView == view) {
+            return;
+        }
+    }
+    [self.keyboardAttachedViews addPointer:(__bridge void * _Nullable)(view)];
+}
+
+- (void)detachViewFromKeyboard:(UIView *)view {
+    NSInteger index = -1;
+
+    for (UIView *existingView in self.keyboardAttachedViews) {
+        index++;
+        if (existingView == view) {
+            break;
+        }
+    }
+
+    if (index > -1) {
+        [self.keyboardAttachedViews removePointerAtIndex:index];
+    }
+}
+
 #pragma mark - Keyboard control
 
 - (void)catchKeyboard {
@@ -395,15 +432,17 @@ static inline CGRect keyboardRectInViewFromKeyboardFrame(UIView *view, CGRect ke
         if (!strongSelf) {
             return;
         }
-        
-        CGRect toolBarFrame = strongSelf.keyboardAttachedView.frame;
-        if (strongSelf.keyboardTracker.isKeyboardHidden) {
-            toolBarFrame.origin.y = CGRectGetMaxY(strongSelf.view.bounds) - CGRectGetHeight(toolBarFrame);
+
+        for (UIView *attachedView in strongSelf.keyboardAttachedViews) {
+            CGRect viewFrame = attachedView.frame;
+            if (strongSelf.keyboardTracker.isKeyboardHidden) {
+                viewFrame.origin.y = CGRectGetMaxY(strongSelf.view.bounds) - CGRectGetHeight(viewFrame);
+            }
+            else {
+                viewFrame.origin.y = MIN(CGRectGetMinY(rect), CGRectGetMaxY(weakSelf.view.bounds)) - CGRectGetHeight(viewFrame);
+            }
+            attachedView.frame = viewFrame;
         }
-        else {
-            toolBarFrame.origin.y = MIN(CGRectGetMinY(rect), CGRectGetMaxY(weakSelf.view.bounds)) - CGRectGetHeight(toolBarFrame);
-        }
-        strongSelf.keyboardAttachedView.frame = toolBarFrame;
         
         [strongSelf applyBottomInset];
         [strongSelf.view layoutIfNeeded];

@@ -16,13 +16,13 @@
                                                         ZIMInputToolbarDelegate>
 @property (strong, nonatomic) VKTableView *tableView;
 @property (strong, nonatomic) ZIMInputToolbar *messageToolbar;
-@property (weak, nonatomic) UIView *keyboardAttachedView;
+@property (weak, nonatomic) UIView *activeKeyboardAttachedView; // Any attached views except active will be hidden
 @property (readwrite, nonatomic) NSString *messagePlaceholder;
 @property (strong, nonatomic) VKMenuControllerPresenter *menuPresenter;
 @property (strong, nonatomic) NSArray *cellMenuItems;
 @property (readonly, nonatomic) CGFloat keyboardPullDownThresholdOffset;
 @property (readonly, nonatomic) CGFloat topInset;
-@property (readonly, nonatomic) CGFloat bottomInset; // Calculated as top edge of keyboardAttachedView
+@property (readonly, nonatomic) CGFloat bottomInset; // Calculated as top edge of activeKeyboardAttachedView
 
 - (void)onAppear;
 - (void)onDisappear;
@@ -31,6 +31,11 @@
 - (void)dismissKeyboard;
 - (void)applyBottomInset;
 - (void)applyTopInset;
+
+#pragma mark - KeyboardAttachedViews
+
+- (void)attachViewToKeyboard:(UIView *)view;
+- (void)detachViewFromKeyboard:(UIView *)view;
 
 #pragma mark - Keyboard notifications
 

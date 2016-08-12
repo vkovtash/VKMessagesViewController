@@ -110,8 +110,8 @@ static inline CGRect keyboardRectInView(UIView *keyboard, UIView *view) {
     self.tableView.delegate = self;
     
     [self.view addSubview:self.tableView];
-    [self.view addSubview:self.messageToolbar];
-    
+
+    [self.view bringSubviewToFront:self.messageToolbar];
     self.messagePlaceholder = @"Message";
     [self setAppropriateInputHeight];
     [self applyBottomInset];
@@ -133,6 +133,9 @@ static inline CGRect keyboardRectInView(UIView *keyboard, UIView *view) {
 
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+    self.tableView.delegate = nil;
+    self.tableView.dataSource = nil;
+    self.keyboardTracker.delegate = nil;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -169,6 +172,10 @@ static inline CGRect keyboardRectInView(UIView *keyboard, UIView *view) {
     if (_messageToolbar) {
         return _messageToolbar;
     }
+
+    if (self.isViewLoaded) {
+        return nil;
+    }
     
     CGRect toolbarFrame = CGRectMake(0,
                                      CGRectGetHeight(self.view.bounds) - kDefaultToolbarHeight,
@@ -177,7 +184,16 @@ static inline CGRect keyboardRectInView(UIView *keyboard, UIView *view) {
     _messageToolbar = [[ZIMInputToolbar alloc] initWithFrame:toolbarFrame];
     _messageToolbar.inputDelegate = self;
     _messageToolbar.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleTopMargin;
+    _keyboardAttachedView = _messageToolbar;
+    [self.view addSubview:_messageToolbar];
     return _messageToolbar;
+}
+
+- (void)setKeyboardAttachedView:(UIView *)keyboardAttachedView {
+    if (_keyboardAttachedView != keyboardAttachedView) {
+        _keyboardAttachedView = keyboardAttachedView;
+        [self alighKeyboardControlsToRect:[self.keyboardTracker keyboardRectInView:self.view] animated:NO];
+    }
 }
 
 - (CGFloat)topInset {
@@ -187,11 +203,11 @@ static inline CGRect keyboardRectInView(UIView *keyboard, UIView *view) {
 }
 
 - (CGFloat)bottomInset {
-    return CGRectGetHeight(self.view.bounds) - CGRectGetMinY(self.messageToolbar.frame);
+    return CGRectGetHeight(self.view.bounds) - CGRectGetMinY(self.keyboardAttachedView.frame);
 }
 
 - (CGFloat)keyboardPullDownThresholdOffset {
-    return CGRectGetHeight(self.messageToolbar.bounds);
+    return CGRectGetHeight(self.keyboardAttachedView.bounds);
 }
 
 #pragma mark - Public methods
@@ -295,7 +311,7 @@ static inline CGRect keyboardRectInView(UIView *keyboard, UIView *view) {
 
 #pragma mark - UIInputToolbarDelegate
 
--(void)inputButtonPressed:(ZIMInputToolbar *)toolbar {
+- (void)inputButtonPressed:(ZIMInputToolbar *)toolbar {
     if (toolbar.textView.text.length > 0) {
         toolbar.textView.text = @"";
     }
@@ -375,21 +391,22 @@ static inline CGRect keyboardRectInViewFromKeyboardFrame(UIView *view, CGRect ke
 - (void)alighKeyboardControlsToRect:(CGRect)rect animated:(BOOL)animated {
     __weak __typeof(&*self) weakSelf = self;
     void (^alignControlsToRect)()  = ^{
-        if (!weakSelf) {
+        __strong __typeof(&*weakSelf) strongSelf = weakSelf;
+        if (!strongSelf) {
             return;
         }
         
-        CGRect toolBarFrame = weakSelf.messageToolbar.frame;
-        if (weakSelf.keyboardTracker.isKeyboardHidden) {
-            toolBarFrame.origin.y = CGRectGetMaxY(weakSelf.view.bounds) - CGRectGetHeight(toolBarFrame);
+        CGRect toolBarFrame = strongSelf.keyboardAttachedView.frame;
+        if (strongSelf.keyboardTracker.isKeyboardHidden) {
+            toolBarFrame.origin.y = CGRectGetMaxY(strongSelf.view.bounds) - CGRectGetHeight(toolBarFrame);
         }
         else {
             toolBarFrame.origin.y = MIN(CGRectGetMinY(rect), CGRectGetMaxY(weakSelf.view.bounds)) - CGRectGetHeight(toolBarFrame);
         }
-        weakSelf.messageToolbar.frame = toolBarFrame;
+        strongSelf.keyboardAttachedView.frame = toolBarFrame;
         
-        [weakSelf applyBottomInset];
-        [weakSelf.view layoutIfNeeded];
+        [strongSelf applyBottomInset];
+        [strongSelf.view layoutIfNeeded];
     };
     
     [self keyboardWillChangeFrame:rect animated:animated];

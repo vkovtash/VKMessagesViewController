@@ -16,12 +16,13 @@
                                                         ZIMInputToolbarDelegate>
 @property (strong, nonatomic) VKTableView *tableView;
 @property (strong, nonatomic) ZIMInputToolbar *messageToolbar;
+@property (weak, nonatomic) UIView *keyboardAttachedView;
 @property (readwrite, nonatomic) NSString *messagePlaceholder;
 @property (strong, nonatomic) VKMenuControllerPresenter *menuPresenter;
 @property (strong, nonatomic) NSArray *cellMenuItems;
 @property (readonly, nonatomic) CGFloat keyboardPullDownThresholdOffset;
 @property (readonly, nonatomic) CGFloat topInset;
-@property (readonly, nonatomic) CGFloat bottomInset;
+@property (readonly, nonatomic) CGFloat bottomInset; // Calculated as top edge of keyboardAttachedView
 
 - (void)onAppear;
 - (void)onDisappear;

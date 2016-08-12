@@ -517,7 +517,7 @@ static inline CGRect keyboardRectInViewFromKeyboardFrame(UIView *view, CGRect ke
         // To remove the animation for the keyboard dropping showing
         // we have to hide the keyboard, and on will show we set it back.
         self.keyboard.hidden = YES;
-        [self.messageToolbar.textView resignFirstResponder];
+        [self.view.window endEditing:YES];
     }];
 }
 

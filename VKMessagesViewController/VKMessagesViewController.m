@@ -330,7 +330,7 @@ static inline CGRect keyboardRectInView(UIView *keyboard, UIView *view) {
 
 - (void)inputToolbar:(ZIMInputToolbar *)inputToolbar didChangeHeight:(CGFloat)height {
     [self applyBottomInset];
-    [self.view setNeedsLayout];
+    [self.view layoutIfNeeded];
 }
 
 - (void)inputToolbarDidBeginEditing:(ZIMInputToolbar *)inputToolbar {
@@ -445,7 +445,6 @@ static inline CGRect keyboardRectInViewFromKeyboardFrame(UIView *view, CGRect ke
         }
         
         [strongSelf applyBottomInset];
-        [strongSelf.view setNeedsLayout];
     };
     
     [self keyboardWillChangeFrame:rect animated:animated];
@@ -453,7 +452,10 @@ static inline CGRect keyboardRectInViewFromKeyboardFrame(UIView *view, CGRect ke
         [UIView animateWithDuration:self.keyboardTracker.lastAnimationDuration
                               delay:0
                             options:animationOptionsWithCurve(self.keyboardTracker.lastAnimationCurve)
-                         animations:alignControlsToRect
+                         animations:^{
+                             alignControlsToRect();
+                             [self.view layoutIfNeeded];
+                         }
                          completion:nil];
     }
     else {
@@ -513,6 +515,8 @@ static inline CGRect keyboardRectInViewFromKeyboardFrame(UIView *view, CGRect ke
     {
         [self.keyboard setFrame:newFrame];
         [self alighKeyboardControlsToRect:keyboardRectInView(self.keyboard, self.view) animated:NO];
+        [self.view layoutIfNeeded];
+
     } completion:^(BOOL finished) {
         // To remove the animation for the keyboard dropping showing
         // we have to hide the keyboard, and on will show we set it back.
@@ -532,6 +536,7 @@ static inline CGRect keyboardRectInViewFromKeyboardFrame(UIView *view, CGRect ke
     [UIView beginAnimations:nil context:NULL];
     self.keyboard.frame = newFrame;
     [self alighKeyboardControlsToRect:keyboardRectInView(self.keyboard, self.view) animated:NO];
+    [self.view layoutIfNeeded];
     [UIView commitAnimations];
 }
 

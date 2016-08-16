@@ -330,7 +330,7 @@ static inline CGRect keyboardRectInView(UIView *keyboard, UIView *view) {
 
 - (void)inputToolbar:(ZIMInputToolbar *)inputToolbar didChangeHeight:(CGFloat)height {
     [self applyBottomInset];
-    [self.view layoutIfNeeded];
+    [self.view setNeedsLayout];
 }
 
 - (void)inputToolbarDidBeginEditing:(ZIMInputToolbar *)inputToolbar {
@@ -445,7 +445,7 @@ static inline CGRect keyboardRectInViewFromKeyboardFrame(UIView *view, CGRect ke
         }
         
         [strongSelf applyBottomInset];
-        [strongSelf.view layoutIfNeeded];
+        [strongSelf.view setNeedsLayout];
     };
     
     [self keyboardWillChangeFrame:rect animated:animated];

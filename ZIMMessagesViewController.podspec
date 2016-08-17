@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = 'ZIMMessagesViewController'
-  s.version      = '2.2.3'
+  s.version      = '2.2.4'
   s.summary      = "Messages view controller"
   s.homepage     = 'https://github.com/vkovtash/VKMessagesViewController'
 
@@ -13,6 +13,6 @@ Pod::Spec.new do |s|
   s.source_files = 'VKMessagesViewController/**/*.{h,m}'
   s.resources = 'VKMessagesViewController/Resources/*.png', 'VKMessagesViewController/DefaultStyle/Resources/*.png'
   
-  s.dependency 'TTTAttributedLabel', '~> 1.13'
+  s.dependency 'TTTAttributedLabel', '~> 2.0'
   s.dependency 'ZIMInputToolbar', '~> 0.7'
 end

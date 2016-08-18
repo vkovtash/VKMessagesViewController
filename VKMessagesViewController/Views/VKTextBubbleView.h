@@ -10,17 +10,33 @@
 #import "VKTextBubbleViewProperties.h"
 #import <TTTAttributedLabel/TTTAttributedLabel.h>
 
+@interface VKBubbleMention: NSObject
+@property (readonly, nonatomic) NSRange range;
+@property (readonly, nonatomic) NSURL *url;
+
+- (instancetype)initWithRange:(NSRange)range url:(NSURL *)url;
++ (instancetype)withRange:(NSRange)range url:(NSURL *)url;
+@end
+
+
 @interface VKTextBubbleView : VKBubbleView
 @property (readonly, nonatomic) TTTAttributedLabel *messageBody;
 @property (nonatomic,strong) VKTextBubbleViewProperties *properties;
+@property (readwrite, nonatomic) NSString *text;
+@property (readwrite, nonatomic) NSAttributedString *attributedText;
+@property (strong, nonatomic) NSArray<NSString *> *highligts;
+@property (readonly, nonatomic) NSArray<VKBubbleMention *> *mentions;
 
-- (id) initWithBubbleProperties:(VKTextBubbleViewProperties *) properties;
+- (instancetype)initWithBubbleProperties:(VKTextBubbleViewProperties *)properties;
 
-+ (CGSize) sizeWithText:(NSString *) text
-             Properties:(VKTextBubbleViewProperties *) properties
-      constrainedToWidth:(CGFloat) width;
+- (void)addMention:(VKBubbleMention *)mention;
+- (void)addMentionWithURL:(NSURL *)url range:(NSRange)range;
 
-+ (CGSize) sizeWithAttributedString:(NSAttributedString *) attributedString
-                         Properties:(VKTextBubbleViewProperties *) properties
-                 constrainedToWidth:(CGFloat) width;
++ (CGSize)sizeWithText:(NSString *)text
+            Properties:(VKTextBubbleViewProperties *)properties
+    constrainedToWidth:(CGFloat)width;
+
++ (CGSize)sizeWithAttributedString:(NSAttributedString *)attributedString
+                        Properties:(VKTextBubbleViewProperties *)properties
+                constrainedToWidth:(CGFloat) width;
 @end

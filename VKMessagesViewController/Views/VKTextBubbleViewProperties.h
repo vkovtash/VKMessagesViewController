@@ -11,8 +11,8 @@
 @interface VKTextBubbleViewProperties : VKBubbleViewProperties
 @property (readonly, nonatomic) UIFont *font;
 @property (readonly, nonatomic) UIColor *textColor;
-@property (nonatomic) NSLineBreakMode lineBreakMode;
-@property (nonatomic, readonly) NSDictionary *textAttributes;
+@property (readwrite, nonatomic) NSLineBreakMode lineBreakMode;
+@property (readonly, nonatomic) NSDictionary *textAttributes;
 
-- (instancetype) initWithEdgeInsets:(UIEdgeInsets)edgeInsets font:(UIFont *) font textColor:(UIColor *) textColor;
+- (instancetype)initWithEdgeInsets:(UIEdgeInsets)edgeInsets font:(UIFont *)font textColor:(UIColor *)textColor;
 @end

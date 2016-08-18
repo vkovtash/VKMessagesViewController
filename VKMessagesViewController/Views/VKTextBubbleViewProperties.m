@@ -17,61 +17,7 @@ static CGFloat kDefaultBodyFont = 14;
 
 @implementation VKTextBubbleViewProperties
 
-- (NSParagraphStyle *) privateParagraphStyle {
-    if (!_privateParagraphStyle) {
-        _privateParagraphStyle = [[NSParagraphStyle defaultParagraphStyle] mutableCopy];
-    }
-    return _privateParagraphStyle;
-}
-
-- (NSMutableDictionary *) privateTextAttributes {
-    if (!_privateTextAttributes) {
-        _privateTextAttributes = [NSMutableDictionary dictionary];
-        [_privateTextAttributes setObject:self.privateParagraphStyle
-                                   forKey:NSParagraphStyleAttributeName];
-    }
-    return _privateTextAttributes;
-}
-
-- (NSDictionary *) textAttributes {
-    return self.privateTextAttributes;
-}
-
-- (UIFont *) font {
-    return [self.privateTextAttributes objectForKey:NSFontAttributeName];
-}
-
-- (void) setFont:(UIFont *)font {
-    if (font) {
-        [self.privateTextAttributes setObject:font forKey:NSFontAttributeName];
-    }
-    else {
-        [self.privateTextAttributes removeObjectForKey:NSFontAttributeName];
-    }
-}
-
--(UIColor *) textColor {
-    return [self.privateTextAttributes objectForKey:NSForegroundColorAttributeName];
-}
-
-- (void) setTextColor:(UIColor *)textColor {
-    if (textColor) {
-        [self.privateTextAttributes setObject:textColor forKey:NSForegroundColorAttributeName];
-    }
-    else {
-        [self.privateTextAttributes removeObjectForKey:NSForegroundColorAttributeName];
-    }
-}
-
-- (NSLineBreakMode) lineBreakMode {
-    return self.privateParagraphStyle.lineBreakMode;
-}
-
-- (void) setLineBreakMode:(NSLineBreakMode)lineBreakMode {
-    self.privateParagraphStyle.lineBreakMode = lineBreakMode;
-}
-
-- (instancetype) initWithEdgeInsets:(UIEdgeInsets)edgeInsets font:(UIFont *) font textColor:(UIColor *)textColor {
+- (instancetype)initWithEdgeInsets:(UIEdgeInsets)edgeInsets font:(UIFont *)font textColor:(UIColor *)textColor {
     self = [super init];
     if (self) {
         self.font = font;
@@ -81,7 +27,7 @@ static CGFloat kDefaultBodyFont = 14;
     return self;
 }
 
-- (id)init {
+- (instancetype)init {
     self = [super init];
     if (self) {
         self.font = [UIFont systemFontOfSize:kDefaultBodyFont];
@@ -89,17 +35,59 @@ static CGFloat kDefaultBodyFont = 14;
     return self;
 }
 
+- (NSParagraphStyle *)privateParagraphStyle {
+    if (!_privateParagraphStyle) {
+        _privateParagraphStyle = [[NSParagraphStyle defaultParagraphStyle] mutableCopy];
+    }
+    return _privateParagraphStyle;
+}
+
+- (NSMutableDictionary *)privateTextAttributes {
+    if (!_privateTextAttributes) {
+        _privateTextAttributes = [NSMutableDictionary dictionary];
+        [_privateTextAttributes setObject:self.privateParagraphStyle
+                                   forKey:NSParagraphStyleAttributeName];
+    }
+    return _privateTextAttributes;
+}
+
+- (NSDictionary *)textAttributes {
+    return self.privateTextAttributes;
+}
+
+- (UIFont *)font {
+    return [self.privateTextAttributes objectForKey:NSFontAttributeName];
+}
+
+- (void)setFont:(UIFont *)font {
+    if (font) {
+        [self.privateTextAttributes setObject:font forKey:NSFontAttributeName];
+    }
+    else {
+        [self.privateTextAttributes removeObjectForKey:NSFontAttributeName];
+    }
+}
+
+- (UIColor *)textColor {
+    return [self.privateTextAttributes objectForKey:NSForegroundColorAttributeName];
+}
+
+- (void)setTextColor:(UIColor *)textColor {
+    if (textColor) {
+        [self.privateTextAttributes setObject:textColor forKey:NSForegroundColorAttributeName];
+    }
+    else {
+        [self.privateTextAttributes removeObjectForKey:NSForegroundColorAttributeName];
+    }
+}
+
+- (NSLineBreakMode)lineBreakMode {
+    return self.privateParagraphStyle.lineBreakMode;
+}
+
+- (void)setLineBreakMode:(NSLineBreakMode)lineBreakMode {
+    self.privateParagraphStyle.lineBreakMode = lineBreakMode;
+}
+
+
 @end
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -20,6 +20,6 @@ typedef enum VKBubbleAlign{
 @property (nonatomic) UIEdgeInsets edgeInsets;
 @property (nonatomic) CGFloat bubbleViewMaxWidth;
 
-- (void) applyLayout;
-- (id) initWithBubbleView:(VKBubbleView *) bubbleView reuseIdentifier:(NSString *) reuseIdentifier;
+- (void)applyLayout;
+- (instancetype)initWithBubbleView:(VKBubbleView *)bubbleView reuseIdentifier:(NSString *)reuseIdentifier;
 @end

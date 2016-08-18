@@ -10,34 +10,28 @@
 
 static CGFloat kDefaultBubbleViewWidth = 200;
 
-@interface VKBubbleCell()
-@end
-
 @implementation VKBubbleCell
 
-#pragma mark - Publick properties
-
-- (void) setBubbleAlign:(VKBubbleAlign)bubbleAlign{
-    _bubbleAlign = bubbleAlign;
-    [self applyLayout];
-}
-
-- (void) setBubbleViewMaxWidth:(CGFloat)bubbleViewMaxWidth {
-    if (_bubbleViewMaxWidth != bubbleViewMaxWidth) {
-        _bubbleViewMaxWidth = bubbleViewMaxWidth;
-        [self applyLayout];
+- (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
+    self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
+    if (self) {
+        [self postInit];
     }
+    return self;
 }
 
-#pragma mark - Publick methods
-
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-    [self.bubbleView setSelected:selected];
+- (instancetype)initWithBubbleView:(VKBubbleView *)bubbleView reuseIdentifier:(NSString *)reuseIdentifier {
+    self = [super initWithStyle:UITableViewCellStyleDefault reuseIdentifier:reuseIdentifier];
+    if (self) {
+        _bubbleView = bubbleView;
+        [self postInit];
+    }
+    return self;
 }
 
 #pragma - mark Init
 
-- (void) postInit{
+- (void)postInit {
     //used for propetly layout bubble views
     [super setFrame:CGRectMake(self.frame.origin.x,
                                self.frame.origin.y,
@@ -45,20 +39,42 @@ static CGFloat kDefaultBubbleViewWidth = 200;
                                500)];
     self.contentView.frame = self.bounds;
     self.selectionStyle = UITableViewCellSelectionStyleNone;
-    
+
     self.bubbleViewMaxWidth = kDefaultBubbleViewWidth;
     [self.contentView addSubview:self.bubbleView];
     self.autoresizesSubviews = YES;
 }
 
-- (void) layoutSubviews {
+
+#pragma mark - Public API
+
+- (void)setBubbleAlign:(VKBubbleAlign)bubbleAlign{
+    _bubbleAlign = bubbleAlign;
+    [self applyLayout];
+}
+
+- (void)setBubbleViewMaxWidth:(CGFloat)bubbleViewMaxWidth {
+    if (_bubbleViewMaxWidth != bubbleViewMaxWidth) {
+        _bubbleViewMaxWidth = bubbleViewMaxWidth;
+        [self applyLayout];
+    }
+}
+
+- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
+    [self.bubbleView setSelected:selected];
+}
+
+#pragma mark - Private API
+
+- (void)layoutSubviews {
+    [super layoutSubviews];
     [UIView performWithoutAnimation:^{
         [super layoutSubviews];
         [self applyLayout];
     }];
 }
 
-- (void) applyLayout{
+- (void)applyLayout {
     UIEdgeInsets insets = self.edgeInsets;
     CGSize estimatedSize = [self.bubbleView sizeConstrainedToWidth:self.bubbleViewMaxWidth];
     
@@ -82,47 +98,4 @@ static CGFloat kDefaultBubbleViewWidth = 200;
     }
 }
 
-- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
-{
-    self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
-    if (self) {
-        [self postInit];
-    }
-    return self;
-}
-
-- (id)initWithBubbleView:(VKBubbleView *)bubbleView reuseIdentifier:(NSString *)reuseIdentifier{
-    self = [super initWithStyle:UITableViewCellStyleDefault reuseIdentifier:reuseIdentifier];
-    if (self) {
-        _bubbleView = bubbleView;
-        [self postInit];
-    }
-    return self;
-}
-
 @end
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

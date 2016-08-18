@@ -138,8 +138,10 @@ static inline void higliteStringWith(NSMutableAttributedString *attributedString
 }
 
 - (void)setHighligts:(NSArray<NSString *> *)highligts {
-    _highligts = highligts;
-    [self setNeedsApplyAttributes];
+    if (_highligts != highligts) {
+        _highligts = highligts;
+        [self setNeedsApplyAttributes];
+    }
 }
 
 - (void)addMention:(VKBubbleMention *)mention {
@@ -190,8 +192,7 @@ static inline void higliteStringWith(NSMutableAttributedString *attributedString
     }
 
     if (hihglights.count == 0) {
-        self.messageBody.attributedText = originalString;
-        [self.messageBody setNeedsDisplay];
+        self.messageBody.text = originalString;
         return;
     }
 

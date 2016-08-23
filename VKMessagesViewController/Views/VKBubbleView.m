@@ -87,11 +87,11 @@
     _isSelected = isSelected;
     if (_isSelected) {
         self.shape.fillColor =  self.selectedFillColor ? self.selectedFillColor.CGColor : self.fillColor.CGColor;
-        self.shape.borderColor = self.selectedBorderColor ? self.selectedBorderColor.CGColor : self.borderColor.CGColor;
+        self.shape.strokeColor = self.selectedBorderColor ? self.selectedBorderColor.CGColor : self.borderColor.CGColor;
     }
     else {
         self.shape.fillColor = self.fillColor.CGColor;
-        self.shape.borderColor = self.borderColor.CGColor;
+        self.shape.strokeColor = self.borderColor.CGColor;
     }
 }
 
@@ -108,10 +108,10 @@
 - (void)setBorderColor:(UIColor *)borderColor {
     _borderColor = borderColor;
     if (self.isSelected) {
-        self.shape.borderColor = self.selectedBorderColor ? self.selectedBorderColor.CGColor : self.borderColor.CGColor;
+        self.shape.strokeColor = self.selectedBorderColor ? self.selectedBorderColor.CGColor : self.borderColor.CGColor;
     }
     else {
-        self.shape.borderColor = self.borderColor.CGColor;
+        self.shape.strokeColor = self.borderColor.CGColor;
     }
 }
 
@@ -125,12 +125,12 @@
 - (void)setSelectedBorderColor:(UIColor *)selectedBorderColor {
     _selectedBorderColor = selectedBorderColor;
     if (self.isSelected) {
-        self.shape.borderColor = self.selectedBorderColor ? self.selectedBorderColor.CGColor : self.borderColor.CGColor;
+        self.shape.strokeColor = self.selectedBorderColor ? self.selectedBorderColor.CGColor : self.borderColor.CGColor;
     }
 }
 
 - (void)setBorderWidth:(CGFloat)borderWidth {
-    self.shape.borderWidth = borderWidth;
+    self.shape.lineWidth = borderWidth;
 }
 
 @end
@@ -256,7 +256,7 @@
 - (instancetype)initWithBubbleProperties:(VKBubbleViewProperties *)properties {
     self = [super initWithFrame:CGRectMake(0, 0, 400, 400)];
     if (self) {
-        self.properties = properties;
+        _properties = properties;
         [self postInit];
     }
     return self;

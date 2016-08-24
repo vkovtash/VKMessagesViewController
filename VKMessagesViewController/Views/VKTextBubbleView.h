@@ -24,7 +24,7 @@
 @property (nonatomic,strong) VKTextBubbleViewProperties *properties;
 @property (readwrite, nonatomic) NSString *text;
 @property (readwrite, nonatomic) NSAttributedString *attributedText;
-@property (strong, nonatomic) NSArray<NSString *> *highligts;
+@property (strong, nonatomic) NSArray<NSString *> *highligts; //Regexp strings
 @property (readonly, nonatomic) NSArray<VKBubbleMention *> *mentions;
 
 - (instancetype)initWithBubbleProperties:(VKTextBubbleViewProperties *)properties;

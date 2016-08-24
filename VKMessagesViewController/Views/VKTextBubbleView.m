@@ -207,7 +207,8 @@ static inline void higliteStringWith(NSMutableAttributedString *attributedString
             NSError *error = nil;
             NSRegularExpression *regex =
                 [NSRegularExpression regularExpressionWithPattern:text
-                                                          options:NSRegularExpressionCaseInsensitive error:&error];
+                                                          options:NSRegularExpressionCaseInsensitive|NSRegularExpressionUseUnicodeWordBoundaries
+                                                            error:&error];
 
             if (!error) {
                 [matches addObjectsFromArray:[regex matchesInString:string options:0 range:NSMakeRange(0, string.length)]];

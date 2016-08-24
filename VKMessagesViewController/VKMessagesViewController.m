@@ -464,6 +464,10 @@ static inline CGRect keyboardRectInViewFromKeyboardFrame(UIView *view, CGRect ke
 }
 
 - (void)panGesture:(UIPanGestureRecognizer *)gestureRecognizer {
+    if (gestureRecognizer != self.keyboardPanRecognizer) {
+        return;
+    }
+
     CGPoint location = [gestureRecognizer locationInView:self.view];
     CGPoint velocity = [gestureRecognizer velocityInView:self.view];
     CGFloat spaceAboveKeyboard =
@@ -472,7 +476,6 @@ static inline CGRect keyboardRectInViewFromKeyboardFrame(UIView *view, CGRect ke
     switch (gestureRecognizer.state) {
         case UIGestureRecognizerStateBegan:
             self.originalKeyboardY = CGRectGetMinY(self.keyboard.frame);
-            self.keyboard.userInteractionEnabled = NO;
             break;
             
         case UIGestureRecognizerStateEnded:
@@ -488,6 +491,7 @@ static inline CGRect keyboardRectInViewFromKeyboardFrame(UIView *view, CGRect ke
             
         case UIGestureRecognizerStateChanged:
             if (location.y > spaceAboveKeyboard) {
+                self.keyboard.userInteractionEnabled = NO;
                 self.tableView.panGestureRecognizer.enabled = NO;
                 CGRect newFrame = self.keyboard.frame;
                 CGFloat newY = self.originalKeyboardY + (location.y - spaceAboveKeyboard);

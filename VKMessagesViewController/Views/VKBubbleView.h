@@ -39,6 +39,8 @@ typedef CGPathRef(^VKPathBlock)(CGRect rect);
 @property (readonly, nonatomic) UIView *messageBody;
 @property (strong, nonatomic) VKBubbleViewProperties *properties;
 @property (readonly, nonatomic) BOOL isSelected;
+@property (assign, nonatomic) CGFloat clippingBorderWidth;
+@property (strong, nonatomic) UIColor *clippingBorderColor;
 @property (strong, nonatomic) VKPathBlock clippingPathBlock;
 
 - (void)setSelected:(BOOL)selected;

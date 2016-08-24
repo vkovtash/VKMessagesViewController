@@ -136,6 +136,10 @@
 @end
 
 
+@interface VKBubbleView()
+@property (weak, nonatomic) CAShapeLayer *clippingBorderShape;
+@end
+
 @implementation VKBubbleView
 
 #pragma mark - Public Properties
@@ -177,7 +181,28 @@
 
 - (void)setClippingPathBlock:(VKPathBlock)clippingPathBlock {
     _clippingPathBlock = clippingPathBlock;
-    [self applyClippingMask];
+    if (!_clippingPathBlock) {
+        [self.clippingBorderShape removeFromSuperlayer];
+        self.layer.mask = nil;
+    }
+    else {
+        [self applyClippingMask];
+    }
+}
+
+- (void)setClippingBorderWidth:(CGFloat)clippingBorderWidth {
+    _clippingBorderWidth = clippingBorderWidth;
+    if (_clippingBorderWidth > 0) {
+        self.clippingBorderShape.lineWidth = _clippingBorderWidth * 2; // Half of width will be clipped
+    }
+    else {
+        [self.clippingBorderShape removeFromSuperlayer];
+    }
+}
+
+- (void)setClippingBorderColor:(UIColor *)clippingBorderColor {
+    _clippingBorderColor = clippingBorderColor;
+    self.clippingBorderShape.strokeColor = _clippingBorderColor.CGColor;
 }
 
 #pragma mark - Private methods
@@ -187,17 +212,29 @@
 }
 
 - (void)applyClippingMask {
-    if (self.clippingPathBlock) {
-        CAShapeLayer *mask = self.layer.mask;
-        if (!mask) {
-            mask = [CAShapeLayer new];
-        }
-        mask.path = self.clippingPathBlock(self.bounds);
-        self.layer.mask = mask;
+    if (!self.clippingPathBlock) {
+        return;
     }
-    else {
-        self.layer.mask = nil;
+
+    CAShapeLayer *mask = self.layer.mask;
+    if (!mask) {
+        mask = [CAShapeLayer new];
     }
+
+    if (!self.clippingBorderShape && self.clippingBorderWidth > 0) {
+        CAShapeLayer *newShape = [CAShapeLayer new];
+        newShape.lineWidth = self.clippingBorderWidth;
+        newShape.strokeColor = self.clippingBorderColor.CGColor;
+        newShape.fillColor = [UIColor clearColor].CGColor;
+        [self.layer addSublayer:newShape];
+        self.clippingBorderShape = newShape;
+    }
+
+    CGPathRef path = self.clippingPathBlock(self.bounds);
+    mask.path = path;
+    self.layer.mask = mask;
+
+    self.clippingBorderShape.path = path;
 }
 
 - (void)layoutSubviews {

@@ -183,6 +183,7 @@
     _clippingPathBlock = clippingPathBlock;
     if (!_clippingPathBlock) {
         [self.clippingBorderShape removeFromSuperlayer];
+        self.clippingBorderShape = nil;
         self.layer.mask = nil;
     }
     else {
@@ -261,9 +262,10 @@
 #pragma - mark Init
 
 - (void)postInit {
+    self.autoresizesSubviews = NO;
+    self.messageBody.translatesAutoresizingMaskIntoConstraints = NO;
     [self addSubview:self.background];
     [self addSubview:self.messageBody];
-    self.autoresizesSubviews = NO;
 }
 
 - (instancetype)initWithFrame:(CGRect)frame {

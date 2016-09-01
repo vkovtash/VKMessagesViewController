@@ -69,7 +69,6 @@ static CGFloat kDefaultBubbleViewWidth = 200;
 - (void)layoutSubviews {
     [super layoutSubviews];
     [UIView performWithoutAnimation:^{
-        [super layoutSubviews];
         [self applyLayout];
     }];
 }

@@ -14,7 +14,7 @@
 @property (strong, nonatomic) VKImageBubbleViewProperties *properties;
 @property (nonatomic) CGSize placeholderSize;
 
-+ (CGSize) sizeWithImageSize:(CGSize) imageSize
-              Properties:(VKImageBubbleViewProperties *) properties
-      constrainedToWidth:(CGFloat) width;
++ (CGSize)sizeWithImageSize:(CGSize)imageSize
+                 Properties:(VKImageBubbleViewProperties *)properties
+         constrainedToWidth:(CGFloat)width;
 @end

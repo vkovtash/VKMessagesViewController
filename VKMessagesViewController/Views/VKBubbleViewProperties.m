@@ -15,7 +15,7 @@ static const CGFloat kViewMinimumWidth = 0;
 
 @implementation VKBubbleViewProperties
 
-- (instancetype)initWithEdgeInsets:(UIEdgeInsets) edgeInsets {
+- (instancetype)initWithEdgeInsets:(UIEdgeInsets)edgeInsets {
     self = [super init];
     if (self) {
         self.edgeInsets = edgeInsets;

@@ -149,9 +149,16 @@
     [self applyIsSelected];
 }
 
-- (void)setProperties:(VKBubbleViewProperties *)properties{
+- (void)setProperties:(VKBubbleViewProperties *)properties {
     if (_properties != properties) {
         _properties = properties;
+        self.edgeInsets = _properties.edgeInsets;
+    }
+}
+
+- (void)setEdgeInsets:(UIEdgeInsets)edgeInsets {
+    if (!UIEdgeInsetsEqualToEdgeInsets(_edgeInsets, edgeInsets)) {
+        _edgeInsets = edgeInsets;
         [self setNeedsLayout];
     }
 }
@@ -241,15 +248,12 @@
 - (void)layoutSubviews {
     [super layoutSubviews];
     
-    UIEdgeInsets insets = self.properties.edgeInsets;
-    CGRect rect = self.bounds;
-    rect.origin.x = insets.left;
-    rect.origin.y = insets.top;
-    rect.size.width -= insets.left + insets.right;
-    rect.size.height -= insets.top + insets.bottom;
-    self.messageBody.frame = rect;
-    self.background.frame = self.bounds;
-    
+    UIEdgeInsets insets = self.edgeInsets;
+    CGRect bounds = self.bounds;
+    self.messageBody.frame = CGRectMake(insets.left, insets.top,
+                                        CGRectGetWidth(bounds) - insets.left - insets.right,
+                                        CGRectGetHeight(bounds) - insets.top - insets.bottom);
+    self.background.frame = bounds;
     [self applyClippingMask];
 }
 
@@ -262,6 +266,13 @@
 #pragma - mark Init
 
 - (void)postInit {
+    if (self.properties) {
+        _edgeInsets = self.properties.edgeInsets;
+    }
+    else {
+        _edgeInsets = UIEdgeInsetsZero;
+    }
+
     self.autoresizesSubviews = NO;
     self.messageBody.translatesAutoresizingMaskIntoConstraints = NO;
     [self addSubview:self.background];

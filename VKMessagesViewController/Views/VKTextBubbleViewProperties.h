@@ -15,4 +15,7 @@
 @property (readonly, nonatomic) NSDictionary *textAttributes;
 
 - (instancetype)initWithEdgeInsets:(UIEdgeInsets)edgeInsets font:(UIFont *)font textColor:(UIColor *)textColor;
+
+- (CGSize)sizeWithText:(NSString *)text constrainedToWidth:(CGFloat)width;
+- (CGSize)sizeWithAttributedString:(NSAttributedString *)attributedString constrainedToWidth:(CGFloat)width;
 @end

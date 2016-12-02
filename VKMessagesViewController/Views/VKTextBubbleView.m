@@ -8,10 +8,6 @@
 
 #import "VKTextBubbleView.h"
 
-static CGFloat const kViewMaxHeight = 9999;
-static NSInteger const kTextPartsCount = 4;
-
-
 static inline void higliteStringWith(NSMutableAttributedString *attributedString, NSArray<NSTextCheckingResult *> *matches, UIColor *color) {
     for (NSTextCheckingResult *match in matches) {
         for (NSUInteger i = 0; i < match.numberOfRanges; i++) {
@@ -132,9 +128,11 @@ static inline void higliteStringWith(NSMutableAttributedString *attributedString
 }
 
 - (CGSize)sizeConstrainedToWidth:(CGFloat)width {
-    return [[self class] sizeWithAttributedString:self.messageBody.attributedText
-                                       Properties:self.properties
-                               constrainedToWidth:width];
+    if (!self.properties) {
+        return CGSizeZero;
+    }
+
+    return [self.properties sizeWithAttributedString:self.messageBody.attributedText constrainedToWidth:width];
 }
 
 - (void)setHighligts:(NSArray<NSString *> *)highligts {
@@ -249,44 +247,13 @@ static inline void higliteStringWith(NSMutableAttributedString *attributedString
 + (CGSize)sizeWithAttributedString:(NSAttributedString *)attributedString
                         Properties:(VKTextBubbleViewProperties *)properties
                 constrainedToWidth:(CGFloat)width {
-    CGSize bodySize = CGSizeZero;
-    
-    if (attributedString) {
-        bodySize = [TTTAttributedLabel sizeThatFitsAttributedString:attributedString
-                                                    withConstraints:CGSizeMake(width - properties.edgeInsets.left - properties.edgeInsets.right, kViewMaxHeight)
-                                             limitedToNumberOfLines:0];
-    }
-    
-    bodySize.width += (properties.edgeInsets.left + properties.edgeInsets.right);
-    CGFloat partSize = ceilf((width+kTextPartsCount)/kTextPartsCount);
-    bodySize.width = ceilf(bodySize.width/partSize) * partSize;
-    if (bodySize.width > width) {
-        bodySize.width = width;
-    }
-    if (bodySize.width < properties.minimumWidth) {
-        bodySize.width = properties.minimumWidth;
-    }
-    bodySize.height += (properties.edgeInsets.top + properties.edgeInsets.bottom);
-    
-    if (bodySize.height < properties.minimumHeight) {
-        bodySize.height = properties.minimumHeight;
-    }
-    return bodySize;
+    return [properties sizeWithAttributedString:attributedString constrainedToWidth:width];
 }
 
 + (CGSize)sizeWithText:(NSString *)text
             Properties:(VKTextBubbleViewProperties *)properties
     constrainedToWidth:(CGFloat)width {
-    
-    NSAttributedString *attributedString = nil;
-    if (text) {
-        attributedString = [[NSAttributedString alloc] initWithString:text
-                                                           attributes:properties.textAttributes];
-    }
-    
-    return [[self class] sizeWithAttributedString:attributedString
-                                       Properties:properties
-                               constrainedToWidth:width];
+    return [properties sizeWithText:text constrainedToWidth:width];
 }
 
 #pragma mark - UIResponderStandardEditActions

@@ -322,15 +322,15 @@ static inline CGRect keyboardRectInView(UIView *keyboard, UIView *view) {
 
 #pragma mark - UIInputToolbarDelegate
 
+- (void)inputToolbar:(ZIMInputToolbar *)inputToolbar didChangeHeight:(CGFloat)height {
+    [self applyBottomInset];
+    [self.view layoutIfNeeded];
+}
+
 - (void)inputButtonPressed:(ZIMInputToolbar *)toolbar {
     if (toolbar.textView.text.length > 0) {
         toolbar.textView.text = @"";
     }
-}
-
-- (void)inputToolbar:(ZIMInputToolbar *)inputToolbar didChangeHeight:(CGFloat)height {
-    [self applyBottomInset];
-    [self.view layoutIfNeeded];
 }
 
 - (void)inputToolbarDidBeginEditing:(ZIMInputToolbar *)inputToolbar {

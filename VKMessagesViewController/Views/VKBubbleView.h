@@ -35,6 +35,7 @@ typedef CGPathRef(^VKPathBlock)(CGRect rect);
 
 
 @interface VKBubbleView : UIView <TTTAttributedLabelDelegate>
+@property (assign, nonatomic) UIEdgeInsets edgeInsets;
 @property (strong, nonatomic) UIView<VKBubbleViewBackgroudProtocol> *background;
 @property (readonly, nonatomic) UIView *messageBody;
 @property (strong, nonatomic) VKBubbleViewProperties *properties;

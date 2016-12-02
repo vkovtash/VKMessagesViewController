@@ -11,5 +11,8 @@
 @interface VKImageBubbleViewProperties : VKBubbleViewProperties
 @property (nonatomic) CGFloat maxSize;
 
-- (instancetype) initWithEdgeInsets:(UIEdgeInsets)edgeInsets maxSize:(CGFloat) maxSize;
+- (instancetype)initWithEdgeInsets:(UIEdgeInsets)edgeInsets maxSize:(CGFloat)maxSize;
+
+- (CGSize)sizeWithImageSize:(CGSize)imageSize constrainedToWidth:(CGFloat)width;
+- (CGSize)sizeWithImage:(UIImage *)image constrainedToWidth:(CGFloat)width;
 @end

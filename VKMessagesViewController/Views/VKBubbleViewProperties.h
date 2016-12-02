@@ -13,5 +13,5 @@
 @property (nonatomic) CGFloat minimumWidth;
 @property (nonatomic) CGFloat minimumHeight;
 
-- (instancetype)initWithEdgeInsets:(UIEdgeInsets) edgeInsets;
+- (instancetype)initWithEdgeInsets:(UIEdgeInsets)edgeInsets;
 @end

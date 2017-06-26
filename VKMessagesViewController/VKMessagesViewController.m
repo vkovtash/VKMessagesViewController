@@ -299,7 +299,7 @@ static inline CGRect keyboardRectInView(UIView *keyboard, UIView *view) {
     [self.menuPresenter showDefaultMenuWithResponder:self
                                             userInfo:@{@"cellIndexPath":cellIndex}
                                               inView:cell.bubbleView
-                                       returnFocusTo:self.firstResponder
+                                       returnFocusTo:self.zim_firstResponder
                                            menuItems:self.cellMenuItems
                                           completeon:^{
                                               [cell setSelected:NO];

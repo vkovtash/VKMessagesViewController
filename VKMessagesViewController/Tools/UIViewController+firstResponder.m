@@ -10,7 +10,7 @@
 #import "UIResponder+FirstResponder.h"
 
 @implementation UIViewController (firstResponder)
-- (UIView *) firstResponder{
+- (UIView *)zim_firstResponder {
     UIResponder *first = UIApplication.sharedApplication.currentFirstResponder;
     if ([first isKindOfClass:UIView.class] && [(id)first isDescendantOfView:self.view]) {
         return (UIView *) first;

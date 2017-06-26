@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface UIViewController (firstResponder)
-@property (readonly,nonatomic) UIView *firstResponder;
+@property (readonly,nonatomic) UIView *zim_firstResponder;
 @end

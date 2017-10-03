@@ -65,6 +65,7 @@ static inline CGRect keyboardRectInView(UIView *keyboard, UIView *view) {
 @property (nonatomic) CGFloat originalLocation;
 @property (strong, nonatomic) UIGestureRecognizer *keyboardPanRecognizer;
 @property (strong, nonatomic) ZIMKeyboardTracker *keyboardTracker;
+@property (assign, nonatomic) UIEdgeInsets expectedSafeAreaInsets;
 @end
 
 @implementation VKMessagesViewController
@@ -80,6 +81,12 @@ static inline CGRect keyboardRectInView(UIView *keyboard, UIView *view) {
     [self alighKeyboardControlsToRect:[self.keyboardTracker keyboardRectInView:self.view] animated:animated];
 
     [self onAppear];
+}
+
+- (void)willMoveToParentViewController:(UIViewController *)parent {
+    [super willMoveToParentViewController:parent];
+    self.keyboardTracker.delegate = parent == nil ? nil : self;
+    self.expectedSafeAreaInsets = parent.view.safeAreaInsets;
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -99,6 +106,12 @@ static inline CGRect keyboardRectInView(UIView *keyboard, UIView *view) {
     if ([self respondsToSelector:@selector(setAutomaticallyAdjustsScrollViewInsets:)]) {
         self.automaticallyAdjustsScrollViewInsets = NO;
     }
+    
+#ifdef __IPHONE_11_0
+    if (@available(iOS 11.0, *)) {
+        self.tableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+    }
+#endif
 
     self.keyboardTracker = [ZIMKeyboardTracker new];
     
@@ -133,7 +146,7 @@ static inline CGRect keyboardRectInView(UIView *keyboard, UIView *view) {
 }
 
 - (void)dealloc {
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [NSNotificationCenter.defaultCenter removeObserver:self];
     self.tableView.delegate = nil;
     self.tableView.dataSource = nil;
     self.keyboardTracker.delegate = nil;
@@ -207,8 +220,31 @@ static inline CGRect keyboardRectInView(UIView *keyboard, UIView *view) {
 }
 
 - (CGFloat)bottomInset {
-    return CGRectGetHeight(self.view.bounds) - CGRectGetMinY(self.activeKeyboardAttachedView.frame);
+    if (self.activeKeyboardAttachedView) {
+        return CGRectGetHeight(self.view.bounds) - CGRectGetMinY(self.activeKeyboardAttachedView.frame);
+    }
+    
+    return self.safeBottomInset;
 }
+
+#ifdef __IPHONE_11_0
+
+- (CGFloat)safeBottomInset {
+    if (@available(iOS 11.0, *)) {
+        return self.view.window != nil ? self.view.safeAreaInsets.bottom : self.expectedSafeAreaInsets.bottom;
+    }
+    else {
+        return 0;
+    }
+}
+
+#else
+
+- (CGFloat)safeBottomInset {
+    return 0;
+}
+
+#endif
 
 - (CGFloat)keyboardPullDownThresholdOffset {
     return CGRectGetHeight(self.activeKeyboardAttachedView.bounds);
@@ -387,6 +423,11 @@ static inline CGRect keyboardRectInViewFromKeyboardFrame(UIView *view, CGRect ke
     self.keyboard.hidden = NO;
 }
 
+- (void)trackerDetectedKeyboardWillChangeFrame:(ZIMKeyboardTracker *)tracker {
+    CGRect kbRect = keyboardRectInViewFromKeyboardFrame(self.view, tracker.keyboardFrame);
+    [self alighKeyboardControlsToRect:kbRect animated:YES];
+}
+
 - (void)keyboardWillChangeFrame:(CGRect)frame animated:(BOOL)animated {
     
 }
@@ -425,23 +466,35 @@ static inline CGRect keyboardRectInViewFromKeyboardFrame(UIView *view, CGRect ke
     }
 }
 
+- (void)alighKeyboardControlsAnimated:(BOOL)animated {
+    if (!self.keyboard) {
+        return;
+    }
+    
+    CGRect kbRect = keyboardRectInViewFromKeyboardFrame(self.view, self.keyboard.frame);
+    [self alighKeyboardControlsToRect:kbRect animated:animated];
+}
+
 - (void)alighKeyboardControlsToRect:(CGRect)rect animated:(BOOL)animated {
-    __weak __typeof(&*self) weakSelf = self;
+    __weak __typeof(self) weakSelf = self;
+    
     void (^alignControlsToRect)()  = ^{
-        __strong __typeof(&*weakSelf) strongSelf = weakSelf;
+        __strong __typeof(weakSelf) strongSelf = weakSelf;
         if (!strongSelf) {
             return;
         }
 
         for (UIView *attachedView in strongSelf.keyboardAttachedViews) {
-            CGRect viewFrame = attachedView.frame;
+            CGRect attachedViewFrame = attachedView.frame;
+            CGRect rootViewBounds = strongSelf.view.bounds;
+            
             if (strongSelf.keyboardTracker.isKeyboardHidden) {
-                viewFrame.origin.y = CGRectGetMaxY(strongSelf.view.bounds) - CGRectGetHeight(viewFrame);
+                attachedViewFrame.origin.y = CGRectGetMaxY(rootViewBounds) - CGRectGetHeight(attachedViewFrame) - strongSelf.safeBottomInset;
             }
             else {
-                viewFrame.origin.y = MIN(CGRectGetMinY(rect), CGRectGetMaxY(weakSelf.view.bounds)) - CGRectGetHeight(viewFrame);
+                attachedViewFrame.origin.y = MIN(CGRectGetMinY(rect), CGRectGetMaxY(rootViewBounds) - strongSelf.safeBottomInset) - CGRectGetHeight(attachedViewFrame);
             }
-            attachedView.frame = viewFrame;
+            attachedView.frame = attachedViewFrame;
         }
         
         [strongSelf applyBottomInset];

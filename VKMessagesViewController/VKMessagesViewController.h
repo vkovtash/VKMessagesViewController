@@ -27,6 +27,7 @@
 - (void)onAppear;
 - (void)onDisappear;
 - (void)scrollTableViewToBottomAnimated:(BOOL)animated;
+- (void)alighKeyboardControlsAnimated:(BOOL)animated;
 - (void)alighKeyboardControlsToRect:(CGRect)rect animated:(BOOL)animated;
 - (void)dismissKeyboard;
 - (void)applyBottomInset;
@@ -36,16 +37,6 @@
 
 - (void)attachViewToKeyboard:(UIView *)view;
 - (void)detachViewFromKeyboard:(UIView *)view;
-
-#pragma mark - Keyboard notifications
-
-- (void)registerForKeyboardNotifications;
-- (void)unregisterFromKeyboardNotifications;
-- (void)keyboardWillShow:(NSNotification *)notification;
-- (void)keyboardWillHide:(NSNotification *)notification;
-- (void)keyboardDidShow:(NSNotification *)notification;
-- (void)keyboardDidHide:(NSNotification *)notification;
-- (void)keyboardWillChangeFrame:(CGRect)frame animated:(BOOL)animated;
 
 #pragma mark - MessageToolbal delegate
 

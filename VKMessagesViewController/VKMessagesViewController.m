@@ -84,8 +84,18 @@ static inline CGRect keyboardRectInView(UIView *keyboard, UIView *view) {
 }
 
 - (void)willMoveToParentViewController:(UIViewController *)parent {
+    [super willChangeValueForKey:parent];
     self.keyboardTracker.delegate = parent == nil ? nil : self;
-    self.expectedSafeAreaInsets = parent.view.safeAreaInsets;
+    
+    UIEdgeInsets expectedInsets = UIEdgeInsetsZero;
+    
+#ifdef __IPHONE_11_0
+    if (@available(iOS 11.0, *)) {
+        expectedInsets = parent.view.safeAreaInsets;
+    }
+#endif
+    
+    self.expectedSafeAreaInsets = expectedInsets;
 }
 
 - (void)viewWillDisappear:(BOOL)animated {

@@ -84,7 +84,7 @@ static inline CGRect keyboardRectInView(UIView *keyboard, UIView *view) {
 }
 
 - (void)willMoveToParentViewController:(UIViewController *)parent {
-    [super willChangeValueForKey:parent];
+    [super willMoveToParentViewController:parent];
     self.keyboardTracker.delegate = parent == nil ? nil : self;
     
     UIEdgeInsets expectedInsets = UIEdgeInsetsZero;

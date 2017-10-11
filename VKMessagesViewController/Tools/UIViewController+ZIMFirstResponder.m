@@ -6,17 +6,17 @@
 //  Copyright (c) 2013 Vlad Kovtash. All rights reserved.
 //
 
-#import "UIViewController+firstResponder.h"
-#import "UIResponder+FirstResponder.h"
+#import "UIViewController+ZIMFirstResponder.h"
+#import "UIResponder+ZIMFirstResponder.h"
 
-@implementation UIViewController (firstResponder)
+@implementation UIViewController (ZIMFirstResponder)
+
 - (UIView *)zim_firstResponder {
-    UIResponder *first = UIApplication.sharedApplication.currentFirstResponder;
+    UIResponder *first = UIApplication.sharedApplication.zim_currentFirstResponder;
     if ([first isKindOfClass:UIView.class] && [(id)first isDescendantOfView:self.view]) {
         return (UIView *) first;
     }
-    else{
-        return nil;
-    }
+    return nil;
 }
+
 @end

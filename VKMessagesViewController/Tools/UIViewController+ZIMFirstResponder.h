@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface UIViewController (firstResponder)
+@interface UIViewController (ZIMFirstResponder)
 @property (readonly,nonatomic) UIView *zim_firstResponder;
 @end

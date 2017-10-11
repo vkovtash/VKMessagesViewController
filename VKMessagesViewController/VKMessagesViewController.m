@@ -7,7 +7,7 @@
 //
 
 #import "VKMessagesViewController.h"
-#import "UIViewController+firstResponder.h"
+#import "UIViewController+ZIMFirstResponder.h"
 #import "VKBubbleCell.h"
 #import "ZIMKeyboardTracker.h"
 
